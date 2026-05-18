@@ -3,8 +3,8 @@ import QRCode from "qrcode";
 
 const apiKey = env("LOB_API_KEY");
 
-const APP_URL = env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!;
-const BUSINESS_NAME = env("BUSINESS_NAME", "Realscale")!;
+const APP_URL = env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!;
+const BUSINESS_NAME = env("BUSINESS_NAME", "MenuLift")!;
 const BUSINESS_ADDRESS = env("BUSINESS_ADDRESS", "");
 
 const RETURN_ADDRESS = parseUSAddress(BUSINESS_ADDRESS ?? "");

@@ -3,9 +3,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Realscale — AI photo enhancement for real estate",
+  title: "MenuLift — AI menu photo enhancement for restaurants",
   description:
-    "Enhanced listing photos in under 2 hours. AI-powered staging, sky replacement, and exterior cleanup for $79.",
+    "We enhance your existing menu photos with AI for Google, DoorDash, and Uber Eats. Sharper, brighter, more appetizing — under 24 hours. From $40/mo.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

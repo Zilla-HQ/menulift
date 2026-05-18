@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getSampleBeforeAfters } from "@/lib/samples";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Merchant — [Audience B funnel]" };
+export const metadata = { title: "MenuLift — Free menu photo audit for restaurant operators" };
 
 export default async function AudienceBPage() {
   const samples = await getSampleBeforeAfters("audience-b");
@@ -14,19 +14,21 @@ export default async function AudienceBPage() {
     <>
       <section className="border-b bg-gradient-to-b from-background to-muted/30 py-20">
         <div className="container max-w-4xl text-center">
-          <div className="mb-4 inline-block rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-700">
-            For [audience B] · [Free / referral framing]
+          <div className="mb-4 inline-block rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-700">
+            Free audit · No card · Yours to keep
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            [Hero headline for audience B.]
+            Find every menu photo that's costing you orders.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground sm:text-xl">
-            [Subhead — describe what audience B gets for free and how the partner referral funnels work.]
+            Paste your restaurant name — we scan your Google, DoorDash, and Uber Eats listings,
+            score every dish photo, and email you the coverage report. Free. The upsell is our
+            paid enhancement; the audit is yours regardless.
           </p>
           <div className="mt-8">
             <AddressMockupForm />
             <p className="mt-3 text-xs text-muted-foreground">
-              [Trust line — yours to keep · no signup · we don't sell your info]
+              Yours to keep · no signup · we don't sell your info
             </p>
           </div>
         </div>
@@ -38,9 +40,9 @@ export default async function AudienceBPage() {
         </div>
         <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-3">
           {[
-            { n: 1, title: "[Step 1]", body: "[What the customer does.]" },
-            { n: 2, title: "[Step 2]", body: "[What the merchant does.]" },
-            { n: 3, title: "[Step 3]", body: "[Partner intro / next step.]" },
+            { n: 1, title: "Paste your name", body: "Restaurant name or chain. We pull your public listings on Google, DoorDash, and Uber Eats." },
+            { n: 2, title: "We score every photo", body: "Each menu item is graded: missing, low-quality, or good. We flag the ones costing you orders." },
+            { n: 3, title: "Sample enhancement", body: "We pick your weakest item and enhance it for free, so you can see what the paid service delivers." },
           ].map((s) => (
             <Card key={s.n}>
               <CardContent className="space-y-2 p-6">
@@ -80,7 +82,8 @@ export default async function AudienceBPage() {
         <div className="container max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight">Pricing.</h2>
           <p className="mt-3 text-muted-foreground">
-            [Free + partner referral framing — explain the unit economics in one line.]
+            The audit is free. If you enhance with us, plans run $40–$90/mo per location.
+            Multi-location operators get bulk pricing.
           </p>
         </div>
       </section>
