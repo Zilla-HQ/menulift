@@ -25,7 +25,7 @@ const ITEMS_BY_AUDIENCE: Record<Audience | "preview", typeof AUDIENCE_A_ITEMS> =
   "audience-b": AUDIENCE_B_ITEMS,
   both: AUDIENCE_A_ITEMS,
   preview: PREVIEW_ITEMS,
-  // Vertical-specific audiences mirrored from Relist (see lib/services.ts).
+  // Vertical-specific audiences kept for backward-compat with the merchant template.
   // No template-level copy lives here — each forked merchant should swap in
   // their own questions. Falls back to AUDIENCE_A copy until then.
   agents: AUDIENCE_A_ITEMS,

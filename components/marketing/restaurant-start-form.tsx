@@ -65,11 +65,12 @@ export function RestaurantStartForm({
           { eventID: eventId },
         );
       }
-      if (body.existed && body.slug) {
-        router.push(`/l/${body.slug}?service=${serviceId}`);
-      } else {
-        router.push(`/generating/${body.listingId}?service=${serviceId}`);
-      }
+      const id = body.listingId ?? body.slug ?? "";
+      router.push(
+        `/thanks?id=${encodeURIComponent(id)}&url=${encodeURIComponent(url.trim())}&service=${encodeURIComponent(
+          audit ? "menu-audit-free" : serviceId,
+        )}`,
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit");
       setPending(false);
