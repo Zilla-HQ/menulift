@@ -68,8 +68,8 @@ export const SERVICES: ServiceDefinition[] = [
       "A photo for every dish on your menu — created for the ones you don't have, enhanced for the ones you do. Up to 50 items.",
     longDescription:
       "Send your menu (text, PDF, or your existing Google / DoorDash / Uber Eats listing). We generate a photo-realistic image for every item that's missing one — built from your actual recipe, ingredients, and plating direction — and enhance every photo you already have. Delivered back as channel-ready files for Google Business Profile, DoorDash, and Uber Eats. Under 48 hours. One-time price covers up to 50 menu items plus storefront hero refresh. The single biggest order-conversion lever you can pull this week.",
-    basePriceCents: 29900,
-    rushPriceCents: 39900,
+    basePriceCents: 7900,
+    rushPriceCents: 11900,
     category: "marketing",
     audience: "audience-a",
     imageSource: "listing_photo",
@@ -86,8 +86,8 @@ export const SERVICES: ServiceDefinition[] = [
       "Up to 20 menu items — generated for the ones missing photos, enhanced for the ones you have.",
     longDescription:
       "Best for restaurants with a focused menu (under ~20 items) or those who just want to cover the items most often ordered. We generate photo-realistic images for items without photos and enhance the ones you do have — each built from the recipe and plating notes you send us. Delivered in under 24 hours, channel-formatted for Google, DoorDash, and Uber Eats. One-time price.",
-    basePriceCents: 14900,
-    rushPriceCents: 19900,
+    basePriceCents: 2900,
+    rushPriceCents: 4900,
     category: "marketing",
     audience: "audience-a",
     imageSource: "listing_photo",
@@ -104,8 +104,8 @@ export const SERVICES: ServiceDefinition[] = [
       "Already have photos for every item? Polish all of them for delivery-app conversion. One-time.",
     longDescription:
       "If you already have a photo for every menu item, this is the cheaper option: we enhance the lighting, contrast, sharpness, and color balance on every photo, and re-export each one in the right aspect ratios for Google, DoorDash, and Uber Eats. No new generation. One-time price covers up to 50 items.",
-    basePriceCents: 9900,
-    rushPriceCents: 14900,
+    basePriceCents: 1900,
+    rushPriceCents: 3900,
     category: "marketing",
     audience: "audience-a",
     imageSource: "listing_photo",
@@ -122,8 +122,8 @@ export const SERVICES: ServiceDefinition[] = [
       "Your storefront / cover photo, re-lit and color-graded for Google + delivery apps. One-time.",
     longDescription:
       "The cover photo on your Google Business Profile and DoorDash listing is the single biggest first-impression lever. We take your existing storefront shot and re-light it for warmth, contrast, and crispness — without changing the building, signage, or surroundings. Already included in the Full Menu Shoot; available standalone if you only need the hero refreshed.",
-    basePriceCents: 4900,
-    rushPriceCents: 7900,
+    basePriceCents: 900,
+    rushPriceCents: 1900,
     category: "marketing",
     audience: "audience-a",
     imageSource: "exterior_facade",

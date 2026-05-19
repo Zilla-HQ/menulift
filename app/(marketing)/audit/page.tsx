@@ -76,7 +76,7 @@ export default function AuditPage() {
         <div className="container max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight">Like what you see?</h2>
           <p className="mt-3 text-muted-foreground">
-            One-time shoots run $149–$499 per menu. Every dish on your menu shot —
+            One-time shoots run $29–$149 per menu. Every dish on your menu shot —
             generated for the ones you don't have, enhanced for the ones you do. No subscription.
           </p>
           <div className="mt-6">

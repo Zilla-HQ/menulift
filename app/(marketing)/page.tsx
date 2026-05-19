@@ -11,7 +11,7 @@ const STATS = [
   { figure: "+30%", label: "more orders per item shot", detail: "Menu items with a photo convert up to 30% higher than text-only items on delivery marketplaces.", source: "DoorDash Merchant Suite, 2024" },
   { figure: "70%", label: "of guests check first", detail: "Seven in ten diners check Google or a delivery app before deciding where to order from or visit.", source: "Google / Ipsos restaurant study" },
   { figure: "<24h", label: "menu to upload-ready", detail: "Send your menu by 5pm. Photos for every item — newly created and enhanced — back the next morning.", source: "MenuLift SLA" },
-  { figure: "$149–$499", label: "one-time per shoot", detail: "One-time price per menu shoot — no subscription. Unlimited revisions for 7 days. Google, DoorDash, and Uber Eats exports included.", source: "Pricing" },
+  { figure: "$29–$149", label: "one-time per shoot", detail: "One-time price per menu shoot — no subscription. Unlimited revisions for 7 days. Google, DoorDash, and Uber Eats exports included.", source: "Pricing" },
 ];
 
 export default async function HomePage() {
@@ -30,7 +30,7 @@ export default async function HomePage() {
             Listings with a photo on every menu item get up to{" "}
             <span className="font-semibold text-foreground">30% more orders</span>.
             We create photos for the dishes you don't have shot yet, and polish the ones you do —
-            delivered upload-ready for Google, DoorDash, and Uber Eats in under 48 hours. From $149.
+            delivered upload-ready for Google, DoorDash, and Uber Eats in under 48 hours. From $29.
           </p>
           <div className="mt-8">
             <RestaurantStartForm />
@@ -138,7 +138,7 @@ export default async function HomePage() {
               <CardContent className="space-y-2 p-6">
                 <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Starter</div>
                 <div className="text-3xl font-bold">
-                  $149<span className="text-base font-normal text-muted-foreground"> one-time</span>
+                  $29<span className="text-base font-normal text-muted-foreground"> one-time</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Up to 20 menu items — new photos generated for missing items, existing photos enhanced.
@@ -150,7 +150,7 @@ export default async function HomePage() {
               <CardContent className="space-y-2 p-6">
                 <div className="text-xs font-semibold uppercase tracking-wider text-primary">Full Menu · popular</div>
                 <div className="text-3xl font-bold">
-                  $299<span className="text-base font-normal text-muted-foreground"> one-time</span>
+                  $79<span className="text-base font-normal text-muted-foreground"> one-time</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Up to 50 items shot. Storefront hero refresh included. Most restaurants pick this one — covers
@@ -162,7 +162,7 @@ export default async function HomePage() {
               <CardContent className="space-y-2 p-6">
                 <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Unlimited</div>
                 <div className="text-3xl font-bold">
-                  $499<span className="text-base font-normal text-muted-foreground"> one-time</span>
+                  $149<span className="text-base font-normal text-muted-foreground"> one-time</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Unlimited menu items. Storefront hero. 90 days of free additions as you add new dishes.

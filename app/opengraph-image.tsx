@@ -84,7 +84,7 @@ export default async function OpenGraphImage() {
               fontWeight: 800,
             }}
           >
-            $149
+            $29
           </div>
           <div>One-time per shoot · no subscription · menulift.app</div>
         </div>

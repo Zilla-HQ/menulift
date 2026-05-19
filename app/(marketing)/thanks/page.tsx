@@ -6,11 +6,16 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Thanks — MenuLift" };
 
 interface Props {
-  searchParams: Promise<{ id?: string; url?: string; service?: string }>;
+  searchParams: Promise<{
+    id?: string;
+    url?: string;
+    email?: string;
+    service?: string;
+  }>;
 }
 
 export default async function ThanksPage({ searchParams }: Props) {
-  const { id, url, service } = await searchParams;
+  const { id, url, email, service } = await searchParams;
   const svc = service ? getService(service) : undefined;
   const isAudit = service === "menu-audit-free";
 
@@ -37,9 +42,16 @@ export default async function ThanksPage({ searchParams }: Props) {
         </h1>
         <p className="mt-4 text-muted-foreground">
           {isAudit
-            ? "Your free menu audit is in our queue. Expect a coverage report and your free sample shot in your inbox within the next hour."
-            : `Your ${svc?.name ?? "menu shoot"} is queued. We'll email you a recipe-and-plating intake form so the kitchen can confirm what each generated photo should look like — then deliver every dish in under 48 hours.`}
+            ? "Your free menu audit + sample shot will land in your inbox within the next hour."
+            : `Your ${svc?.name ?? "menu shoot"} is queued. We'll email a short recipe + plating intake form within the hour so the kitchen can confirm what each generated photo should look like — then deliver every dish in under 48 hours.`}
         </p>
+        {email && (
+          <p className="mt-3 text-sm text-muted-foreground">
+            Confirmation sent to{" "}
+            <span className="font-medium text-foreground">{email}</span>. Check spam if it's not
+            there in 5 minutes.
+          </p>
+        )}
       </div>
 
       <Card className="mt-10">
@@ -54,6 +66,12 @@ export default async function ThanksPage({ searchParams }: Props) {
               <span className="col-span-2 break-all">{url}</span>
             </div>
           )}
+          {email && (
+            <div className="grid grid-cols-3 gap-2">
+              <span className="text-muted-foreground">Email</span>
+              <span className="col-span-2 break-all">{email}</span>
+            </div>
+          )}
           {svc && (
             <div className="grid grid-cols-3 gap-2">
               <span className="text-muted-foreground">Service</span>
@@ -64,7 +82,7 @@ export default async function ThanksPage({ searchParams }: Props) {
       </Card>
 
       <div className="mt-8 text-center text-sm text-muted-foreground">
-        Questions? Reply to any MenuLift email or write to{" "}
+        Questions? Reply to your confirmation email or write to{" "}
         <a
           href="mailto:hello@menulift.app"
           className="font-medium text-foreground hover:underline"

@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "MenuLift — AI menu photo enhancement for restaurants",
   description:
-    "A photo for every dish on your menu — created for the items you don't have shot, enhanced for the ones you do. Upload-ready for Google, DoorDash, Uber Eats. From $149 one-time, no subscription.",
+    "A photo for every dish on your menu — created for the items you don't have shot, enhanced for the ones you do. Upload-ready for Google, DoorDash, Uber Eats. From $29 one-time, no subscription.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

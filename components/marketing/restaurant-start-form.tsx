@@ -15,8 +15,10 @@ interface Props {
   audit?: boolean;
 }
 
-const DEFAULT_PLACEHOLDER =
+const URL_PLACEHOLDER =
   "Your Google Business Profile, DoorDash, or restaurant website URL";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function RestaurantStartForm({
   className,
@@ -26,13 +28,26 @@ export function RestaurantStartForm({
 }: Props) {
   const router = useRouter();
   const [url, setUrl] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [pending, setPending] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setPending(true);
     setError(null);
+    const trimmedUrl = url.trim();
+    const trimmedEmail = email.trim();
+
+    if (trimmedUrl.length < 3) {
+      setError("Please paste your restaurant URL or type your restaurant name.");
+      return;
+    }
+    if (!EMAIL_RE.test(trimmedEmail)) {
+      setError("Enter a valid email so we can send you your photos.");
+      return;
+    }
+
+    setPending(true);
     const eventId =
       typeof crypto !== "undefined" && "randomUUID" in crypto
         ? crypto.randomUUID()
@@ -42,7 +57,8 @@ export function RestaurantStartForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          url: url.trim(),
+          url: trimmedUrl,
+          email: trimmedEmail,
           serviceId: audit ? "menu-audit-free" : serviceId,
           eventId,
         }),
@@ -67,7 +83,7 @@ export function RestaurantStartForm({
       }
       const id = body.listingId ?? body.slug ?? "";
       router.push(
-        `/thanks?id=${encodeURIComponent(id)}&url=${encodeURIComponent(url.trim())}&service=${encodeURIComponent(
+        `/thanks?id=${encodeURIComponent(id)}&url=${encodeURIComponent(trimmedUrl)}&email=${encodeURIComponent(trimmedEmail)}&service=${encodeURIComponent(
           audit ? "menu-audit-free" : serviceId,
         )}`,
       );
@@ -84,18 +100,29 @@ export function RestaurantStartForm({
       onSubmit={onSubmit}
       className={`mx-auto flex w-full max-w-2xl flex-col gap-3 ${className ?? ""}`}
     >
+      <Input
+        type="text"
+        inputMode="url"
+        placeholder={URL_PLACEHOLDER}
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        required
+        disabled={pending}
+        autoComplete="url"
+      />
       <div className="flex flex-col gap-2 sm:flex-row">
         <Input
-          type="text"
-          inputMode="url"
-          placeholder={DEFAULT_PLACEHOLDER}
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          type="email"
+          inputMode="email"
+          placeholder="Email — where we'll send your photos"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           className="flex-1"
           disabled={pending}
+          autoComplete="email"
         />
-        <Button type="submit" disabled={pending || url.trim().length < 3}>
+        <Button type="submit" disabled={pending}>
           {pending ? "Working…" : label}
         </Button>
       </div>
