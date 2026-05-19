@@ -11,7 +11,7 @@ const STATS = [
   { figure: "+30%", label: "more orders per item shot", detail: "Menu items with a photo convert up to 30% higher than text-only items on delivery marketplaces.", source: "DoorDash Merchant Suite, 2024" },
   { figure: "70%", label: "of guests check first", detail: "Seven in ten diners check Google or a delivery app before deciding where to order from or visit.", source: "Google / Ipsos restaurant study" },
   { figure: "<24h", label: "menu to upload-ready", detail: "Send your menu by 5pm. Photos for every item — newly created and enhanced — back the next morning.", source: "MenuLift SLA" },
-  { figure: "$40–$90/mo", label: "flat per location", detail: "Subscription pricing. Unlimited revisions. All three channels (Google, DoorDash, Uber Eats) included.", source: "Pricing" },
+  { figure: "$149–$499", label: "one-time per shoot", detail: "One-time price per menu shoot — no subscription. Unlimited revisions for 7 days. Google, DoorDash, and Uber Eats exports included.", source: "Pricing" },
 ];
 
 export default async function HomePage() {
@@ -30,7 +30,7 @@ export default async function HomePage() {
             Listings with a photo on every menu item get up to{" "}
             <span className="font-semibold text-foreground">30% more orders</span>.
             We create photos for the dishes you don't have shot yet, and polish the ones you do —
-            delivered upload-ready for Google, DoorDash, and Uber Eats in under 24 hours. From $40/mo.
+            delivered upload-ready for Google, DoorDash, and Uber Eats in under 48 hours. From $149.
           </p>
           <div className="mt-8">
             <RestaurantStartForm />
@@ -129,42 +129,44 @@ export default async function HomePage() {
         <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight">Pricing.</h2>
-            <p className="mt-3 text-muted-foreground">Monthly subscription. Unlimited revisions on every batch.</p>
+            <p className="mt-3 text-muted-foreground">
+              One-time price per menu shoot. Unlimited revisions for 7 days. No subscription.
+            </p>
           </div>
           <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-3">
             <Card>
               <CardContent className="space-y-2 p-6">
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Sprint</div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Starter</div>
                 <div className="text-3xl font-bold">
-                  $40<span className="text-base font-normal text-muted-foreground">/mo</span>
+                  $149<span className="text-base font-normal text-muted-foreground"> one-time</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Up to 15 items per month — new photos generated for missing items, existing photos enhanced.
+                  Up to 20 menu items — new photos generated for missing items, existing photos enhanced.
                   Google + DoorDash + Uber Eats exports.
                 </p>
               </CardContent>
             </Card>
             <Card className="border-primary">
               <CardContent className="space-y-2 p-6">
-                <div className="text-xs font-semibold uppercase tracking-wider text-primary">+ Full Menu</div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-primary">Full Menu · popular</div>
                 <div className="text-3xl font-bold">
-                  $69<span className="text-base font-normal text-muted-foreground">/mo</span>
+                  $299<span className="text-base font-normal text-muted-foreground"> one-time</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Every item on your menu shot — generated for the ones you don't have, enhanced for the ones
-                  you do. Storefront hero refresh included. Monthly refresh.
+                  Up to 50 items shot. Storefront hero refresh included. Most restaurants pick this one — covers
+                  a typical full menu in a single pass.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="space-y-2 p-6">
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Multi-location</div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Unlimited</div>
                 <div className="text-3xl font-bold">
-                  $90<span className="text-base font-normal text-muted-foreground">/mo</span>
+                  $499<span className="text-base font-normal text-muted-foreground"> one-time</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Per location. Priority generation queue, dedicated brand profile, quarterly menu audit,
-                  white-glove onboarding.
+                  Unlimited menu items. Storefront hero. 90 days of free additions as you add new dishes.
+                  Priority queue.
                 </p>
               </CardContent>
             </Card>

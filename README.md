@@ -8,7 +8,7 @@ Restaurants leave money on the table for every menu item without a photo. Items 
 
 **What customers actually want:** more orders. **MenuLift delivers:** a photo for every menu item — *created from scratch* for the dishes that don't have one, and *enhanced* for the dishes that do. Built from the restaurant's actual recipe, ingredients, and plating direction so the photo represents what the kitchen serves.
 
-- $40–$90/mo per location
+- $149 / $299 / $499 one-time per menu shoot (no subscription)
 - Under 24h turnaround on missing-photo sprints, under 48h on full menus
 - Channel-formatted exports (Google / DoorDash / Uber Eats)
 - Free menu audit on entry — full menu shoot is the upsell
@@ -38,7 +38,7 @@ See [MERCHANT.md](./MERCHANT.md) for the full fork-and-config catalog inherited 
 
 What's been customized for MenuLift:
 
-- `lib/services.ts` — 5 menu services replacing the real-estate catalog: **Full Menu Shoot** (lead, $89), **Missing-Photo Sprint** ($59), **Photo Enhance Pass** ($49), **Hero Shot Refresh** ($39), **Free Menu Audit** ($0 lead-gen)
+- `lib/services.ts` — 5 menu services replacing the real-estate catalog: **Full Menu Shoot** ($299, lead), **Starter Menu Shoot** ($149), **Photo Enhance Pass** ($99), **Hero Shot Refresh** ($49), **Free Menu Audit** ($0 lead-gen). All one-time per shoot.
 - `app/(marketing)/page.tsx`, `audience-a/page.tsx`, `audience-b/page.tsx` — restaurant-flavored hero, stats, pricing
 - `components/marketing/faq.tsx` — menu-photography FAQ
 - `lib/resend.ts`, `lib/lob.ts`, `app/layout.tsx`, `app/admin/layout.tsx`, `components/marketing/footer.tsx` — brand strings
