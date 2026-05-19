@@ -4,7 +4,7 @@ import { env } from "@/lib/env";
  * Find an email for a person given their name + zip / city / state.
  *
  * Tier 1: Hunter.io email-finder — given (first, last, domain). For
- *   homeowners we don't have a domain, so this is best-effort: we try
+ *   restaurant operators we sometimes don't have a domain, so this is best-effort: we try
  *   Hunter's "people search" endpoint instead.
  * Tier 2: Apollo.io people enrichment — robust for residential where we
  *   only have name + location.
@@ -109,8 +109,8 @@ async function viaHunter(args: {
   state: string;
   zip: string;
 }): Promise<SkiptraceResult> {
-  // Hunter's email-finder requires a domain, which we don't have for
-  // homeowners. Use their people-search-by-name + location instead.
+  // Hunter's email-finder requires a domain, which we don't always have for
+  // restaurant operators. Use their people-search-by-name + location instead.
   const params = new URLSearchParams({
     api_key: HUNTER!,
     full_name:

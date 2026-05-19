@@ -18,8 +18,8 @@ export default async function PostcardsIndex() {
       city: listings.city,
       state: listings.state,
       zip: listings.zip,
-      previewCount: sql<number>`(SELECT count(*)::int FROM relist.previews p WHERE p.listing_id = ${listings.id})`,
-      latestServiceId: sql<string | null>`(SELECT service_id FROM relist.previews p WHERE p.listing_id = ${listings.id} ORDER BY p.created_at DESC LIMIT 1)`,
+      previewCount: sql<number>`(SELECT count(*)::int FROM menulift.previews p WHERE p.listing_id = ${listings.id})`,
+      latestServiceId: sql<string | null>`(SELECT service_id FROM menulift.previews p WHERE p.listing_id = ${listings.id} ORDER BY p.created_at DESC LIMIT 1)`,
     })
     .from(listings)
     .where(and(ne(listings.address, "Loading…"), ne(listings.address, "")))
@@ -42,7 +42,7 @@ export default async function PostcardsIndex() {
         <CardContent className="space-y-1 p-4 text-sm">
           <div>
             <b>Mailer enabled?</b> Off by default. Toggle{" "}
-            <code>relist.admin_settings.mailer_enabled</code> = true to start mailing.
+            <code>menulift.admin_settings.mailer_enabled</code> = true to start mailing.
           </div>
           <div>
             <b>Lob mode</b>: test (no real mail). Swap{" "}

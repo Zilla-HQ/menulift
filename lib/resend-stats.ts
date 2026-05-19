@@ -26,7 +26,7 @@ export interface ResendStats {
 
 /**
  * Fetch a snapshot of recent Resend emails + aggregate stats.
- * Filters to a specific sender-domain prefix (e.g. "restay.agency") if given.
+ * Filters to a specific sender-domain prefix (e.g. "menulift.app") if given.
  */
 export interface ResendEmailDetail extends ResendEmail {
   html: string | null;

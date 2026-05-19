@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   const service = renovateServices.find((s) => s.id === body.serviceId);
   if (!service) {
     return NextResponse.json(
-      { error: "Service not available for homeowners" },
+      { error: "Service not available for this URL type" },
       { status: 400 },
     );
   }
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Stable source_id from the geocoded address — same address won't double-create.
-  const sourceId = `homeowner-${slugify(geo.full_address)}`;
+  const sourceId = `restaurant-${slugify(geo.full_address)}`;
 
   const [existing] = await db
     .select()
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
       photos: [],
       slug,
       qualified: true,
-      qualificationReason: `homeowner:${service.id}`,
+      qualificationReason: `restaurant:${service.id}`,
     })
     .returning();
 
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
 
   await trackEvent({
     distinctId: row.id,
-    event: "homeowner_address_submitted",
+    event: "restaurant_address_submitted",
     properties: { service_id: service.id, full_address: geo.full_address },
   });
 

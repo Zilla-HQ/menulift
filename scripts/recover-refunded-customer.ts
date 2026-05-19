@@ -23,8 +23,8 @@ if (!PI?.startsWith("pi_")) {
 
 const STRIPE_KEY = process.env.STRIPE_SECRET_KEY!;
 const RESEND_KEY = process.env.RESEND_API_KEY!;
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://restay.agency";
-const FROM_DOMAIN = (process.env.SENDER_DOMAINS ?? "mail.restay.agency").split(",")[0];
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://menulift.app";
+const FROM_DOMAIN = (process.env.SENDER_DOMAINS ?? "mail.menulift.app").split(",")[0];
 
 if (!STRIPE_KEY || !RESEND_KEY) {
   console.error("Need STRIPE_SECRET_KEY + RESEND_API_KEY in env");
@@ -89,10 +89,10 @@ async function main() {
 
   const checkoutUrl = `${APP_URL}/?promo=${encodeURIComponent(codeStr)}#paste`;
 
-  const subject = "Your Restay refund — let's make this right";
+  const subject = "Your MenuLift refund — let's make this right";
   const text = `${greeting}
 
-Saw the refund come through on your Restay order. Sorry the experience didn't land — that's on us, not you.
+Saw the refund come through on your MenuLift order. Sorry the experience didn't land — that's on us, not you.
 
 I want to make this right. I'm sending you a 10% discount good through end-of-day today (${endOfDay.toUTCString()}):
 
@@ -107,14 +107,14 @@ We refund every Tune-Up that doesn't meet the bar. The whole point of the 14-day
 Reply with any URL and I'll get on it tonight.
 
 — Jack
-Founder, Restay
-restay.agency
+Founder, MenuLift
+menulift.app
 `;
 
   const html = `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#0f172a;max-width:600px;margin:0 auto;padding:24px;">
 <p>${greeting}</p>
 
-<p>Saw the refund come through on your Restay order. Sorry the experience didn't land — that's on us, not you.</p>
+<p>Saw the refund come through on your MenuLift order. Sorry the experience didn't land — that's on us, not you.</p>
 
 <p>I want to make this right. I'm sending you a 10% discount good through end-of-day today:</p>
 
@@ -133,13 +133,13 @@ restay.agency
 
 <p>Reply with any URL and I'll get on it tonight.</p>
 
-<p>— Jack<br/>Founder, Restay<br/><a href="${APP_URL}" style="color:#475569;">restay.agency</a></p>
+<p>— Jack<br/>Founder, MenuLift<br/><a href="${APP_URL}" style="color:#475569;">menulift.app</a></p>
 </body></html>`;
 
   // ─── 5. Send via Resend ────────────────────────────────────────────
   const replyTo = process.env.OPERATOR_EMAIL ?? process.env.REPLIES_EMAIL ?? "jack@seifdn.org";
   const send = await resend.emails.send({
-    from: `Jack at Restay <jack@${FROM_DOMAIN}>`,
+    from: `Jack at MenuLift <jack@${FROM_DOMAIN}>`,
     to: email,
     replyTo,
     subject,

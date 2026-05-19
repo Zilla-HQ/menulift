@@ -26,13 +26,13 @@ export async function POST(req: NextRequest) {
   // attempt in PostHog so nothing gets lost if Resend is down.
   const apiKey = env("RESEND_API_KEY");
   const operatorEmail = env("OPERATOR_EMAIL", env("REPLIES_EMAIL", "jack@seifdn.org"))!;
-  const fromDomain = env("RESEND_FROM_DOMAIN", "mail.restay.agency")!;
+  const fromDomain = env("RESEND_FROM_DOMAIN", "mail.menulift.app")!;
 
   if (apiKey) {
     const resend = new Resend(apiKey);
     try {
       await resend.emails.send({
-        from: `Restay Partners <noreply@${fromDomain}>`,
+        from: `MenuLift Partners <noreply@${fromDomain}>`,
         to: operatorEmail,
         replyTo: body.email,
         subject: `[Partners] ${body.name} applied — ${body.audience}`,

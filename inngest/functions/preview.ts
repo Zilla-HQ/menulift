@@ -83,7 +83,7 @@ export const previewFn = inngest.createFunction(
     type Selection = { url: string; roomKind: RoomKind; empty: boolean; stagingValue: number };
     let selected: Selection[];
     if (isSatelliteService) {
-      // Pull THREE satellite tiles at different zooms so the homeowner sees
+      // Pull THREE satellite tiles at different zooms so the restaurant operator sees
       // wide-context, lot-tight, and close-up renders. Variety > one render.
       selected = await step.run("fetch-satellite-tiles", async (): Promise<Selection[]> => {
         const fullAddress = [listing.address, listing.city, listing.state, listing.zip]
@@ -194,7 +194,7 @@ export const previewFn = inngest.createFunction(
         const g = generated[i];
         const res = await fetch(g.enhancedUrl);
         const buf = Buffer.from(await res.arrayBuffer());
-        const stamped = await applyTextWatermark(buf, "PREVIEW — Realscale", {
+        const stamped = await applyTextWatermark(buf, "PREVIEW — MenuLift", {
           position: "bottom-right",
           opacity: 0.75,
         });

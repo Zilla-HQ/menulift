@@ -15,10 +15,10 @@ import { TIER_1 } from "@/lib/outreach";
 import { env } from "@/lib/env";
 
 const dryRun = process.argv.includes("--dry-run");
-const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.restay.agency") ?? "mail.restay.agency").split(",")[0];
-const FROM = `Jack at Restay <jack@${FROM_DOMAIN}>`;
+const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.menulift.app") ?? "mail.menulift.app").split(",")[0];
+const FROM = `Jack at MenuLift <jack@${FROM_DOMAIN}>`;
 const REPLY_TO = `jack@${FROM_DOMAIN}`;
-const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://restay.agency") ?? "https://restay.agency").replace(/\/$/, "");
+const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://menulift.app") ?? "https://menulift.app").replace(/\/$/, "");
 const RESEND_KEY = env("RESEND_API_KEY")!;
 const resend = new Resend(RESEND_KEY);
 
@@ -51,10 +51,10 @@ ${APP_URL}/partners
 <ul>
 <li>I'll send a <strong>free Tune-Up</strong> on whichever listing you'd like — yours or one of your audience members'. Reply with a URL, output back to you tonight.</li>
 <li>Standard partner program is <strong>30% / $24 per Tune-Up referral, paid Fridays</strong>. No claw-back.</li>
-<li>Free public grader at <a href="${APP_URL}/grade">restay.agency/grade</a> if you want to kick the tires first.</li>
+<li>Free public grader at <a href="${APP_URL}/grade">menulift.app/grade</a> if you want to kick the tires first.</li>
 </ul>
 <p>If now isn't right, totally fine to circle back later. If "no" full stop, hit reply with one word and I'll stop chasing.</p>
-<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">restay.agency/partners</a></p>
+<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">menulift.app/partners</a></p>
 </body></html>`;
 
   return { subject, text, html };

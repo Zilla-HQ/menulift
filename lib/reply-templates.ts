@@ -14,7 +14,7 @@ export interface TemplateVars {
   firstName: string;
   /** Listing address — used in P.S. and operator-notify */
   listingAddress: string;
-  /** Public preview URL: https://realscale.app/l/<slug> */
+  /** Public preview URL: https://menulift.app/l/<slug> */
   previewUrl: string;
   /** Checkout URL (preview page with #pricing anchor, optional ?code=) */
   purchaseUrl: string;
@@ -91,7 +91,7 @@ Here's exactly what happens after you pay:
 
   2. Standard tier delivers in under 2 hours. Rush in under 30 minutes. We email you the moment they're ready.
 
-  3. Every staged photo is stamped "Virtually Staged" in the corner per NAR guidance. We can also provide a written disclosure for your MLS entry.
+  3. Every enhanced photo is stamped "AI-Enhanced" in the corner so it stays aligned with Google Business Profile, DoorDash, and Uber Eats content policies. We can also provide a written disclosure for your menu page.
 
   4. For anything bigger — copy rewrites, custom edits, re-runs — just email ${v.supportEmail} and we'll handle it within 24 hours. Same address for support, billing, refunds, anything else. No ticket system.
 
@@ -99,7 +99,7 @@ A few things included by default:
   - Full refund within 14 days, no questions
   - Free re-run of any single photo if it doesn't feel right
   - Originals stored encrypted, deleted 30 days after delivery
-  - NAR-compliant "Virtually Staged" disclosure stamped on every photo
+  - "AI-Enhanced" disclosure stamped on every photo (aligned with platform content policies)
 ${promoLine}
 — ${v.senderName}
 
@@ -131,7 +131,7 @@ ${v.previewUrl}
         <mj-text font-size="14px" line-height="1.55" color="#374151">
           1. You'll get a confirmation email from ${escape(v.supportEmail)} within minutes with a download link to your enhanced photos.<br/>
           2. Standard tier delivers in under 2 hours. Rush in under 30 minutes. We email you the moment they're ready.<br/>
-          3. Every staged photo is stamped "Virtually Staged" in the corner per NAR guidance.<br/>
+          3. Every enhanced photo is stamped "AI-Enhanced" in the corner so it stays aligned with Google Business Profile, DoorDash, and Uber Eats content policies.<br/>
           4. For anything bigger — copy rewrites, custom edits, re-runs — email ${escape(v.supportEmail)} and we'll handle it within 24 hours.
         </mj-text>
         <mj-text font-size="14px" line-height="1.55" color="#374151">
@@ -139,7 +139,7 @@ ${v.previewUrl}
           • Full refund within 14 days, no questions<br/>
           • Free re-run of any single photo<br/>
           • Originals encrypted, deleted 30 days after delivery<br/>
-          • NAR-compliant "Virtually Staged" disclosure stamped on every photo
+          • "AI-Enhanced" disclosure stamped on every photo (aligned with platform content policies)
         </mj-text>
         ${
           v.promoCode && v.promoDiscountPct

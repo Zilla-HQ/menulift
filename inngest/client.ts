@@ -87,7 +87,7 @@ type Events = {
   // Extended follow-up touches 3 (day 7) and 4 (day 14).
   "followup/touch-3": { data: { listingId: string; outreachEventId: string } };
   "followup/touch-4": { data: { listingId: string; outreachEventId: string } };
-  // Restay-style multi-tier (tier 1 → tier 6) follow-up chain — fired by
+  // MenuLift-style multi-tier (tier 1 → tier 6) follow-up chain — fired by
   // Distinct from followup/touch-3 + touch-4 above (which are per-menu
   // extended touches); these are batch tier sends used by the warm-up
   // ramp scripts in scripts/send-tier*-batch.ts.

@@ -124,7 +124,7 @@ ${baseStyle}
     <div>${RETURN_ADDRESS.line1}</div>
     <div>${RETURN_ADDRESS.city}, ${RETURN_ADDRESS.state} ${RETURN_ADDRESS.zip}</div>
   </div>
-  <div class="brand">REALSCALE</div>
+  <div class="brand">MENULIFT</div>
   <div class="headline">Your home at ${escapeHtml(args.shortAddress)} —<br/>visualized.</div>
   <div class="address">${escapeHtml(args.shortAddress)}</div>
   <div class="body">
@@ -134,7 +134,7 @@ ${baseStyle}
   </div>
   <div class="cta-row">
     <div>
-      <div class="url">realscale.app/l/${escapeHtml(args.listingSlug)}</div>
+      <div class="url">menulift.app/l/${escapeHtml(args.listingSlug)}</div>
       <div style="font-size: 9pt; color: #64748b; margin-top: 4px;">Free preview for this address</div>
     </div>
     <div class="qr-box">
@@ -157,7 +157,7 @@ export async function sendPostcard(args: PostcardArgs): Promise<PostcardResult> 
   const { front, back } = await renderPostcard(args);
 
   const body = new URLSearchParams();
-  body.set("description", `realscale-${args.serviceId}-${args.listingId.slice(0, 8)}`);
+  body.set("description", `menulift-${args.serviceId}-${args.listingId.slice(0, 8)}`);
   body.set("front", front);
   body.set("back", back);
   body.set("size", "6x4");
@@ -172,7 +172,7 @@ export async function sendPostcard(args: PostcardArgs): Promise<PostcardResult> 
   body.set("to[address_zip]", args.to.zip);
   body.set("to[address_country]", "US");
 
-  // From address (Realscale return)
+  // From address (MenuLift return)
   body.set("from[name]", BUSINESS_NAME);
   body.set("from[address_line1]", RETURN_ADDRESS.line1);
   body.set("from[address_city]", RETURN_ADDRESS.city);

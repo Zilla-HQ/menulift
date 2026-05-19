@@ -23,10 +23,10 @@ import { TIER_1 } from "@/lib/outreach";
 import { TIER_3_PROSPECTS, TIER_4_PROSPECTS, TIER_5_PROSPECTS, TIER_6_PROSPECTS } from "@/lib/outreach";
 import { env } from "@/lib/env";
 
-const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.restay.agency") ?? "mail.restay.agency").split(",")[0];
-const FROM = `Jack at Restay <jack@${FROM_DOMAIN}>`;
+const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.menulift.app") ?? "mail.menulift.app").split(",")[0];
+const FROM = `Jack at MenuLift <jack@${FROM_DOMAIN}>`;
 const REPLY_TO = `jack@${FROM_DOMAIN}`;
-const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://restay.agency") ?? "https://restay.agency").replace(/\/$/, "");
+const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://menulift.app") ?? "https://menulift.app").replace(/\/$/, "");
 const RESEND_KEY = env("RESEND_API_KEY");
 const resend = RESEND_KEY ? new Resend(RESEND_KEY) : null;
 
@@ -41,7 +41,7 @@ function buildBreakUp(d: { id: string; name: string; subject: string }): {
 
 Last note from me, promise.
 
-Closing the loop on Restay — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show, audit angle for a video), my line is open.
+Closing the loop on MenuLift — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show, audit angle for a video), my line is open.
 
 The free grader stays free permanently — ${APP_URL}/grade — so feel free to use it personally any time without thinking of me.
 
@@ -51,9 +51,9 @@ ${APP_URL}
   const html = `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#0f172a;max-width:600px;margin:0 auto;padding:24px;">
 <p>Hey ${firstName},</p>
 <p>Last note from me, promise.</p>
-<p>Closing the loop on Restay — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show, audit angle for a video), my line is open.</p>
-<p>The free grader stays free permanently — <a href="${APP_URL}/grade">restay.agency/grade</a> — so feel free to use it personally any time without thinking of me.</p>
-<p>— Jack<br/><a href="${APP_URL}" style="color:#475569;">restay.agency</a></p>
+<p>Closing the loop on MenuLift — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show, audit angle for a video), my line is open.</p>
+<p>The free grader stays free permanently — <a href="${APP_URL}/grade">menulift.app/grade</a> — so feel free to use it personally any time without thinking of me.</p>
+<p>— Jack<br/><a href="${APP_URL}" style="color:#475569;">menulift.app</a></p>
 </body></html>`;
   return { subject, text, html };
 }
@@ -87,10 +87,10 @@ ${APP_URL}/partners
 <ul>
 <li>I'll send a <strong>free Tune-Up</strong> on whichever listing you'd like — yours or one of your audience members'. Reply with a URL, output back to you tonight.</li>
 <li>Standard partner program is <strong>30% / $24 per Tune-Up referral, paid Fridays</strong>. No claw-back.</li>
-<li>Free public grader at <a href="${APP_URL}/grade">restay.agency/grade</a> if you want to kick the tires first.</li>
+<li>Free public grader at <a href="${APP_URL}/grade">menulift.app/grade</a> if you want to kick the tires first.</li>
 </ul>
 <p>If now isn't right, totally fine to circle back later. If "no" full stop, hit reply with one word and I'll stop chasing.</p>
-<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">restay.agency/partners</a></p>
+<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">menulift.app/partners</a></p>
 </body></html>`;
   return { subject, text, html };
 }
@@ -203,14 +203,14 @@ export const scheduleTier1BreakupFn = inngest.createFunction(
 );
 
 const TIER_2_PROSPECTS = [
-  { id: "hosting-journey", name: "Evelyn Badia", email: "evelyn@thehostingjourney.com", subject: "Quick partner-program intro — Restay (Airbnb optimization)" },
-  { id: "str-lab", name: "Alisha Arnold", email: "hello@alishaarnold.com", subject: "$24/referral, paid Friday — Restay × your audience" },
-  { id: "bnb-mastery", name: "James Svetec", email: "james@bnbmastery.com", subject: "Restay × your audience — would there be fit?" },
-  { id: "str-riches", name: "Tim Hubbard", email: "tim@strriches.com", subject: "$24/referral, paid Friday — Restay × your audience" },
-  { id: "nastra", name: "team", email: "nastra2016@gmail.com", subject: "Quick partner-program intro — Restay (Airbnb optimization)" },
-  { id: "vacation-rental-success", name: "Heather Bayer", email: "heather@cottageblogger.com", subject: "Restay × your audience — would there be fit?" },
-  { id: "boostly", name: "Mark Simpson", email: "mark@boostly.co.uk", subject: "$24/referral, paid Friday — Restay × your audience" },
-  { id: "business-of-glamping", name: "Sarah Riley", email: "sarah@inspiredcamping.com", subject: "Restay × your audience — would there be fit?" },
+  { id: "hosting-journey", name: "Evelyn Badia", email: "evelyn@thehostingjourney.com", subject: "Quick partner-program intro — MenuLift (Airbnb optimization)" },
+  { id: "str-lab", name: "Alisha Arnold", email: "hello@alishaarnold.com", subject: "$24/referral, paid Friday — MenuLift × your audience" },
+  { id: "bnb-mastery", name: "James Svetec", email: "james@bnbmastery.com", subject: "MenuLift × your audience — would there be fit?" },
+  { id: "str-riches", name: "Tim Hubbard", email: "tim@strriches.com", subject: "$24/referral, paid Friday — MenuLift × your audience" },
+  { id: "nastra", name: "team", email: "nastra2016@gmail.com", subject: "Quick partner-program intro — MenuLift (Airbnb optimization)" },
+  { id: "vacation-rental-success", name: "Heather Bayer", email: "heather@cottageblogger.com", subject: "MenuLift × your audience — would there be fit?" },
+  { id: "boostly", name: "Mark Simpson", email: "mark@boostly.co.uk", subject: "$24/referral, paid Friday — MenuLift × your audience" },
+  { id: "business-of-glamping", name: "Sarah Riley", email: "sarah@inspiredcamping.com", subject: "MenuLift × your audience — would there be fit?" },
 ];
 
 // ─── Tier-3: bump (day 2) + break-up (day 5) ─────────────────────────────
@@ -222,9 +222,9 @@ function buildTier3Followup(p: { firstName: string; brand: string; handle: strin
 } {
   // Mirror the original subject rotation in send-tier3-batch.ts so this threads.
   const SUBJECTS = [
-    "Quick partner-program intro — Restay (Airbnb optimization)",
-    "$24/referral, paid Friday — Restay × your audience",
-    "Restay × your audience — would there be fit?",
+    "Quick partner-program intro — MenuLift (Airbnb optimization)",
+    "$24/referral, paid Friday — MenuLift × your audience",
+    "MenuLift × your audience — would there be fit?",
   ];
   const original = SUBJECTS[p.handle.length % SUBJECTS.length];
   const subject = `Re: ${original}`;
@@ -255,7 +255,7 @@ ${APP_URL}/partners
 <li><strong>30% commission</strong> ($24 per Tune-Up referred), paid Fridays via Stripe.</li>
 </ol>
 <p>If now isn't right, totally fine. If "no" full stop, hit reply with one word and I'll stop chasing.</p>
-<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">restay.agency/partners</a></p>
+<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">menulift.app/partners</a></p>
 </body></html>`;
   return { subject, text, html };
 }
@@ -266,9 +266,9 @@ function buildTier3BreakUp(p: { firstName: string; handle: string }): {
   html: string;
 } {
   const SUBJECTS = [
-    "Quick partner-program intro — Restay (Airbnb optimization)",
-    "$24/referral, paid Friday — Restay × your audience",
-    "Restay × your audience — would there be fit?",
+    "Quick partner-program intro — MenuLift (Airbnb optimization)",
+    "$24/referral, paid Friday — MenuLift × your audience",
+    "MenuLift × your audience — would there be fit?",
   ];
   const original = SUBJECTS[p.handle.length % SUBJECTS.length];
   return {
@@ -277,7 +277,7 @@ function buildTier3BreakUp(p: { firstName: string; handle: string }): {
 
 Last note from me, promise.
 
-Closing the loop on Restay — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show), my line is open.
+Closing the loop on MenuLift — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show), my line is open.
 
 The free grader stays free permanently — ${APP_URL}/grade — feel free to use it personally any time.
 
@@ -287,9 +287,9 @@ ${APP_URL}
     html: `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#0f172a;max-width:600px;margin:0 auto;padding:24px;">
 <p>Hey ${p.firstName},</p>
 <p>Last note from me, promise.</p>
-<p>Closing the loop on Restay — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show), my line is open.</p>
-<p>The free grader stays free permanently — <a href="${APP_URL}/grade">restay.agency/grade</a> — feel free to use it personally any time.</p>
-<p>— Jack<br/><a href="${APP_URL}" style="color:#475569;">restay.agency</a></p>
+<p>Closing the loop on MenuLift — if there's never a fit, no problem. If something changes (audience asks about listing optimization, you want to walk through a specific listing on the show), my line is open.</p>
+<p>The free grader stays free permanently — <a href="${APP_URL}/grade">menulift.app/grade</a> — feel free to use it personally any time.</p>
+<p>— Jack<br/><a href="${APP_URL}" style="color:#475569;">menulift.app</a></p>
 </body></html>`,
   };
 }
@@ -402,9 +402,9 @@ function buildTier4Followup(p: { firstName: string; brand: string; handle: strin
   html: string;
 } {
   const SUBJECTS = [
-    "Quick partner intro — Restay (we slot in next to your product)",
-    "Co-marketing fit? Restay × your hosts",
-    "$24/host referral — Restay × your customer base",
+    "Quick partner intro — MenuLift (we slot in next to your product)",
+    "Co-marketing fit? MenuLift × your hosts",
+    "$24/host referral — MenuLift × your customer base",
   ];
   const original = SUBJECTS[p.handle.length % SUBJECTS.length];
   const subject = `Re: ${original}`;
@@ -435,7 +435,7 @@ ${APP_URL}/partners
 <li><strong>30% commission</strong> ($24 per Tune-Up referred), paid Fridays via Stripe.</li>
 </ol>
 <p>If now isn't right, totally fine. If "no" full stop, hit reply with one word and I'll stop chasing.</p>
-<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">restay.agency/partners</a></p>
+<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">menulift.app/partners</a></p>
 </body></html>`;
   return { subject, text, html };
 }
@@ -446,9 +446,9 @@ function buildTier4BreakUp(p: { firstName: string; handle: string }): {
   html: string;
 } {
   const SUBJECTS = [
-    "Quick partner intro — Restay (we slot in next to your product)",
-    "Co-marketing fit? Restay × your hosts",
-    "$24/host referral — Restay × your customer base",
+    "Quick partner intro — MenuLift (we slot in next to your product)",
+    "Co-marketing fit? MenuLift × your hosts",
+    "$24/host referral — MenuLift × your customer base",
   ];
   const original = SUBJECTS[p.handle.length % SUBJECTS.length];
   return {
@@ -457,7 +457,7 @@ function buildTier4BreakUp(p: { firstName: string; handle: string }): {
 
 Last note from me, promise.
 
-Closing the loop on Restay — if there's no fit on the partnership angle, no problem. If something changes (your customers ask about listing photos, you launch a new program, you want a free Tune-Up demo), my line is open.
+Closing the loop on MenuLift — if there's no fit on the partnership angle, no problem. If something changes (your customers ask about listing photos, you launch a new program, you want a free Tune-Up demo), my line is open.
 
 The free grader stays free permanently — ${APP_URL}/grade — feel free to use it anytime.
 
@@ -467,9 +467,9 @@ ${APP_URL}
     html: `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#0f172a;max-width:600px;margin:0 auto;padding:24px;">
 <p>Hey ${p.firstName},</p>
 <p>Last note from me, promise.</p>
-<p>Closing the loop on Restay — if there's no fit on the partnership angle, no problem. If something changes (your customers ask about listing photos, you launch a new program, you want a free Tune-Up demo), my line is open.</p>
-<p>The free grader stays free permanently — <a href="${APP_URL}/grade">restay.agency/grade</a> — feel free to use it anytime.</p>
-<p>— Jack<br/><a href="${APP_URL}" style="color:#475569;">restay.agency</a></p>
+<p>Closing the loop on MenuLift — if there's no fit on the partnership angle, no problem. If something changes (your customers ask about listing photos, you launch a new program, you want a free Tune-Up demo), my line is open.</p>
+<p>The free grader stays free permanently — <a href="${APP_URL}/grade">menulift.app/grade</a> — feel free to use it anytime.</p>
+<p>— Jack<br/><a href="${APP_URL}" style="color:#475569;">menulift.app</a></p>
 </body></html>`,
   };
 }
@@ -627,15 +627,15 @@ export const scheduleTier2BreakupFn = inngest.createFunction(
 // ─── Tier-5 + Tier-6: bump (day 2) + break-up (day 5) ────────────────────
 
 const TIER_5_SUBJECTS = [
-  "Quick partner intro — Restay (listing setup for your clients)",
-  "$24/referral on every new-property listing — Restay × you",
-  "Restay × your clients — would there be fit?",
+  "Quick partner intro — MenuLift (listing setup for your clients)",
+  "$24/referral on every new-property listing — MenuLift × you",
+  "MenuLift × your clients — would there be fit?",
 ];
 
 const TIER_6_SUBJECTS = [
-  "Quick partner-program intro — Restay (Airbnb optimization)",
-  "$24/referral, paid Friday — Restay × your audience",
-  "Restay × your audience — would there be fit?",
+  "Quick partner-program intro — MenuLift (Airbnb optimization)",
+  "$24/referral, paid Friday — MenuLift × your audience",
+  "MenuLift × your audience — would there be fit?",
 ];
 
 function buildGenericFollowup(p: { firstName: string; brand: string; handle: string }, originalSubjects: string[]): {
@@ -661,7 +661,7 @@ If now isn't right, totally fine. If "no" full stop, hit reply with one word and
 — Jack
 ${APP_URL}/partners
 `;
-  const html = `<p>Hey ${p.firstName},</p><p>Quick bump — wanted to make sure my note didn't get buried.</p><p>Three things still on the table for <strong>${p.brand}</strong>:</p><ol><li><strong>Free Tune-Up demo</strong> — output back to you in 4 hours, no commitment.</li><li><strong>Co-branded grader page</strong> at <a href="${partnerLink}">${partnerLink}</a></li><li><strong>30% commission</strong> ($24 per Tune-Up referred), paid Fridays via Stripe.</li></ol><p>If now isn't right, totally fine. If "no" full stop, hit reply with one word and I'll stop chasing.</p><p>— Jack<br/><a href="${APP_URL}/partners">restay.agency/partners</a></p>`;
+  const html = `<p>Hey ${p.firstName},</p><p>Quick bump — wanted to make sure my note didn't get buried.</p><p>Three things still on the table for <strong>${p.brand}</strong>:</p><ol><li><strong>Free Tune-Up demo</strong> — output back to you in 4 hours, no commitment.</li><li><strong>Co-branded grader page</strong> at <a href="${partnerLink}">${partnerLink}</a></li><li><strong>30% commission</strong> ($24 per Tune-Up referred), paid Fridays via Stripe.</li></ol><p>If now isn't right, totally fine. If "no" full stop, hit reply with one word and I'll stop chasing.</p><p>— Jack<br/><a href="${APP_URL}/partners">menulift.app/partners</a></p>`;
   return { subject, text, html };
 }
 
@@ -673,8 +673,8 @@ function buildGenericBreakUp(p: { firstName: string; handle: string }, originalS
   const original = originalSubjects[p.handle.length % originalSubjects.length];
   return {
     subject: `Re: ${original}`,
-    text: `Hey ${p.firstName},\n\nLast note from me, promise.\n\nClosing the loop on Restay — if there's no fit, no problem. If something changes, my line is open.\n\nThe free grader stays free permanently — ${APP_URL}/grade — feel free to use it anytime.\n\n— Jack\n${APP_URL}\n`,
-    html: `<p>Hey ${p.firstName},</p><p>Last note from me, promise.</p><p>Closing the loop on Restay — if there's no fit, no problem. If something changes, my line is open.</p><p>The free grader stays free permanently — <a href="${APP_URL}/grade">restay.agency/grade</a> — feel free to use it anytime.</p><p>— Jack<br/><a href="${APP_URL}">restay.agency</a></p>`,
+    text: `Hey ${p.firstName},\n\nLast note from me, promise.\n\nClosing the loop on MenuLift — if there's no fit, no problem. If something changes, my line is open.\n\nThe free grader stays free permanently — ${APP_URL}/grade — feel free to use it anytime.\n\n— Jack\n${APP_URL}\n`,
+    html: `<p>Hey ${p.firstName},</p><p>Last note from me, promise.</p><p>Closing the loop on MenuLift — if there's no fit, no problem. If something changes, my line is open.</p><p>The free grader stays free permanently — <a href="${APP_URL}/grade">menulift.app/grade</a> — feel free to use it anytime.</p><p>— Jack<br/><a href="${APP_URL}">menulift.app</a></p>`,
   };
 }
 

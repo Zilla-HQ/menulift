@@ -30,10 +30,10 @@ export const qualificationFn = inngest.createFunction(
     });
     if (!listing) return { skipped: true, reason: "listing not found" };
 
-    // Email discovery — Zillow stopped exposing agent emails publicly. Try to
-    // find one before qualifying (otherwise outreach has nowhere to send).
-    // Skip for self-serve / homeowner sources where the email is already set
-    // (self-serve = customer's own email; homeowner cold = skiptraced upstream).
+    // Email discovery — source platforms often hide operator emails publicly.
+    // Try to find one before qualifying (otherwise outreach has nowhere to send).
+    // Skip for self-serve / operator sources where the email is already set
+    // (self-serve = customer's own email; operator cold = skiptraced upstream).
     const needsEmailDiscovery =
       !listing.agentEmail &&
       listing.source !== "operator_self_serve" &&

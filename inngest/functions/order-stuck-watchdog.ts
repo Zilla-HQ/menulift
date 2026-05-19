@@ -14,7 +14,7 @@ import { env } from "@/lib/env";
  *
  * Twin of `preview-stuck-watchdog` — different funnel stage, same idea.
  *
- * This exists because of the Restay-William incident (META_ADS.md §5b):
+ * This exists because of the MenuLift-William incident (META_ADS.md §5b):
  * paid order, no Inngest dispatch, 17 minutes of silence, customer
  * refunded. Once that pattern was understood, the fix was to monitor +
  * retry within 5 minutes of any paid order that doesn't kick off

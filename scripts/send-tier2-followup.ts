@@ -6,7 +6,7 @@
  * Industry norm is 3-4 days between cold + follow-up; we're doing
  * 24-48h on operator override ("send follow-ups very often"). Risk:
  * faster cadence reads needier — accepted because the urgency is
- * Restay's, not the prospect's.
+ * MenuLift's, not the prospect's.
  *
  *   npx tsx --env-file=.env.local scripts/send-tier2-followup.ts --dry-run
  *   npx tsx --env-file=.env.local scripts/send-tier2-followup.ts
@@ -34,19 +34,19 @@ const PROSPECTS: Tier2Prospect[] = [
 ];
 
 const dryRun = process.argv.includes("--dry-run");
-const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.restay.agency") ?? "mail.restay.agency").split(",")[0];
-const FROM = `Jack at Restay <jack@${FROM_DOMAIN}>`;
+const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.menulift.app") ?? "mail.menulift.app").split(",")[0];
+const FROM = `Jack at MenuLift <jack@${FROM_DOMAIN}>`;
 const REPLY_TO = `jack@${FROM_DOMAIN}`;
-const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://restay.agency") ?? "https://restay.agency").replace(/\/$/, "");
+const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://menulift.app") ?? "https://menulift.app").replace(/\/$/, "");
 const RESEND_KEY = env("RESEND_API_KEY")!;
 const resend = new Resend(RESEND_KEY);
 
 // Match the original subject lines (they rotate by handle.length % 3) so the
 // follow-up threads correctly in the prospect's inbox client.
 const ORIGINAL_SUBJECTS = [
-  "Quick partner-program intro — Restay (Airbnb optimization)",
-  "$24/referral, paid Friday — Restay × your audience",
-  "Restay × your audience — would there be fit?",
+  "Quick partner-program intro — MenuLift (Airbnb optimization)",
+  "$24/referral, paid Friday — MenuLift × your audience",
+  "MenuLift × your audience — would there be fit?",
 ];
 
 function buildFollowUp(p: Tier2Prospect): { subject: string; text: string; html: string } {

@@ -4,7 +4,7 @@
  * Inngest functions distinguish "transient retry, no big deal" from
  * "this customer is about to be stuck and we need to pause + alert."
  *
- * Restay (the airbnb merchant) hit this exact bug on 2026-05-07: fal.ai
+ * MenuLift (the airbnb merchant) hit this exact bug on 2026-05-07: fal.ai
  * ran dry mid-funnel after a Meta-ad-funded surge of self-serve
  * previews, the pipeline kept accepting paid orders into a 403 black
  * hole, the first paid customer waited 17 minutes in silence and

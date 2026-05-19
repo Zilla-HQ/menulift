@@ -35,7 +35,7 @@ function relativeTime(iso: string): string {
  * panel meaningful when the Resend account is shared across merchants.
  */
 export async function ResendPanel() {
-  // Use first sender domain as the filter ("mail.restay.agency" → filter for "restay.agency")
+  // Use first sender domain as the filter ("mail.menulift.app" → filter for "menulift.app")
   const senderDomain = (process.env.SENDER_DOMAINS ?? "")
     .split(",")[0]
     ?.trim()

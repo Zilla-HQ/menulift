@@ -17,7 +17,7 @@ import { stripe, publicAppUrl } from "@/lib/stripe";
  *       that already removes friction.
  *
  *   The companion route `/api/checkout/route.ts` is the one-time-payment
- *   flow used by RealScale + Restay. Subscription merchants (like
+ *   flow used by RealScale + MenuLift. Subscription merchants (like
  *   Sitebeat) use THIS route. A merchant can have both flows in the
  *   same codebase if they sell one-time + subscription products
  *   (e.g. SiteGrid's $199 build + $99/yr hosting renewal).

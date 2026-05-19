@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   // chunked passes don't re-process the same rows.
   const rows = (await db.execute(sql`
     SELECT id, listing_id, service_id, enhanced_photo_urls
-    FROM relist.previews
+    FROM menulift.previews
     WHERE service_id IN ('photo-staging', 'twilight-exterior')
       AND jsonb_array_length(enhanced_photo_urls) > 0
       AND rewatermarked_at IS NULL
@@ -126,7 +126,7 @@ export async function POST(req: NextRequest) {
     // Done after all images in the row are attempted; we still mark
     // even if some images failed, to avoid infinite retry loops.
     await db.execute(
-      sql`UPDATE relist.previews SET rewatermarked_at = now() WHERE id = ${row.id}`,
+      sql`UPDATE menulift.previews SET rewatermarked_at = now() WHERE id = ${row.id}`,
     );
   }
 

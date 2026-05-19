@@ -2,7 +2,7 @@ import sharp from "sharp";
 import { env } from "@/lib/env";
 
 /**
- * Build a 9:16 social-card from a homeowner-side preview's before/after pair.
+ * Build a 9:16 social-card from a restaurant-side preview's before/after pair.
  * Layout: top = "before" satellite tile, bottom = "after" rendered mockup,
  * with a brand strip + city caption. 1080×1920 (Pinterest/TikTok native).
  */
@@ -22,9 +22,9 @@ export async function buildSocialCard(args: {
 
   const brandStripSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="200">
     <rect width="${W}" height="200" fill="#0f172a"/>
-    <text x="${W / 2}" y="58" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#10b981">REALSCALE</text>
+    <text x="${W / 2}" y="58" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#10b981">MENULIFT</text>
     <text x="${W / 2}" y="115" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="48" font-weight="700" fill="white">${escapeXml(args.caption)}</text>
-    <text x="${W / 2}" y="165" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="500" fill="#94a3b8">Free at realscale.app</text>
+    <text x="${W / 2}" y="165" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="500" fill="#94a3b8">Free at menulift.app</text>
   </svg>`;
 
   const beforeLabelSvg = svgLabel("BEFORE", 24, 24);

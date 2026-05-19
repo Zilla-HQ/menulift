@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
   const sourceUrl = url.searchParams.get("url");
   if (!sourceUrl) return NextResponse.json({ error: "?url= required" }, { status: 400 });
 
-  // Mirror to R2 (fal.ai sometimes 403s on Zillow CDN)
+  // Mirror to R2 (fal.ai sometimes 403s on third-party CDNs)
   const sourceRes = await fetch(sourceUrl);
   if (!sourceRes.ok) {
     return NextResponse.json(

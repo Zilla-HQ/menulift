@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
   // Use Claude vision to classify photos + pick the N best INTERIOR rooms
   // for staging. Without this we pick photos[0..n] blindly which for
-  // beachfront / luxury Zillow listings is usually aerial drone shots —
+  // certain source listings is usually wide-shot decor —
   // applying an interior-staging prompt to an aerial scene makes Kontext
   // hallucinate a different building entirely.
   const ranked = await pickBestForStaging(allPhotos, n);
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     const src = ranked[i].url;
     const roomHint = ranked[i].classification.kind;
     try {
-      // Mirror Zillow source to R2 first — fal.ai sometimes 403s on
+      // Mirror source CDN to R2 first — fal.ai sometimes 403s on
       // R2 origin from its IP range, R2 signed URLs are reliable.
       const sourceRes = await fetch(src);
       if (!sourceRes.ok) throw new Error(`source ${sourceRes.status}`);
