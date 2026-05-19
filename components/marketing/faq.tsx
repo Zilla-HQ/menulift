@@ -11,11 +11,11 @@ const AUDIENCE_A_ITEMS = [
 ];
 
 const AUDIENCE_B_ITEMS = [
-  { q: "What does the free audit include?", a: "We pull your restaurants' public listings on Google, DoorDash, and Uber Eats, identify every menu item without a photo (the biggest order-conversion gap), flag weak existing photos, and email you a coverage report with the exact items costing your locations orders. Plus one free sample shot — generated from a real recipe — to show what the paid service delivers." },
-  { q: "How is the audit free?", a: "We monetize by shooting the items we flag. The audit (coverage report + sample) is yours regardless — even if you never become a customer." },
-  { q: "Do you sell my restaurant data?", a: "No. We only scan public listings on Google, DoorDash, and Uber Eats. We don't resell or share contact info." },
-  { q: "I manage 10+ locations — do you do bulk?", a: "Yes. Multi-location pricing starts at $90/mo per location with quarterly menu audits, dedicated brand profile, and priority generation queue. Email us with your portfolio size." },
-  { q: "Can my marketplace partner with you?", a: "Aggregators and POS platforms can resell MenuLift to their restaurant customers — we have a partner program with revenue share. Reach out via the form." },
+  { q: "What's in the audit?", a: "Three things: (1) a coverage report that lists every menu item across your Google, DoorDash, and Uber Eats listings — flagged as missing photo, weak photo, or good; (2) an estimate of how many orders you're leaving on the table today; (3) one free sample shot — generated from a real recipe on your menu — so you see what the paid service delivers." },
+  { q: "How is it free?", a: "We monetize when restaurants upgrade to a paid plan to shoot the rest of the menu. The audit + sample shot are yours regardless — even if you never become a customer." },
+  { q: "How long does it take?", a: "Audits land in your inbox within 1 hour of submission. The free sample shot follows within 24 hours." },
+  { q: "Do you need access to my Google or delivery-app accounts?", a: "No — we scan your public listings only. You don't share credentials. We pull what any customer would see." },
+  { q: "What if I have multiple locations?", a: "Submit each location separately (one URL per location). Multi-location pricing starts at $90/mo per location with quarterly menu audits, dedicated brand profile, and priority generation queue once you upgrade." },
 ];
 
 const PREVIEW_ITEMS = [...AUDIENCE_A_ITEMS.slice(0, 3), ...AUDIENCE_B_ITEMS.slice(0, 3)];

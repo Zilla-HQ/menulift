@@ -14,14 +14,17 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             MenuLift
           </Link>
           <nav className="flex items-center gap-4 text-sm">
-            <Link href="/audience-a" className="text-muted-foreground hover:text-foreground">
-              For restaurants
+            <Link href="/#how" className="text-muted-foreground hover:text-foreground">
+              How it works
             </Link>
-            <Link href="/audience-b" className="text-muted-foreground hover:text-foreground">
-              Free audit
+            <Link href="/#pricing" className="text-muted-foreground hover:text-foreground">
+              Pricing
             </Link>
             <Link href="/services" className="text-muted-foreground hover:text-foreground">
               Services
+            </Link>
+            <Link href="/audit" className="font-semibold text-amber-700 hover:underline">
+              Free audit
             </Link>
           </nav>
         </div>

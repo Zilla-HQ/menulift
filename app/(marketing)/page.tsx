@@ -1,68 +1,204 @@
 import Link from "next/link";
+import { BeforeAfterComparator } from "@/components/marketing/before-after-comparator";
+import { FAQ } from "@/components/marketing/faq";
+import { RestaurantStartForm } from "@/components/marketing/restaurant-start-form";
 import { Card, CardContent } from "@/components/ui/card";
-import { UtensilsCrossed, Camera } from "lucide-react";
+import { getSampleBeforeAfters } from "@/lib/samples";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
-export default function ChooserPage() {
+const STATS = [
+  { figure: "+30%", label: "more orders per item shot", detail: "Menu items with a photo convert up to 30% higher than text-only items on delivery marketplaces.", source: "DoorDash Merchant Suite, 2024" },
+  { figure: "70%", label: "of guests check first", detail: "Seven in ten diners check Google or a delivery app before deciding where to order from or visit.", source: "Google / Ipsos restaurant study" },
+  { figure: "<24h", label: "menu to upload-ready", detail: "Send your menu by 5pm. Photos for every item — newly created and enhanced — back the next morning.", source: "MenuLift SLA" },
+  { figure: "$40–$90/mo", label: "flat per location", detail: "Subscription pricing. Unlimited revisions. All three channels (Google, DoorDash, Uber Eats) included.", source: "Pricing" },
+];
+
+export default async function HomePage() {
+  const samples = await getSampleBeforeAfters("audience-a");
   return (
-    <section className="bg-gradient-to-b from-background to-muted/40 py-24">
-      <div className="container max-w-4xl text-center">
-        <div className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-700">
-          MenuLift
+    <>
+      <section className="border-b bg-gradient-to-b from-background to-muted/30 py-20">
+        <div className="container max-w-4xl text-center">
+          <div className="mb-4 inline-block rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-700">
+            For restaurants · A photo for every dish on your menu
+          </div>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            Sell more food. Every item on your menu, photographed.
+          </h1>
+          <p className="mt-6 text-lg text-muted-foreground sm:text-xl">
+            Listings with a photo on every menu item get up to{" "}
+            <span className="font-semibold text-foreground">30% more orders</span>.
+            We create photos for the dishes you don't have shot yet, and polish the ones you do —
+            delivered upload-ready for Google, DoorDash, and Uber Eats in under 24 hours. From $40/mo.
+          </p>
+          <div className="mt-8">
+            <RestaurantStartForm />
+            <p className="mt-3 text-xs text-muted-foreground">
+              Free sample shot · no card required · cancel anytime
+            </p>
+            <p className="mt-2 text-sm">
+              Not ready to commit?{" "}
+              <Link href="/audit" className="font-semibold text-amber-700 underline-offset-4 hover:underline">
+                Run a free menu audit first →
+              </Link>
+            </p>
+          </div>
         </div>
-        <h1 className="mt-3 text-5xl font-bold tracking-tight sm:text-6xl">
-          Sell more food. Every item on your menu, photographed.
-        </h1>
-        <p className="mt-5 text-lg text-muted-foreground sm:text-xl">
-          Items with photos get up to <span className="font-semibold text-foreground">30% more orders</span> on Google,
-          DoorDash, and Uber Eats. We create a photo for every dish that's missing one,
-          and enhance the ones you already have — delivered in under 24 hours.
-        </p>
+      </section>
 
-        <div className="mx-auto mt-12 grid max-w-3xl gap-5 md:grid-cols-2">
-          <Link href="/audience-a" className="group">
-            <Card className="h-full overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl">
-              <CardContent className="space-y-4 p-8 text-left">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <UtensilsCrossed className="h-6 w-6" />
-                </div>
-                <h2 className="text-2xl font-bold">I run a restaurant.</h2>
-                <p className="text-muted-foreground">
-                  Get a photo for every menu item — created from scratch for the ones you don't have,
-                  enhanced for the ones you do. Upload-ready for Google, DoorDash, Uber Eats. From $40/mo.
-                </p>
-                <div className="pt-2 font-semibold text-primary group-hover:underline">
-                  Shoot my whole menu →
+      <section id="why" className="container py-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight">Why menu photos matter.</h2>
+          <p className="mt-3 text-muted-foreground">
+            Photos are the single biggest conversion lever on Google and the delivery apps.
+          </p>
+        </div>
+        <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {STATS.map((s) => (
+            <Card key={s.figure} className="overflow-hidden">
+              <CardContent className="space-y-2 p-6">
+                <div className="text-4xl font-bold tracking-tight text-primary">{s.figure}</div>
+                <div className="text-sm font-semibold">{s.label}</div>
+                <p className="text-sm text-muted-foreground">{s.detail}</p>
+                <div className="pt-1 text-[11px] uppercase tracking-wider text-muted-foreground">
+                  Source: {s.source}
                 </div>
               </CardContent>
             </Card>
-          </Link>
+          ))}
+        </div>
+      </section>
 
-          <Link href="/audience-b" className="group">
-            <Card className="h-full overflow-hidden border-amber-500/40 transition-all hover:-translate-y-1 hover:shadow-xl">
-              <CardContent className="space-y-4 p-8 text-left">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10 text-amber-700">
-                  <Camera className="h-6 w-6" />
+      <section id="how" className="border-y bg-muted/30 py-16">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight">How it works.</h2>
+            <p className="mt-3 text-muted-foreground">Three steps. Under 24 hours.</p>
+          </div>
+          <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
+            {[
+              {
+                n: 1,
+                title: "Send your menu",
+                body: "Drop your Google Business Profile link, your DoorDash URL, or paste your menu items. We figure out which dishes are missing photos.",
+              },
+              {
+                n: 2,
+                title: "We shoot every dish",
+                body: "For items without photos: we generate from your real recipe, ingredients, and plating. For items with photos: we enhance them. No stock, no embellishments.",
+              },
+              {
+                n: 3,
+                title: "Upload-ready files",
+                body: "Channel-formatted exports for Google, DoorDash, and Uber Eats land in your inbox. You upload. Order volume lifts within the week.",
+              },
+            ].map((s) => (
+              <Card key={s.n} className="border-amber-500/30">
+                <CardContent className="space-y-2 p-6">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-amber-700">
+                    Step {s.n}
+                  </div>
+                  <h3 className="text-lg font-bold">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground">{s.body}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="samples" className="container py-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight">See it in action.</h2>
+          <p className="mt-3 text-muted-foreground">
+            Drag the slider — every "after" was produced by the exact pipeline that runs on your menu.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {samples.map((s) => (
+            <div key={s.id} className="space-y-2">
+              <BeforeAfterComparator beforeUrl={s.before} afterUrl={s.after} />
+              <p className="text-sm text-muted-foreground">{s.caption}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="pricing" className="border-t bg-muted/30 py-16">
+        <div className="container">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight">Pricing.</h2>
+            <p className="mt-3 text-muted-foreground">Monthly subscription. Unlimited revisions on every batch.</p>
+          </div>
+          <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-3">
+            <Card>
+              <CardContent className="space-y-2 p-6">
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Sprint</div>
+                <div className="text-3xl font-bold">
+                  $40<span className="text-base font-normal text-muted-foreground">/mo</span>
                 </div>
-                <h2 className="text-2xl font-bold">I'm a marketplace operator.</h2>
-                <p className="text-muted-foreground">
-                  See which of your restaurants are leaving orders on the table. Free coverage
-                  audit across Google, DoorDash, Uber Eats — with bulk pricing for portfolios.
+                <p className="text-sm text-muted-foreground">
+                  Up to 15 items per month — new photos generated for missing items, existing photos enhanced.
+                  Google + DoorDash + Uber Eats exports.
                 </p>
-                <div className="pt-2 font-semibold text-amber-700 group-hover:underline">
-                  Run a free menu audit →
-                </div>
               </CardContent>
             </Card>
-          </Link>
+            <Card className="border-primary">
+              <CardContent className="space-y-2 p-6">
+                <div className="text-xs font-semibold uppercase tracking-wider text-primary">+ Full Menu</div>
+                <div className="text-3xl font-bold">
+                  $69<span className="text-base font-normal text-muted-foreground">/mo</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Every item on your menu shot — generated for the ones you don't have, enhanced for the ones
+                  you do. Storefront hero refresh included. Monthly refresh.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="space-y-2 p-6">
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Multi-location</div>
+                <div className="text-3xl font-bold">
+                  $90<span className="text-base font-normal text-muted-foreground">/mo</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Per location. Priority generation queue, dedicated brand profile, quarterly menu audit,
+                  white-glove onboarding.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
+      </section>
 
-        <p className="mt-10 text-sm text-muted-foreground">
-          Every photo represents your actual dish — built from your recipe, your ingredients, your plating.
-          No stock photography. No misleading imagery.
-        </p>
-      </div>
-    </section>
+      <section id="faq" className="container py-16">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight">Common questions.</h2>
+        </div>
+        <div className="mx-auto mt-10 max-w-4xl">
+          <FAQ audience="audience-a" />
+        </div>
+      </section>
+
+      <section id="cta-foot" className="border-t bg-gradient-to-b from-background to-muted/30 py-16">
+        <div className="container max-w-3xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight">Ready when you are.</h2>
+          <p className="mt-3 text-muted-foreground">
+            Send us your menu. We'll have shoot-ready photos for every item in your inbox tomorrow.
+          </p>
+          <div className="mt-8">
+            <RestaurantStartForm />
+            <p className="mt-3 text-sm">
+              Or{" "}
+              <Link href="/audit" className="font-semibold text-amber-700 underline-offset-4 hover:underline">
+                run a free audit
+              </Link>{" "}
+              to see what you're missing.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
