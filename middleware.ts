@@ -1,8 +1,10 @@
 import { clerkMiddleware, createRouteMatcher, clerkClient } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isAdminAuthRoute = createRouteMatcher(["/admin/sign-in(.*)", "/admin/sign-up(.*)"]);
+
+const HAS_CLERK = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY);
 
 const ADMIN_EMAIL = (process.env.ADMIN_EMAIL ?? "jack@seifdn.org").trim().toLowerCase();
 // Anyone with an email on one of these domains can access the admin area.
@@ -15,27 +17,44 @@ const REFERRAL_COOKIE = "rs_ref";
 const REFERRAL_TTL_DAYS = 30;
 const REFERRAL_RE = /^[A-Za-z0-9_-]{4,32}$/;
 
-export default clerkMiddleware(async (auth, req) => {
-  // ─── Affiliate / referral capture ──────────────────────────────────
-  // Any page hit with ?ref=CODE persists a 30-day cookie. The checkout
-  // API later reads this cookie and stamps it onto the order, so we get
-  // first-touch attribution even if the visitor lands on /agents but
-  // converts via /l/<slug> after a cold-email click days later.
-  let res: NextResponse | undefined;
+function affiliateCapture(req: NextRequest): NextResponse | undefined {
   const refParam = req.nextUrl.searchParams.get("ref");
   if (refParam && REFERRAL_RE.test(refParam)) {
     const existing = req.cookies.get(REFERRAL_COOKIE)?.value;
     if (!existing) {
-      res = NextResponse.next();
-      res.cookies.set(REFERRAL_COOKIE, refParam, {
+      const r = NextResponse.next();
+      r.cookies.set(REFERRAL_COOKIE, refParam, {
         path: "/",
         maxAge: REFERRAL_TTL_DAYS * 24 * 60 * 60,
         sameSite: "lax",
         httpOnly: false,
         secure: true,
       });
+      return r;
     }
   }
+  return undefined;
+}
+
+// Without Clerk env vars, the marketing site still works — we just skip
+// the admin gate (admin routes will 404/redirect via their own page-level
+// guards). This lets us deploy and preview the public surface before
+// wiring auth credentials.
+const noClerkMiddleware = (req: NextRequest): NextResponse | undefined => {
+  const res = affiliateCapture(req);
+  if (isAdminRoute(req) && !isAdminAuthRoute(req)) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+  return res;
+};
+
+const withClerk = clerkMiddleware(async (auth, req) => {
+  // ─── Affiliate / referral capture ──────────────────────────────────
+  // Any page hit with ?ref=CODE persists a 30-day cookie. The checkout
+  // API later reads this cookie and stamps it onto the order, so we get
+  // first-touch attribution even if the visitor lands on /agents but
+  // converts via /l/<slug> after a cold-email click days later.
+  let res: NextResponse | undefined = affiliateCapture(req);
 
   if (!isAdminRoute(req)) return res;
   // Sign-in / sign-up pages render themselves — don't gate them.
@@ -57,6 +76,8 @@ export default clerkMiddleware(async (auth, req) => {
   }
   return res;
 });
+
+export default HAS_CLERK ? withClerk : noClerkMiddleware;
 
 export const config = {
   runtime: "nodejs",
