@@ -1,10 +1,12 @@
 import { Footer } from "@/components/marketing/footer";
 import { MetaPixel } from "@/components/marketing/meta-pixel";
+import { PostHogProvider } from "@/components/marketing/posthog-provider";
 import Link from "next/link";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
+      <PostHogProvider />
       <MetaPixel />
       <header className="border-b">
         <div className="container flex h-16 items-center justify-between">
