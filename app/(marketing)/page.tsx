@@ -24,7 +24,7 @@ export default async function HomePage() {
             For restaurants · A photo for every dish on your menu
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Sell more food. Every item on your menu, photographed.
+            Don't leave money on the table. Photograph every item on your menu.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground sm:text-xl">
             Listings with a photo on every menu item get up to{" "}
