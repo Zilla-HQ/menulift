@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: { bodySizeLimit: "10mb" },
-    nodeMiddleware: true,
   },
   // Server-only packages that should not be bundled by webpack — either because
   // they're heavy native code (sharp), have native peer deps that webpack
