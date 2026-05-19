@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     const roomHint = ranked[i].classification.kind;
     try {
       // Mirror Zillow source to R2 first — fal.ai sometimes 403s on
-      // image.zillowstatic.com from its IP range, R2 signed URLs are reliable.
+      // R2 origin from its IP range, R2 signed URLs are reliable.
       const sourceRes = await fetch(src);
       if (!sourceRes.ok) throw new Error(`source ${sourceRes.status}`);
       const sourceBuf = Buffer.from(await sourceRes.arrayBuffer());

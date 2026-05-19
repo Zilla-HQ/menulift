@@ -47,7 +47,7 @@ export const previewStuckWatchdogFn = inngest.createFunction(
         .from(listings)
         .where(
           and(
-            eq(listings.source, "homeowner_self_serve"),
+            eq(listings.source, "operator_self_serve"),
             lt(listings.createdAt, cutoff),
             notInArray(listings.id, havingPreview),
           ),
@@ -99,7 +99,7 @@ export async function countStuckSelfServeListings(thresholdMinutes = STUCK_THRES
     .from(listings)
     .where(
       and(
-        eq(listings.source, "homeowner_self_serve"),
+        eq(listings.source, "operator_self_serve"),
         lt(listings.createdAt, cutoff),
         notInArray(listings.id, havingPreview),
       ),

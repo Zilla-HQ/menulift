@@ -13,35 +13,50 @@ import {
 } from "drizzle-orm/pg-core";
 import type { MetaInsightsMetadata } from "@/lib/meta-ads";
 
-// All Relist tables live under the "relist" schema so they can share a
-// Supabase/Postgres instance with other apps without colliding on common
-// names like "messages" or "orders".
-export const relistSchema = pgSchema("relist");
+// All MenuLift tables live under the "relist" Postgres schema (legacy
+// physical name — kept to avoid destructive migration) so they can share
+// a Supabase/Postgres instance with other apps without colliding on
+// common names like "messages" or "orders".
+export const menuliftSchema = pgSchema("relist");
 
 // ============ Enums ============
 
-export const sourceEnum = relistSchema.enum("listing_source", [
+// menu_item_source: where we discovered the restaurant menu.
+// Legacy enum values (zillow/redfin/realtor/homeowner_self_serve/attom/
+// propertyradar) remain in the Postgres type for backward compatibility
+// with existing rows; new code should use the menulift-native values.
+export const sourceEnum = menuliftSchema.enum("listing_source", [
+  "google_places",
+  "doordash",
+  "ubereats",
+  "operator_self_serve",
+  // Legacy upstream values — DO NOT use in new code. Kept here so
+  // drizzle doesn't try to DROP existing enum members on the deployed DB.
   "zillow",
   "redfin",
   "realtor",
-  // Homeowner-side sources. The first is set when a homeowner submits an
-  // address through /renovate. The other two are cold-scrape sources that
-  // pull owner-of-record property records (county tax + skiptracing) for
-  // proactive homeowner outreach.
   "homeowner_self_serve",
   "attom",
   "propertyradar",
 ]);
-export const listingTypeEnum = relistSchema.enum("listing_type", [
+// Restaurant categorisation (formerly residential listing_type). Legacy
+// values retained for backward compatibility with deployed rows.
+export const listingTypeEnum = menuliftSchema.enum("listing_type", [
+  "fast_casual",
+  "fine_dining",
+  "cafe",
+  "bar",
+  "ghost_kitchen",
+  "other",
+  // Legacy upstream values — not used by new code.
   "single_family",
   "condo",
   "townhouse",
   "multi_family",
   "land",
-  "other",
 ]);
-export const outreachChannelEnum = relistSchema.enum("outreach_channel", ["email", "sms"]);
-export const outreachStatusEnum = relistSchema.enum("outreach_status", [
+export const outreachChannelEnum = menuliftSchema.enum("outreach_channel", ["email", "sms"]);
+export const outreachStatusEnum = menuliftSchema.enum("outreach_status", [
   "queued",
   "sent",
   "delivered",
@@ -53,8 +68,8 @@ export const outreachStatusEnum = relistSchema.enum("outreach_status", [
   "unsubscribed",
   "failed",
 ]);
-export const orderTierEnum = relistSchema.enum("order_tier", ["standard", "premium", "rush"]);
-export const orderStatusEnum = relistSchema.enum("order_status", [
+export const orderTierEnum = menuliftSchema.enum("order_tier", ["standard", "premium", "rush"]);
+export const orderStatusEnum = menuliftSchema.enum("order_status", [
   "pending",
   "paid",
   "fulfilling",
@@ -62,11 +77,11 @@ export const orderStatusEnum = relistSchema.enum("order_status", [
   "refunded",
   "failed",
 ]);
-export const messageDirectionEnum = relistSchema.enum("message_direction", ["inbound", "outbound"]);
+export const messageDirectionEnum = menuliftSchema.enum("message_direction", ["inbound", "outbound"]);
 
 // ============ listings ============
 
-export const listings = relistSchema.table(
+export const listings = menuliftSchema.table(
   "listings",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -143,7 +158,7 @@ export type NewListing = typeof listings.$inferInsert;
 
 // ============ previews ============
 
-export const previews = relistSchema.table(
+export const previews = menuliftSchema.table(
   "previews",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -174,7 +189,7 @@ export type NewPreview = typeof previews.$inferInsert;
 
 // ============ outreach_events ============
 
-export const outreachEvents = relistSchema.table(
+export const outreachEvents = menuliftSchema.table(
   "outreach_events",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -214,7 +229,7 @@ export type NewOutreachEvent = typeof outreachEvents.$inferInsert;
 
 // ============ orders ============
 
-export const orders = relistSchema.table(
+export const orders = menuliftSchema.table(
   "orders",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -259,7 +274,7 @@ export type NewOrder = typeof orders.$inferInsert;
 
 // ============ messages ============
 
-export const messages = relistSchema.table(
+export const messages = menuliftSchema.table(
   "messages",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -301,7 +316,7 @@ export type StylePreset = {
   promptFragment: string;
 };
 
-export const adminSettings = relistSchema.table("admin_settings", {
+export const adminSettings = menuliftSchema.table("admin_settings", {
   id: integer("id").primaryKey().default(1),
 
   pricingStandardCents: integer("pricing_standard_cents").notNull().default(7900),
@@ -358,7 +373,7 @@ export const adminSettings = relistSchema.table("admin_settings", {
 
 // ============ x_mentions (audit log of every @mention + reply decision) ============
 
-export const xMentions = relistSchema.table(
+export const xMentions = menuliftSchema.table(
   "x_mentions",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -386,7 +401,7 @@ export type AdminSettings = typeof adminSettings.$inferSelect;
 
 // ============ agent_costs (daily cost tracking) ============
 
-export const agentCosts = relistSchema.table(
+export const agentCosts = menuliftSchema.table(
   "agent_costs",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -403,9 +418,9 @@ export const agentCosts = relistSchema.table(
 export type AgentCost = typeof agentCosts.$inferSelect;
 export type NewAgentCost = typeof agentCosts.$inferInsert;
 
-// ============ contractor_leads (homeowner → contractor referral) ============
+// ============ contractor_leads (legacy table; not used by MenuLift) ============
 
-export const contractorLeads = relistSchema.table(
+export const contractorLeads = menuliftSchema.table(
   "contractor_leads",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -432,7 +447,7 @@ export type NewContractorLead = typeof contractorLeads.$inferInsert;
 
 // ============ contractor_intros (Yelp-matched contractors per lead) ============
 
-export const contractorIntros = relistSchema.table(
+export const contractorIntros = menuliftSchema.table(
   "contractor_intros",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -466,7 +481,7 @@ export type NewContractorIntro = typeof contractorIntros.$inferInsert;
 
 // ============ campaigns (Meta ad campaigns + insights snapshots) ============
 
-export const campaigns = relistSchema.table(
+export const campaigns = menuliftSchema.table(
   "campaigns",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -526,7 +541,7 @@ export type NewCampaign = typeof campaigns.$inferInsert;
 //   - Inbound unsubscribe replies (mailto: List-Unsubscribe + Claude
 //     classifier "unsubscribe" bucket) → "unsubscribed" reason
 //   - Manual operator additions → "manual" reason
-export const emailBlocklist = relistSchema.table("email_blocklist", {
+export const emailBlocklist = menuliftSchema.table("email_blocklist", {
   email: text("email").primaryKey(),
   reason: text("reason").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
@@ -539,7 +554,7 @@ export type NewEmailBlocklist = typeof emailBlocklist.$inferInsert;
 // outreach_events (which is delivery-side) — conversions captures the
 // downstream user actions: page view, click, checkout started, purchased.
 // Indexed on (event, createdAt) because every digest read filters by both.
-export const conversions = relistSchema.table(
+export const conversions = menuliftSchema.table(
   "conversions",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -569,7 +584,7 @@ export type NewConversion = typeof conversions.$inferInsert;
 //   1. status='clicked' at /ref/:code visit time
 //   2. status='purchased' at Stripe webhook checkout.session.completed
 // Tiered commissions live in lib/affiliate-tiers.ts; payout is monthly.
-export const referrals = relistSchema.table(
+export const referrals = menuliftSchema.table(
   "referrals",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -601,7 +616,7 @@ export type NewReferral = typeof referrals.$inferInsert;
 //
 // autoSendEnabled is the per-contact opt-in: even when the sponsor cron
 // is on, only flagged contacts auto-send.
-export const outboundContacts = relistSchema.table(
+export const outboundContacts = menuliftSchema.table(
   "outbound_contacts",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -634,7 +649,7 @@ export type NewOutboundContact = typeof outboundContacts.$inferInsert;
 // `direction` distinguishes them so the admin thread view renders a single
 // conversation. Reply bodies are stored here (not in `messages`, which is
 // for listing-owner replies in the cold-outreach loop).
-export const outboundContactMessages = relistSchema.table(
+export const outboundContactMessages = menuliftSchema.table(
   "outbound_contact_messages",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -662,7 +677,7 @@ export type NewOutboundContactMessage = typeof outboundContactMessages.$inferIns
 // cost (Lob bills cents per piece) and prevent re-mailing the same
 // listing. The status field tracks Lob's lifecycle (created → in_transit
 // → delivered) when webhooks are wired up.
-export const directMailEvents = relistSchema.table(
+export const directMailEvents = menuliftSchema.table(
   "direct_mail_events",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -699,7 +714,7 @@ export type NewDirectMailEvent = typeof directMailEvents.$inferInsert;
 // it via /admin/thoughts. Auto-flagged thoughts (heuristic match on
 // trigger words) appear at the top of the curation queue with
 // flaggedForReview=true.
-export const agentThoughts = relistSchema.table(
+export const agentThoughts = menuliftSchema.table(
   "agent_thoughts",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -725,7 +740,7 @@ export type NewAgentThought = typeof agentThoughts.$inferInsert;
 // (Claude, GPT, Gemini, …) running the merchant for one week each and
 // publish results. Schema future-proofed for per-vertical / per-region
 // breakouts — current MVP is headline numbers only.
-export const benchRuns = relistSchema.table(
+export const benchRuns = menuliftSchema.table(
   "bench_runs",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -760,7 +775,7 @@ export type NewBenchRun = typeof benchRuns.$inferInsert;
 //     showPublicly opt-in flag — see listings.showPublicly extension)
 //   - diary: auto-tweeted when a new diary entry is published
 //   - weekly_recap: weekly metrics tweet from the spectacle Monday cron
-export const outboundTweets = relistSchema.table(
+export const outboundTweets = menuliftSchema.table(
   "outbound_tweets",
   {
     id: uuid("id").primaryKey().defaultRandom(),

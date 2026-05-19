@@ -7,8 +7,8 @@ if (apiKey) {
 }
 
 // FLUX.1 Kontext — purpose-built for "edit while preserving source structure".
-// Stricter on room geometry than nano-banana, which kept generating different
-// rooms when asked to stage. Model can be overridden per-deployment via
+// Stricter on dish geometry than nano-banana, which kept generating different
+// dishes when asked to restyle. Model can be overridden per-deployment via
 // FAL_PREVIEW_MODEL.
 const model = env("FAL_PREVIEW_MODEL", "fal-ai/flux-pro/kontext")!;
 
@@ -18,23 +18,22 @@ export interface FalPreviewResult {
 }
 
 /**
- * Generate a staged preview from a source photo. Costs ~$0.04-0.08/image on
- * Nano Banana Pro. Throws if FAL_API_KEY is missing (caller should catch
- * and log rather than silent-fail).
+ * Generate an AI-enhanced menu photo preview from a source photo. Costs
+ * ~$0.04-0.08/image on Nano Banana Pro. Throws if FAL_API_KEY is missing
+ * (caller should catch and log rather than silent-fail).
  */
-export type PreviewMode = "staging" | "enhancement";
+export type PreviewMode = "styling" | "enhancement";
 
 export async function generateStagedPreview(args: {
   sourceImageUrl: string;
   styleFragment: string;
+  /** Hint for the menu item / dish category — used to phrase the prompt. */
   roomHint?: string;
   /**
-   * "staging"    — for empty/sparse rooms. Adds furniture into the
-   *                 open space. Kontext is faithful to walls/floor/ceiling
-   *                 because there's nothing to preserve incorrectly.
-   * "enhancement" — for already-furnished rooms. Pure retouch (lighting,
-   *                 color, clarity). Kontext can't reliably ADD furniture
-   *                 into a populated scene so we don't ask it to.
+   * "styling"     — for amateur phone-shot dishes. Plates the dish on a
+   *                 styled surface with garnish, props, soft natural light.
+   * "enhancement" — for existing food photos. Pure retouch (lighting,
+   *                 color, sharpness, white balance).
    * Defaults to "enhancement" — the safer default.
    */
   mode?: PreviewMode;
@@ -46,65 +45,51 @@ export async function generateStagedPreview(args: {
   }
 
   const mode: PreviewMode = args.mode ?? "enhancement";
+  const subject = args.roomHint ?? "menu dish";
 
   let serviceClause: string;
   let outerWrap: string[];
 
   if (args.servicePrompt) {
-    // Service-specific override path (pool, solar, twilight, curb-appeal etc.)
     serviceClause = args.servicePrompt;
     outerWrap = [
       `Edit this exact photograph.`,
       serviceClause,
-      "STRICT: keep the building's structure, walls, lot, neighbors, and camera angle identical to the source. Photo-realistic. No text, no watermarks.",
+      "STRICT: keep the dish's ingredients, plating layout, portion size, and camera angle identical to the source. Photo-realistic. No text, no watermarks.",
     ];
-  } else if (mode === "staging") {
-    // Virtually stage the room. ALLOWED: any movable / surface / finish
-    // change — furniture, decor, area rugs, art, plants, lighting fixtures,
-    // paint color, flooring material, hardware, fabric. FORBIDDEN: any
-    // architectural change — walls, doorways, windows, staircases,
-    // banisters, balconies, ceilings, beams, columns, room geometry.
-    serviceClause = `Refresh and stage this room as a high-end real-estate listing. You MAY: place tasteful new furniture (sofa, accent chairs, coffee table, area rug, side tables, lamps), add modern decor (framed art, plants, throw pillows, books, vases), update finishes (paint color, flooring material, light fixtures, hardware), and refresh lighting/color in the style of: ${args.styleFragment}.`;
+  } else if (mode === "styling") {
+    // Style the dish for a premium menu shot. ALLOWED: surface, lighting,
+    // garnish, props (napkin, cutlery, glassware), background blur, color
+    // tone. FORBIDDEN: changing the food itself — recipe, portion, plating
+    // structure, ingredients.
+    serviceClause = `Re-style this dish photograph as a premium restaurant menu hero. You MAY: replace the surface (warm wood, marble, slate), add subtle props (linen napkin, brushed cutlery, small glass of garnish), refine the natural lighting (soft window-light feel), introduce shallow depth-of-field background blur, and color-grade in the style of: ${args.styleFragment}.`;
     outerWrap = [
-      `Restage this exact ${args.roomHint ?? "room"} photograph for a high-end real-estate listing.`,
+      `Re-style this exact ${subject} photograph for a high-end restaurant menu.`,
       serviceClause,
-      "ABSOLUTELY DO NOT modify, remove, add, relocate, or alter any walls, doorways, doors, windows, staircases, stair treads, banisters, handrails, balusters, balconies, ceilings, ceiling beams, structural columns, archways, room dimensions, or perspective. Every architectural element — including the staircase, every railing, every wall, every window opening — must be in the EXACT same position with the EXACT same shape and material as the source. Same camera angle, same room geometry.",
-      "Photo-realistic real-estate photography. No text, no watermarks, no logos.",
+      "ABSOLUTELY DO NOT modify, remove, add, or rearrange any ingredient, garnish on the food itself, sauce, drizzle, portion size, plating layout, or the dish's identity. Every food element must remain in the EXACT same position with the EXACT same shape and color as the source. Same camera angle, same crop.",
+      "Photo-realistic restaurant food photography. No text, no watermarks, no logos.",
     ];
   } else {
-    // Furnished room → enhancement. Goal: make the room feel BRIGHTER,
-    // WHITER, and MORE MODERN without removing the existing furniture or
-    // changing the structure. Prior "magazine retouch" prompt was too
-    // conservative — left rooms looking like the same dated room. New
-    // prompt explicitly: paint all walls bright white, brighten lighting
-    // dramatically, modernize fixtures + finishes, refresh flooring color,
-    // declutter visible surfaces. Keep furniture (we can't faithfully
-    // remove it) but make the whole space feel new.
+    // Existing food photo → enhancement. Goal: make the dish look BRIGHTER,
+    // SHARPER, and MORE APPETIZING without altering the dish itself.
     serviceClause =
-      "Make this room feel bright, white, modern, and freshly listed. " +
-      "DO: paint ALL walls in bright clean white (Benjamin Moore Chantilly Lace or similar). " +
-      "DO: brighten the overall lighting dramatically — natural daylight feel, no dark corners. " +
-      "DO: update flooring tone if dated (warm light wood preferred over orange wood or beige tile). " +
-      "DO: modernize light fixtures, ceiling fans, and switch plates if they're visible and dated. " +
-      "DO: declutter visible surfaces (countertops, side tables) of personal items / clutter / pets / plants. " +
-      "DO: replace heavy / dark / patterned curtains with simple white linen sheers. " +
-      "DO: sharpen detail, balance color, clean white balance. " +
-      "DO NOT: remove or relocate the existing furniture (sofas, beds, dining tables, kitchen islands stay where they are). " +
-      "DO NOT: alter walls, doorways, windows, room geometry, ceiling structure, staircases, banisters, beams, or columns.";
+      "Make this dish look bright, sharp, and appetizing for a premium menu. " +
+      "DO: warm the lighting toward soft natural daylight, lift shadows, brighten highlights. " +
+      "DO: increase color saturation tastefully (greens look greener, sauces glossier, meats more golden). " +
+      "DO: sharpen detail on the food surface, balance white balance to neutral-warm. " +
+      "DO: clean any visible smudges, fingerprints, or dust on the plate / surface. " +
+      "DO: declutter the background — soften or blur distracting items (phone, wallet, takeout container). " +
+      "DO NOT: alter the dish itself — ingredients, sauce, garnish, portion, plating layout, color of the food. " +
+      "DO NOT: change the camera angle, crop tightly differently, or swap the surface for an obviously different material.";
     outerWrap = [
-      `Edit this exact ${args.roomHint ?? "real-estate"} photograph as a high-end real-estate retoucher would for a magazine listing.`,
+      `Edit this exact ${subject} photograph as a professional food retoucher would for a premium restaurant menu.`,
       serviceClause,
-      "Photo-realistic real-estate photography. No text, no watermarks, no logos.",
+      "Photo-realistic restaurant food photography. No text, no watermarks, no logos.",
     ];
   }
   const prompt = outerWrap.join(" ");
 
-  // FLUX.1 Kontext takes image_url (singular). nano-banana's /edit endpoint
-  // takes image_urls (plural). Pass both — fal.ai ignores the unused one.
-  // Staging gets lower guidance (Kontext stays closer to source structure);
-  // enhancement gets the original setting (less drift risk anyway since
-  // it's only doing color/lighting).
-  const guidanceScale = mode === "staging" ? 2.8 : 3.5;
+  const guidanceScale = mode === "styling" ? 2.8 : 3.5;
   const result = (await fal.subscribe(model, {
     input: {
       prompt,
@@ -122,6 +107,5 @@ export async function generateStagedPreview(args: {
     throw new Error("fal.ai returned no image");
   }
 
-  // Rough cost estimate — refine once per-model pricing is known.
   return { url, costCents: 6 };
 }

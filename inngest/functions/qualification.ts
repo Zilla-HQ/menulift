@@ -36,7 +36,7 @@ export const qualificationFn = inngest.createFunction(
     // (self-serve = customer's own email; homeowner cold = skiptraced upstream).
     const needsEmailDiscovery =
       !listing.agentEmail &&
-      listing.source !== "homeowner_self_serve" &&
+      listing.source !== "operator_self_serve" &&
       !(listing.qualificationReason ?? "").startsWith("self-serve") &&
       listing.agentName;
 

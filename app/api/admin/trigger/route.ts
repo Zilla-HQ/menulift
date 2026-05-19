@@ -43,8 +43,8 @@ function isAuthedBySecret(req: NextRequest): boolean {
  * (CI, on-call CLI) that don't have a browser session.
  *
  * Usage:
- *   POST /api/admin/trigger?target=realtor
- *   POST /api/admin/trigger?target=homeowner
+ *   POST /api/admin/trigger?target=restaurants
+ *   POST /api/admin/trigger?target=operators
  *   POST /api/admin/trigger?target=requalify&listingId=<uuid>&serviceId=<id>
  */
 export async function POST(req: NextRequest) {
@@ -56,13 +56,13 @@ export async function POST(req: NextRequest) {
   const url = new URL(req.url);
   const target = url.searchParams.get("target");
 
-  if (target === "realtor") {
+  if (target === "restaurants") {
     await inngest.send({ name: "discovery/manual", data: {} });
     return NextResponse.json({ ok: true, fired: "discovery/manual" });
   }
-  if (target === "homeowner") {
-    await inngest.send({ name: "homeowner-discovery/manual", data: {} });
-    return NextResponse.json({ ok: true, fired: "homeowner-discovery/manual" });
+  if (target === "operators") {
+    await inngest.send({ name: "operator-discovery/manual", data: {} });
+    return NextResponse.json({ ok: true, fired: "operator-discovery/manual" });
   }
   if (target === "requalify") {
     const listingId = url.searchParams.get("listingId");
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, fired: "social-poster/manual" });
   }
   return NextResponse.json(
-    { error: "missing ?target=realtor|homeowner|requalify|fulfill|social-poster" },
+    { error: "missing ?target=restaurants|operators|requalify|fulfill|social-poster" },
     { status: 400 },
   );
 }

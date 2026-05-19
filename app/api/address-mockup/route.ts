@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
   const [row] = await db
     .insert(listings)
     .values({
-      source: "zillow", // schema requires a source enum value; "zillow" is fine as a placeholder
+      source: "google_places", // schema requires a source enum value; "google_places" is fine as a placeholder
       sourceId,
       address: line1,
       city,

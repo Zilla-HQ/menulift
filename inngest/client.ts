@@ -1,7 +1,7 @@
 import { EventSchemas, Inngest } from "inngest";
 
 type Events = {
-  "listings/ingested": { data: { listingId: string; source: "zillow" | "redfin" | "realtor" } };
+  "listings/ingested": { data: { listingId: string; source: "google_places" | "doordash" | "ubereats" } };
   "listings/qualified": { data: { listingId: string; serviceId?: string } };
   "preview/ready": { data: { listingId: string; previewId: string; serviceId?: string } };
   "outreach/sent": { data: { listingId: string; outreachEventId: string } };
@@ -21,16 +21,16 @@ type Events = {
       inReplyTo: string | null;
     };
   };
-  // Self-serve: agent or homeowner drops a listing URL on our site.
+  // Self-serve: restaurant operator drops a menu URL on our site.
   "self-serve/submitted": {
     data: {
       listingId: string;
       url: string;
-      source: "zillow" | "redfin" | "realtor";
+      source: "google_places" | "doordash" | "ubereats";
       serviceId?: string;
     };
   };
-  // Homeowner submitted contractor lead form on a /l/<slug> page.
+  // Restaurant operator submitted contact form on a /l/<slug> page.
   "lead/captured": {
     data: {
       leadId: string;
@@ -38,15 +38,15 @@ type Events = {
       serviceId: string;
     };
   };
-  // Admin-triggered manual discovery / homeowner-discovery run (from /admin).
+  // Admin-triggered manual discovery / operator-discovery run (from /admin).
   "discovery/manual": { data: Record<string, never> };
-  "homeowner-discovery/manual": { data: Record<string, never> };
+  "operator-discovery/manual": { data: Record<string, never> };
   // Manual triggers for the Meta ads loop (from /admin/campaigns).
   "meta-ads/sync": { data: Record<string, never> };
   "meta-ads/autonomy": { data: Record<string, never> };
   "meta-ads/lead-scaler": { data: Record<string, never> };
   "meta-ads/fatigue-check": { data: Record<string, never> };
-  // Manual-only re-enrichment of listings missing an agent email. Don't
+  // Manual-only re-enrichment of menus missing a contact email. Don't
   // schedule this — cron-level runs would burn Hunter / Apollo quota.
   "backfill-emails/run": { data: Record<string, never> };
   // Manual trigger for the SEO bootstrap. Idempotent — safe to fire
@@ -77,7 +77,7 @@ type Events = {
   "abandoned-checkout/run": { data: Record<string, never> };
   // Lob direct-mail postcard cron.
   "direct-mail/run": { data: Record<string, never> };
-  // Spectacle layer crons (agent persona — diary auto-tweet + Monday
+  // Spectacle layer crons (operator persona — diary auto-tweet + Monday
   // weekly recap tweet). Gated on SPECTACLE_ENABLED + TWITTER_ENABLED.
   "diary/publish-tweet": { data: Record<string, never> };
   "spectacle/weekly-recap-tweet": { data: Record<string, never> };
@@ -88,10 +88,9 @@ type Events = {
   "followup/touch-3": { data: { listingId: string; outreachEventId: string } };
   "followup/touch-4": { data: { listingId: string; outreachEventId: string } };
   // Restay-style multi-tier (tier 1 → tier 6) follow-up chain — fired by
-  // outreach.ts at send time, picked up by scheduled-followups.ts at the
-  // scheduled date. Distinct from followup/touch-3 + touch-4 above (which
-  // are per-listing extended touches); these are batch tier sends used by
-  // the warm-up ramp scripts in scripts/send-tier*-batch.ts.
+  // Distinct from followup/touch-3 + touch-4 above (which are per-menu
+  // extended touches); these are batch tier sends used by the warm-up
+  // ramp scripts in scripts/send-tier*-batch.ts.
   "outreach/schedule-tier1-followup": { data: { listingId: string; outreachEventId: string } };
   "outreach/schedule-tier1-breakup": { data: { listingId: string; outreachEventId: string } };
   "outreach/schedule-tier2-breakup": { data: { listingId: string; outreachEventId: string } };
@@ -106,6 +105,6 @@ type Events = {
 };
 
 export const inngest = new Inngest({
-  id: "relist",
+  id: "menulift",
   schemas: new EventSchemas().fromRecord<Events>(),
 });
