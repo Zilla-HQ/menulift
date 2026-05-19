@@ -11,14 +11,14 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <header className="border-b">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="text-lg font-bold tracking-tight">
-            Realscale
+            MenuLift
           </Link>
           <nav className="flex items-center gap-4 text-sm">
-            <Link href="/agents" className="text-muted-foreground hover:text-foreground">
-              For agents
+            <Link href="/audience-a" className="text-muted-foreground hover:text-foreground">
+              For restaurants
             </Link>
-            <Link href="/renovate" className="text-muted-foreground hover:text-foreground">
-              For homeowners
+            <Link href="/audience-b" className="text-muted-foreground hover:text-foreground">
+              Free audit
             </Link>
             <Link href="/services" className="text-muted-foreground hover:text-foreground">
               Services
