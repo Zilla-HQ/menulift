@@ -24,7 +24,7 @@ function isAuthed(req: NextRequest): boolean {
 
 /**
  * Send the standard "first-touch" cold-outreach email for a listing to a
- * specific recipient — the same email a realtor would normally receive
+ * specific recipient — the same email a restaurant operator would normally receive
  * (Subject "Your listing at X — before/after inside", side-by-side
  * before/after, CTA to checkout). Synthesizes the before image from the
  * listing's first photo, the after from an existing enhanced sample in

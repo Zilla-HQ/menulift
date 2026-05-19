@@ -18,7 +18,6 @@ export type Vertical =
   | "law"
   | "trades"
   | "retail"
-  | "realestate"
   | "auto"
   | "default";
 
@@ -84,13 +83,6 @@ const VERTICALS: Record<Vertical, VerticalCopy> = {
     signatureFeature: "store hours and product highlights",
     customerVerb: "see what's in stock",
     searchIntent: "find a local shop",
-  },
-  realestate: {
-    singular: "agent",
-    plural: "agents",
-    signatureFeature: "MLS-quality listing photos",
-    customerVerb: "view a listing",
-    searchIntent: "find a realtor or browse listings",
   },
   auto: {
     singular: "shop",

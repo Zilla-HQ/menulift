@@ -44,3 +44,4 @@ coverage
 
 .env.production
 .env.preview
+.env*.local

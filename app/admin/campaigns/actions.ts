@@ -79,7 +79,7 @@ export async function runCampaign(args: {
     const [row] = await db
       .insert(listings)
       .values({
-        source: "zillow",
+        source: "google_places",
         sourceId,
         address: line1,
         city,

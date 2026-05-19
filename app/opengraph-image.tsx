@@ -2,14 +2,10 @@ import { ImageResponse } from "next/og";
 
 /**
  * Site-wide default Open Graph + Twitter card image. Generated on
- * the edge — no static asset to manage. Renders the Restay logotype,
- * one-line value prop, and the FLASH50 callout for the duration of
- * launch week. After 2026-05-08 18:53 UTC the FLASH50 callout
- * would still render here even though the coupon is dead — keeping
- * it static is a forgivable evergreen-vs-precision trade for now.
+ * the edge — no static asset to manage.
  */
 export const runtime = "edge";
-export const alt = "Restay — AI listing tune-up for Airbnb hosts";
+export const alt = "MenuLift — A photo for every dish on your menu";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -36,7 +32,7 @@ export default async function OpenGraphImage() {
               width: 56,
               height: 56,
               borderRadius: 12,
-              background: "#10b981",
+              background: "#f59e0b",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -45,28 +41,28 @@ export default async function OpenGraphImage() {
               color: "#0f172a",
             }}
           >
-            R
+            M
           </div>
           <div style={{ fontSize: 36, fontWeight: 800, letterSpacing: "-0.02em" }}>
-            Restay
+            MenuLift
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div
             style={{
-              fontSize: 72,
+              fontSize: 64,
               fontWeight: 800,
               letterSpacing: "-0.03em",
               lineHeight: 1.05,
               maxWidth: 1000,
             }}
           >
-            Free Airbnb listing grader.<br />
-            <span style={{ color: "#10b981" }}>$79 one-time</span> Tune-Up.
+            Don't leave money on the table.<br />
+            <span style={{ color: "#f59e0b" }}>A photo for every dish</span> on your menu.
           </div>
-          <div style={{ fontSize: 28, color: "#94a3b8", maxWidth: 1000 }}>
-            Rewritten copy, 10 restyled photos, 30-day pricing report — delivered in under 4 hours.
+          <div style={{ fontSize: 26, color: "#94a3b8", maxWidth: 1000 }}>
+            Created for the items you don't have shot · enhanced for the ones you do · delivered in under 48 hours.
           </div>
         </div>
 
@@ -82,15 +78,15 @@ export default async function OpenGraphImage() {
           <div
             style={{
               padding: "8px 16px",
-              background: "#10b981",
+              background: "#f59e0b",
               color: "#0f172a",
               borderRadius: 8,
               fontWeight: 800,
             }}
           >
-            FLASH50
+            $29
           </div>
-          <div>50% off this week — first 10 customers · restay.agency</div>
+          <div>One-time per shoot · no subscription · menulift.app</div>
         </div>
       </div>
     ),

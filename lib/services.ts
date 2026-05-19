@@ -1,16 +1,25 @@
 import type { RoomKind } from "@/lib/room-classify";
 
 /**
- * A "service" is one transform we can offer on a property's photos
- * (or a derived asset like a satellite tile). Adding a service is just
- * adding an entry here — the preview pipeline reads `promptTemplate`
- * and `imageSource` to know what to do.
+ * A "service" is one transform MenuLift can offer on a restaurant's
+ * menu. Adding a service is just adding an entry here — the preview
+ * pipeline reads `promptTemplate` and `imageSource` to know what to do.
+ *
+ * MenuLift positioning (customer-outcome led):
+ *   - LEAD: a photo for every menu item — including the ones that have
+ *     no photo today. We GENERATE photos from your recipe + ingredients
+ *     + plating notes for the dishes missing a shot, and ENHANCE the
+ *     photos you already have. Restaurants get more orders because
+ *     items with photos convert at up to 30% higher than text-only.
+ *   - Every generated photo represents the actual dish: same recipe,
+ *     same ingredients, same plating direction the kitchen serves. No
+ *     stock photography, no misleading imagery.
  */
 
 export type ImageSource =
-  | "listing_photo" // pick best matching photo from MLS
-  | "satellite_tile" // pull a Mapbox satellite tile by lat/lng
-  | "exterior_facade"; // pick the exterior_front photo
+  | "listing_photo" // a menu-item photo the restaurant already has (we re-use the field name)
+  | "satellite_tile" // unused for MenuLift — kept so platform code compiles
+  | "exterior_facade"; // the storefront / cover photo
 
 // Audience is the union of the template's two generic placeholders
 // (audience-a / audience-b — kept so the stubbed FAQ + services-grid in
@@ -47,116 +56,105 @@ export interface ServiceDefinition {
 }
 
 export const SERVICES: ServiceDefinition[] = [
-  // ─── Photo enhancement (we charge for the deliverable) ──────────────────
-  // Pricing anchor: traditional virtual staging is $25-50/photo with 24-48h
-  // turnaround. Our $89 for 12-15 photos in <2h is ~80% cheaper, fast delivery
-  // is the differentiator, so we don't have to underprice further.
+  // ─── LEAD service: create photos for missing items ──────────────────────
+  // The biggest revenue lever for a restaurant: every dish with no photo
+  // today is leaving orders on the table. We generate from recipe +
+  // ingredients + plating notes, representing the dish the kitchen actually
+  // serves. Lead with this — it's the headline outcome.
   {
-    id: "photo-staging",
-    name: "Photo Staging",
+    id: "menu-shoot-full",
+    name: "Full Menu Shoot",
     shortDescription:
-      "Empty or dated rooms restaged with modern furniture and decor.",
+      "A photo for every dish on your menu — created for the ones you don't have, enhanced for the ones you do. Up to 50 items.",
     longDescription:
-      "Pull every interior photo, virtually stage each room with photo-realistic furniture and decor matched to your style preset, return the full set in under 2 hours. NAR-compliant disclosure stamped on every photo.",
-    basePriceCents: 8900,
-    rushPriceCents: 14900,
-    category: "interior",
-    audience: "agents", // staging is listing prep — not relevant on the homeowner side
+      "Send your menu (text, PDF, or your existing Google / DoorDash / Uber Eats listing). We generate a photo-realistic image for every item that's missing one — built from your actual recipe, ingredients, and plating direction — and enhance every photo you already have. Delivered back as channel-ready files for Google Business Profile, DoorDash, and Uber Eats. Under 48 hours. One-time price covers up to 50 menu items plus storefront hero refresh. The single biggest order-conversion lever you can pull this week.",
+    basePriceCents: 7900,
+    rushPriceCents: 11900,
+    category: "marketing",
+    audience: "audience-a",
     imageSource: "listing_photo",
-    applicableRooms: ["kitchen", "living_room", "dining_room", "bedroom", "office"],
     promptTemplate:
-      "Add photo-realistic furniture and decor: {{styleFragment}}. STRICT: keep the exact same camera angle, walls, ceiling, floor, windows, doors, and architectural features identical to the source. Match the existing lighting and shadows. Do not change the room type, layout, or perspective.",
-    ctaPrimary: "Stage all my listing photos",
-    emailSubjectTemplate: "Your listing at {{shortAddress}} — staged photos inside",
-    icon: "Sofa",
+      "Generate a photo-realistic overhead photograph of the restaurant dish described in the menu item: {{itemName}} — {{itemDescription}}. Plating should match the restaurant's style ({{platingNotes}}). Natural daylight, soft shadows, real ceramic or restaurant-grade tableware, fresh ingredients visible. The food must look like what the kitchen actually serves: no stylized garnishes the recipe doesn't include, no decorative elements that aren't on the plate, no misleading portion sizes. Photo-realistic. No text, no watermarks.",
+    ctaPrimary: "Shoot my whole menu",
+    emailSubjectTemplate: "{{shortAddress}} — every item on your menu, photographed",
+    icon: "Sparkles",
   },
   {
-    id: "twilight-exterior",
-    name: "Twilight Exterior",
+    id: "menu-shoot-starter",
+    name: "Starter Menu Shoot",
     shortDescription:
-      "Daytime exterior shots transformed into golden-hour and twilight magic.",
+      "Up to 20 menu items — generated for the ones missing photos, enhanced for the ones you have.",
     longDescription:
-      "Sky replacement, warm lighting, glow-from-within window pass. Turn a flat midday MLS shot into the cinematic exterior that drives showings.",
-    basePriceCents: 4900,
-    rushPriceCents: 7900,
-    category: "exterior",
-    audience: "agents",
+      "Best for restaurants with a focused menu (under ~20 items) or those who just want to cover the items most often ordered. We generate photo-realistic images for items without photos and enhance the ones you do have — each built from the recipe and plating notes you send us. Delivered in under 24 hours, channel-formatted for Google, DoorDash, and Uber Eats. One-time price.",
+    basePriceCents: 2900,
+    rushPriceCents: 4900,
+    category: "marketing",
+    audience: "audience-a",
+    imageSource: "listing_photo",
+    promptTemplate:
+      "Generate a photo-realistic overhead photograph of: {{itemName}} — {{itemDescription}}. Plating: {{platingNotes}}. Natural daylight, restaurant-grade tableware, fresh ingredients visible. Must match the dish the kitchen serves — no embellishments not in the recipe. Photo-realistic. No text, no watermarks.",
+    ctaPrimary: "Shoot my missing items",
+    emailSubjectTemplate: "{{shortAddress}} — photos for the menu items you're missing",
+    icon: "Sparkles",
+  },
+  {
+    id: "menu-enhance-only",
+    name: "Photo Enhance Pass",
+    shortDescription:
+      "Already have photos for every item? Polish all of them for delivery-app conversion. One-time.",
+    longDescription:
+      "If you already have a photo for every menu item, this is the cheaper option: we enhance the lighting, contrast, sharpness, and color balance on every photo, and re-export each one in the right aspect ratios for Google, DoorDash, and Uber Eats. No new generation. One-time price covers up to 50 items.",
+    basePriceCents: 1900,
+    rushPriceCents: 3900,
+    category: "marketing",
+    audience: "audience-a",
+    imageSource: "listing_photo",
+    promptTemplate:
+      "Enhance this exact photograph of a restaurant menu item. Even out the lighting, increase color saturation in the food without making it look artificial, sharpen textures (sear marks, crumb structure, sauce glisten), warm up the overall color temperature slightly. STRICT: do not change the dish itself, the plate, the garnishes, or the composition. Photo-realistic. No text, no watermarks, no added ingredients that weren't in the source.",
+    ctaPrimary: "Enhance my existing photos",
+    emailSubjectTemplate: "{{shortAddress}} — your enhanced menu photos inside",
+    icon: "Sparkles",
+  },
+  {
+    id: "hero-shot-refresh",
+    name: "Hero Shot Refresh",
+    shortDescription:
+      "Your storefront / cover photo, re-lit and color-graded for Google + delivery apps. One-time.",
+    longDescription:
+      "The cover photo on your Google Business Profile and DoorDash listing is the single biggest first-impression lever. We take your existing storefront shot and re-light it for warmth, contrast, and crispness — without changing the building, signage, or surroundings. Already included in the Full Menu Shoot; available standalone if you only need the hero refreshed.",
+    basePriceCents: 900,
+    rushPriceCents: 1900,
+    category: "marketing",
+    audience: "audience-a",
     imageSource: "exterior_facade",
     promptTemplate:
-      "Transform this exterior into a cinematic twilight scene. Replace the sky with a soft sunset gradient (warm pink and orange transitioning to deep blue). Add warm interior light glowing from the windows. Soft golden-hour highlights on the facade. STRICT: keep the building's geometry, materials, landscaping, and camera angle identical.",
-    ctaPrimary: "Twilight my exterior",
-    emailSubjectTemplate: "Your listing at {{shortAddress}} — twilight makeover inside",
-    icon: "SunMedium",
+      "Enhance this exact storefront photograph. Warm golden-hour color grade, increase contrast subtly, sharpen signage legibility, even out shadow areas. STRICT: keep the building, signage text, awnings, windows, and surrounding context identical. Photo-realistic. No text, no watermarks.",
+    ctaPrimary: "Refresh my storefront shot",
+    emailSubjectTemplate: "{{shortAddress}} — your storefront, refreshed",
+    icon: "Building2",
   },
-
-  // ─── Renovation services (free preview, monetize via contractor referral) ─
-  // Model: free mockup → contractor referral fee. Realtor-side referrals to
-  // pool/solar/landscape contractors typically pay 8-15% of the project value.
-  // For the average pool ($75k) at 12% = $9,000 per closed lead. We don't
-  // charge the homeowner; we charge the contractor.
+  // ─── Free audit (audience-b: marketplace operators + multi-location ops) ─
   {
-    id: "curb-appeal",
-    name: "Curb Appeal",
+    id: "menu-audit-free",
+    name: "Free Menu Audit",
     shortDescription:
-      "Manicured landscaping, fresh paint, and updated walkways — without lifting a shovel.",
+      "We scan your Google + DoorDash + Uber Eats listings and report every menu item that's missing a photo today.",
     longDescription:
-      "Render a redesigned front yard: new sod, planted beds, trim paint refresh, lighting fixtures. See your home's potential, then we connect you to vetted local landscapers who can bring the mockup to life. The mockup is free; you only pay your contractor for the work itself.",
+      "Paste your restaurant's name or your aggregator portfolio. We pull your public listings on Google, DoorDash, and Uber Eats, identify every menu item without a photo (the biggest order-conversion gap) plus the ones with weak photos, and email you a coverage report with the exact items costing you orders. Free, no card. The upsell is the Full Menu Shoot — but the audit itself is yours to keep.",
     basePriceCents: 0,
     rushPriceCents: 0,
-    category: "exterior",
-    audience: "renovate",
-    // Satellite-tile so homeowners submitting just an address (no MLS
-    // photos) can also get a curb-appeal mockup. Top-down view shows the
-    // front yard / driveway clearly enough to render landscaping
-    // refreshes; agents who want a true street-level facade can submit
-    // a Zillow URL on /agents instead, which gives the preview agent
-    // exterior MLS photos to work from.
-    imageSource: "satellite_tile",
+    category: "marketing",
+    audience: "audience-b",
+    imageSource: "listing_photo",
     promptTemplate:
-      "Edit this exact top-down satellite photograph to refresh the curb appeal of the home. Add a manicured emerald-green front lawn, tasteful planted beds along the front walkway with low evergreen shrubs and seasonal flowers, fresh dark mulch around any trees, a clean concrete driveway, and crisp white-edged borders around the lawn. STRICT: keep the house roof, structure, driveway shape, neighboring lots, and the top-down camera angle identical to the source. Photo-realistic satellite imagery look (sharp top-down perspective, midday lighting, no oblique tilt). No text, no watermarks.",
-    ctaPrimary: "Get my curb-appeal mockup",
-    emailSubjectTemplate: "Your front yard at {{shortAddress}} — refreshed",
-    icon: "Trees",
-  },
-  {
-    id: "pool-mockup",
-    name: "Pool Mockup",
-    shortDescription:
-      "See an in-ground pool in your actual backyard. Connect with vetted builders if you love it.",
-    longDescription:
-      "We pull a satellite tile of your property's lot, render a luxury in-ground pool with surrounding patio in your real backyard, and calculate the typical build cost + estimated home-value lift for your zip code. Free mockup. If you decide to move forward, we connect you with vetted local pool builders who pay us a referral fee — your quote is the same as if you went direct.",
-    basePriceCents: 0,
-    rushPriceCents: 0,
-    category: "exterior",
-    audience: "renovate",
-    imageSource: "satellite_tile",
-    promptTemplate:
-      "Render an in-ground rectangular swimming pool into the empty area of this satellite-view backyard. Surround the pool with light grey concrete or natural stone patio. Add tasteful landscaping along the edges. STRICT: keep the existing house, lot boundaries, neighbors, and camera angle (overhead satellite view) identical. The pool should fit naturally in the largest open backyard area.",
-    ctaPrimary: "See my pool mockup",
-    emailSubjectTemplate: "Your backyard at {{shortAddress}} — with a pool",
-    icon: "Waves",
-  },
-  {
-    id: "solar-mockup",
-    name: "Solar Mockup",
-    shortDescription:
-      "Visualize solar panels on your roof with a 25-year savings estimate.",
-    longDescription:
-      "Render a tasteful solar array on your roof using a satellite view, calculate the estimated lifetime savings against your zip's average utility rate, and connect with vetted local solar installers. The mockup and savings calc are free; if you choose an installer through us, they pay our referral fee — your install price is unchanged.",
-    basePriceCents: 0,
-    rushPriceCents: 0,
-    category: "exterior",
-    audience: "renovate",
-    imageSource: "satellite_tile",
-    promptTemplate:
-      "Render a tasteful black-framed solar panel array on the south-facing roof sections of this home in the satellite view. Realistic spacing and orientation. STRICT: keep the existing house, lot, neighbors, and camera angle identical.",
-    ctaPrimary: "See my solar mockup",
-    emailSubjectTemplate: "Your roof at {{shortAddress}} — with solar",
-    icon: "SunMedium",
+      "Generate one photo-realistic teaser image for a single menu item from this restaurant's listing, to demonstrate what the full shoot would deliver. Use the item name + any available description as the recipe brief. Overhead, natural daylight, restaurant-grade tableware. Photo-realistic. No text, no watermarks.",
+    ctaPrimary: "Run my free audit",
+    emailSubjectTemplate: "{{shortAddress}} — your free menu-photo audit",
+    icon: "Sparkles",
   },
 ];
 
-export const DEFAULT_SERVICE_ID = "photo-staging";
+export const DEFAULT_SERVICE_ID = "menu-shoot-full";
 
 export function getService(id: string): ServiceDefinition | undefined {
   return SERVICES.find((s) => s.id === id);
@@ -179,27 +177,24 @@ export function servicesForAudience(audience: Audience): ServiceDefinition[] {
 }
 
 /**
- * Pick the best service for a given listing based on its photos.
+ * Pick the best service for a given restaurant based on photo coverage.
  * Used by the outreach agent to decide what hook to lead the email with.
  *
- * Heuristics for v1:
- * - If most rooms are empty / dated → photo-staging
- * - If exterior_front exists and is shot in harsh daytime → twilight-exterior
- * - If lot has empty backyard (we don't detect this without satellite yet) → pool-mockup
+ * The merchant-template ships this with a real-estate-flavored signature
+ * (RoomKind classifications). We keep the signature for platform-code
+ * compatibility, but the heuristic is restaurant-specific:
  *
- * Default = photo-staging.
+ * - If the restaurant has many menu items with missing/weak photos → full-menu
+ * - If only a few items need help → starter
+ * - If the storefront cover photo is weak → hero-shot
+ *
+ * Without classification input we just return the default starter service.
  */
 export function pickPrimaryService(
   classifications: { kind: RoomKind; empty: boolean; stagingValue: number }[],
 ): ServiceDefinition {
-  const exterior = classifications.find(
-    (c) => c.kind === "exterior_front" || c.kind === "exterior_back",
-  );
-  const interiorEmptyCount = classifications.filter(
-    (c) => c.empty && c.kind !== "exterior_front" && c.kind !== "exterior_back",
-  ).length;
-
-  if (interiorEmptyCount >= 2) return requireService("photo-staging");
-  if (exterior && exterior.stagingValue >= 3) return requireService("twilight-exterior");
+  const weakOrMissing = classifications.filter((c) => c.empty || c.stagingValue >= 3).length;
+  if (weakOrMissing >= 10) return requireService("menu-shoot-full");
+  if (weakOrMissing >= 1) return requireService("menu-shoot-starter");
   return requireService(DEFAULT_SERVICE_ID);
 }

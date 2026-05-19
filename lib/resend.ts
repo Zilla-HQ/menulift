@@ -5,13 +5,13 @@ import { env } from "@/lib/env";
 const apiKey = env("RESEND_API_KEY");
 const resend = apiKey ? new Resend(apiKey) : null;
 
-const BUSINESS_NAME = env("BUSINESS_NAME", "Realscale")!;
+const BUSINESS_NAME = env("BUSINESS_NAME", "MenuLift")!;
 const BUSINESS_ADDRESS = env("BUSINESS_ADDRESS", "[SET BUSINESS_ADDRESS IN .env]")!;
 const APP_URL = env("NEXT_PUBLIC_APP_URL", "http://localhost:3000")!;
 
 export interface SendEmailArgs {
   to: string;
-  fromDomain: string; // e.g. "mail.realscale.app"
+  fromDomain: string; // e.g. "mail.menulift.app"
   fromName?: string;
   subject: string;
   mjml: string; // MJML source body (no footer — we inject it)
@@ -64,7 +64,7 @@ export async function sendComplianceEmail(args: SendEmailArgs): Promise<SendEmai
          <mj-text font-size="11px" color="#64748b" line-height="1.5">
            ${escapeHtml(BUSINESS_NAME)} &nbsp;·&nbsp; ${escapeHtml(BUSINESS_ADDRESS)}
            <br/>
-           You're receiving this because your listing appeared on a public MLS. We're a real estate photo enhancement service.
+           You're receiving this because your restaurant's menu appeared on a public marketplace (Google, DoorDash, or Uber Eats). We're a menu photo enhancement service.
            <br/>
            <a href="${unsubUrl}" style="color:#64748b;text-decoration:underline;">Unsubscribe</a>
          </mj-text>
@@ -95,7 +95,7 @@ export async function sendComplianceEmail(args: SendEmailArgs): Promise<SendEmai
   // operator's actual email/parent-company domain. REPLIES_EMAIL is forwarded
   // to the operator via an external forwarder (e.g. ImprovMX).
   const defaultReplyTo = env("REPLIES_EMAIL", isSharedSender
-    ? `replies@realscale.app`
+    ? `replies@menulift.app`
     : `replies@${args.fromDomain}`)!;
 
   // mailto unsubscribe only works on an owned domain; on the shared sender

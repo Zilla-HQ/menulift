@@ -1,5 +1,5 @@
 /**
- * Seed a single listing for the happy-path test. Use:
+ * Seed a single restaurant menu for the happy-path test. Use:
  *   npx tsx --env-file=.env.local scripts/seed-listing.ts --email you+test@yourdomain.com
  * Requires DATABASE_URL. Does NOT emit the Inngest event — trigger
  * listings/ingested manually from the Inngest dev UI.
@@ -11,43 +11,44 @@ async function main() {
   const args = process.argv.slice(2);
   const email = getArg(args, "--email") ?? "seed@example.com";
 
-  const address = "1234 Sample Ave";
+  const address = "1234 Congress Ave";
   const zip = "78701";
   const sourceId = `seed-${Date.now()}`;
 
   const [row] = await db
     .insert(listings)
     .values({
-      source: "zillow",
+      source: "google_places",
       sourceId,
       address,
       city: "Austin",
       state: "TX",
       zip,
-      price: 68_500_000, // $685k
+      price: 4500, // ~$45 avg entree cents
       dom: 4,
-      listingType: "single_family",
+      listingType: "fast_casual",
       photos: [
-        "https://placehold.co/1200x800/e2e8f0/475569?text=Kitchen",
-        "https://placehold.co/1200x800/e2e8f0/475569?text=Living",
-        "https://placehold.co/1200x800/e2e8f0/475569?text=Bedroom",
-        "https://placehold.co/1200x800/e2e8f0/475569?text=Bath",
-        "https://placehold.co/1200x800/e2e8f0/475569?text=Exterior",
+        "https://placehold.co/1200x800/e2e8f0/475569?text=Burger",
+        "https://placehold.co/1200x800/e2e8f0/475569?text=Tacos",
+        "https://placehold.co/1200x800/e2e8f0/475569?text=Salad",
+        "https://placehold.co/1200x800/e2e8f0/475569?text=Pasta",
+        "https://placehold.co/1200x800/e2e8f0/475569?text=Dessert",
       ],
-      agentName: "Test Agent",
+      // Legacy DB columns reused for restaurant contact + name.
+      agentName: "Test Operator",
       agentEmail: email,
       agentPhone: "+15125550123",
-      brokerage: "Seed Realty",
+      brokerage: "Seed Bistro",
       slug: `${slugify(`${address} ${zip}`)}-${sourceId.slice(-6)}`,
     })
     .returning();
 
-  console.log(`Seeded listing ${row.id}`);
+  console.log(`Seeded menu listing ${row.id}`);
   console.log(`Slug: /l/${row.slug}`);
-  console.log(`Agent email: ${email}`);
+  console.log(`Operator email: ${email}`);
   console.log(`\nTrigger qualification in Inngest dev UI with:`);
   console.log(`  event: listings/ingested`);
-  console.log(`  data: { "listingId": "${row.id}", "source": "zillow" }`);
+  console.log(`  data: { "listingId": "${row.id}", "source": "google_places" }`);
 }
 
 function getArg(args: string[], name: string): string | undefined {

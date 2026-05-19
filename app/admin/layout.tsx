@@ -18,7 +18,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex min-h-screen">
       <aside className="w-56 shrink-0 border-r bg-muted/20">
         <div className="p-6">
-          <div className="text-lg font-bold tracking-tight">Realscale</div>
+          <div className="text-lg font-bold tracking-tight">MenuLift</div>
           <div className="text-xs text-muted-foreground">Admin</div>
         </div>
         <nav className="px-3">

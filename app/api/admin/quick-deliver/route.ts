@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
   // Stage every photo we can. No QC. No retry. Skip on error.
   // We pre-fetch each source image and re-host it on R2 because Zillow's
   // CDN blocks fal.ai's IP range with 403 — fal.ai's servers can't fetch
-  // image.zillow.com directly. R2's URLs are public + signed, fal.ai
+  // R2 origin directly. R2's URLs are public + signed, fal.ai
   // can pull from there reliably.
   for (let i = 0; i < sources.length; i++) {
     const src = sources[i];

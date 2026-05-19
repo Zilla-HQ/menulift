@@ -1,8 +1,8 @@
 /**
- * Tier-5 cold-email batch — 16 STR realtors + boutique PMs + small
+ * Tier-5 cold-email batch — 16 restaurant operators + boutique groups + small
  * coaches. Sub-agent researched 2026-05-07 round 3.
  *
- * Distinct angle from prior tiers: realtors close STR-friendly
+ * Distinct angle from prior tiers: operators run premium-margin
  * properties and need listing setup for clients post-close; PMs
  * onboard new properties weekly; coaches teach students who launch
  * units. Restay is the $79 listing-side handoff for all three.

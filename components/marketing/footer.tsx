@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export function Footer() {
-  const businessName = process.env.BUSINESS_NAME ?? "Realscale";
+  const businessName = process.env.BUSINESS_NAME ?? "MenuLift";
   const address = process.env.BUSINESS_ADDRESS ?? "";
   return (
     <footer className="border-t bg-muted/30 py-10">
@@ -13,6 +13,12 @@ export function Footer() {
           {address && <div className="text-xs">{address}</div>}
         </div>
         <nav className="flex flex-wrap gap-4 text-xs">
+          <Link href="/services" className="hover:text-foreground">
+            Services
+          </Link>
+          <Link href="/audit" className="hover:text-foreground">
+            Free audit
+          </Link>
           <Link href="/terms" className="hover:text-foreground">
             Terms
           </Link>
@@ -20,7 +26,7 @@ export function Footer() {
             Privacy
           </Link>
           <Link href="/disclosure" className="hover:text-foreground">
-            Staging disclosure
+            Photo disclosure
           </Link>
         </nav>
       </div>

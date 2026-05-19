@@ -11,9 +11,10 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "**.zillowstatic.com" },
-      { protocol: "https", hostname: "**.rdcpix.com" },
-      { protocol: "https", hostname: "**.redfin.com" },
+      { protocol: "https", hostname: "**.googleusercontent.com" },
+      { protocol: "https", hostname: "**.gstatic.com" },
+      { protocol: "https", hostname: "**.doordash.com" },
+      { protocol: "https", hostname: "**.ubereats.com" },
       { protocol: "https", hostname: "**.r2.dev" },
       { protocol: "https", hostname: "**.cloudflarestorage.com" },
       { protocol: "https", hostname: "fal.media" },

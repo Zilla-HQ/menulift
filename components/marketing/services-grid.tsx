@@ -33,7 +33,7 @@ export function ServicesGrid({
                     <Icon className="h-5 w-5" />
                   </div>
                   {free ? (
-                    <Badge variant="success">Free preview</Badge>
+                    <Badge variant="success">Free</Badge>
                   ) : (
                     <Badge variant="secondary">{formatCents(s.basePriceCents)}</Badge>
                   )}

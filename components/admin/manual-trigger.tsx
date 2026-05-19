@@ -8,7 +8,7 @@ export function ManualTrigger() {
   const [pending, setPending] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<string | null>(null);
 
-  async function fire(target: "realtor" | "homeowner" | "social-poster") {
+  async function fire(target: "restaurants" | "operators" | "social-poster") {
     setPending(target);
     setResult(null);
     try {
@@ -41,17 +41,17 @@ export function ManualTrigger() {
           <Button
             type="button"
             disabled={pending !== null}
-            onClick={() => fire("realtor")}
+            onClick={() => fire("restaurants")}
           >
-            {pending === "realtor" ? "Firing…" : "Realtor scrape"}
+            {pending === "restaurants" ? "Firing…" : "Restaurant scrape"}
           </Button>
           <Button
             type="button"
             variant="secondary"
             disabled={pending !== null}
-            onClick={() => fire("homeowner")}
+            onClick={() => fire("operators")}
           >
-            {pending === "homeowner" ? "Firing…" : "Homeowner scrape"}
+            {pending === "operators" ? "Firing…" : "Operator scrape"}
           </Button>
           <Button
             type="button"
