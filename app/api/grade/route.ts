@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     sourceUrl: req.headers.get("referer") ?? undefined,
     user: { ...userDataFromRequest(req), externalId: parsed.sourceId },
     custom: {
-      contentName: `Restay grader — ${parsed.source}`,
+      contentName: `MenuLift grader — ${parsed.source}`,
       contentIds: [parsed.sourceId],
       contentType: "listing",
     },

@@ -88,7 +88,7 @@ export function ReadinessChecklist({ settings }: Props) {
         : "Set APIFY_TOKEN to enable cold discovery + self-serve URL drops.",
     },
     {
-      label: "Mapbox (homeowner geocoding + satellite)",
+      label: "Mapbox (restaurant geocoding + satellite)",
       status: env("NEXT_PUBLIC_MAPBOX_TOKEN") ? "ok" : "todo",
       detail: env("NEXT_PUBLIC_MAPBOX_TOKEN")
         ? "Homeowner address-mockup flow wired."
@@ -112,7 +112,7 @@ export function ReadinessChecklist({ settings }: Props) {
         settings.senderDomains.length > 0 &&
         !settings.senderDomains.includes("resend.dev")
           ? `Sending from ${settings.senderDomains.join(", ")}.`
-          : "Currently sending from resend.dev sandbox — most cold emails will land in spam. Verify a subdomain (e.g. mail.realscale.app) in Resend with DKIM + SPF.",
+          : "Currently sending from resend.dev sandbox — most cold emails will land in spam. Verify a subdomain (e.g. mail.menulift.app) in Resend with DKIM + SPF.",
     },
     {
       label: "Resend inbound webhook",

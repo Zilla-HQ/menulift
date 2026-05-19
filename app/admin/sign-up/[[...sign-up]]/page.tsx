@@ -1,6 +1,6 @@
 import { SignUp } from "@clerk/nextjs";
 
-export const metadata = { title: "Sign up — Realscale admin" };
+export const metadata = { title: "Sign up — MenuLift admin" };
 
 export default function SignUpPage() {
   return (

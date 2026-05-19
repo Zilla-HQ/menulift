@@ -14,7 +14,7 @@ import { shortAddress } from "@/lib/utils";
  *   - the listing has a real US street address (we can mail to it)
  *
  * Built and wired but disabled-by-default. Flip on via /admin/settings
- * or by updating relist.admin_settings.mailer_enabled = true.
+ * or by updating menulift.admin_settings.mailer_enabled = true.
  */
 export const mailerFn = inngest.createFunction(
   {
@@ -52,7 +52,7 @@ export const mailerFn = inngest.createFunction(
       return { skipped: true, reason: "preview empty" };
     }
 
-    // Re-host the source (zillowstatic) and signed-R2 enhanced URLs as
+    // Re-host the source (third-party CDN) and signed-R2 enhanced URLs as
     // long-lived public URLs that Lob's PDF renderer can fetch.
     const { beforeUrl, afterUrl } = await step.run("rehost-images-for-print", async () => {
       const fetchAndUpload = async (sourceUrl: string, key: string): Promise<string> => {
@@ -87,7 +87,7 @@ export const mailerFn = inngest.createFunction(
           },
           listingSlug: listing.slug,
           serviceId,
-          serviceName: service?.name ?? "Realscale",
+          serviceName: service?.name ?? "MenuLift",
           shortAddress: shortAddress(listing.address),
           beforeImageUrl: beforeUrl,
           afterImageUrl: afterUrl,

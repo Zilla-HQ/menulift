@@ -40,12 +40,12 @@ export default async function LeadsPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold">Contractor leads</h1>
+        <h1 className="text-2xl font-bold">Partner leads</h1>
         <p className="text-sm text-muted-foreground">
-          Homeowners who asked to be matched with a contractor after a free renovation
-          mockup. The Yelp matching agent fires automatically — top 3 contractors are
+          Restaurant operators who asked to be matched with a partner after a free menu
+          photo mockup. The matching agent fires automatically — top 3 partners are
           inserted into <code>contractor_intros</code> and emailed to both you and the
-          homeowner.
+          restaurant operator.
         </p>
       </div>
 

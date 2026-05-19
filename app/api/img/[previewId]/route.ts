@@ -54,11 +54,11 @@ export async function GET(
   }
 
   // For "before" images that are NOT R2-hosted (Mapbox satellite tiles,
-  // Zillow CDN photos), proxy through to the original — those URLs don't
-  // expire the same way.
+  // source-platform CDN photos), proxy through to the original — those URLs
+  // don't expire the same way.
   const isR2Hosted =
     storedUrl.includes(".r2.cloudflarestorage.com/") ||
-    storedUrl.includes("relist-photos");
+    storedUrl.includes("menulift-photos");
   if (!isR2Hosted) {
     return NextResponse.redirect(storedUrl, 302);
   }

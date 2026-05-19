@@ -66,7 +66,7 @@ export function computeTargetScore(args: {
 }
 
 // Scoring is OFF — every discovered listing qualifies. The data showed
-// >90% of Zillow MLS photos score 4.5-5.0 (Claude vision rates pro photos
+// >90% of source-platform photos score 4.5-5.0 (Claude vision rates pro photos
 // uniformly high), so any photo-quality filter became an aggressive
 // rejection of basically everything. Volume now > precision; outreach.ts
 // still requires an agent_email before sending, so no-email listings drop

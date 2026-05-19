@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
         price_data: {
           currency: "usd",
           product_data: {
-            name: `Realscale — ${body.tier} enhancement`,
+            name: `MenuLift — ${body.tier} enhancement`,
             description: `Enhanced photos for ${listing.address}. Style: ${body.stylePreset}.`,
           },
           unit_amount: amountCents,

@@ -153,7 +153,7 @@ export async function pickBestForStaging(
   photoUrls: string[],
   count: number,
 ): Promise<{ url: string; classification: Classification }[]> {
-  // Stride-sample across the entire photo array. Realtors usually put
+  // Stride-sample across the entire photo array. Operators usually put
   // dramatic / hero shots (foyers, vaulted entries, exteriors) at indices
   // 0-5; the simple bedrooms / kitchens / dining rooms we actually want
   // for staging are typically at indices 8-20. Sampling stride-wise

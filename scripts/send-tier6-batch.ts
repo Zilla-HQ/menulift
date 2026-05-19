@@ -17,17 +17,17 @@ import { TIER_6_PROSPECTS } from "@/lib/outreach";
 import { env } from "@/lib/env";
 
 const dryRun = process.argv.includes("--dry-run");
-const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.restay.agency") ?? "mail.restay.agency").split(",")[0];
-const FROM = `Jack at Restay <jack@${FROM_DOMAIN}>`;
+const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.menulift.app") ?? "mail.menulift.app").split(",")[0];
+const FROM = `Jack at MenuLift <jack@${FROM_DOMAIN}>`;
 const REPLY_TO = `jack@${FROM_DOMAIN}`;
-const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://restay.agency") ?? "https://restay.agency").replace(/\/$/, "");
+const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://menulift.app") ?? "https://menulift.app").replace(/\/$/, "");
 const RESEND_KEY = env("RESEND_API_KEY")!;
 const resend = new Resend(RESEND_KEY);
 
 const SUBJECT_VARIANTS = [
-  "Quick partner-program intro — Restay (Airbnb optimization)",
-  "$24/referral, paid Friday — Restay × your audience",
-  "Restay × your audience — would there be fit?",
+  "Quick partner-program intro — MenuLift (Airbnb optimization)",
+  "$24/referral, paid Friday — MenuLift × your audience",
+  "MenuLift × your audience — would there be fit?",
 ];
 
 function buildBody(p: { handle: string; firstName: string; brand: string; hook: string }): {
@@ -43,7 +43,7 @@ function buildBody(p: { handle: string; firstName: string; brand: string; hook: 
 
 ${p.hook}
 
-Quick intro — I'm Jack, founder of Restay (restay.agency). $79 one-time Airbnb Tune-Up: rewrites copy + restyles 10 photos + ships a 30-day pricing report, delivered in 4 hours. Free public grader at restay.agency/grade.
+Quick intro — I'm Jack, founder of MenuLift (menulift.app). $79 one-time Airbnb Tune-Up: rewrites copy + restyles 10 photos + ships a 30-day pricing report, delivered in 4 hours. Free public grader at menulift.app/grade.
 
 For ${p.brand}, the angle:
   · 30% rev share — $24 per Tune-Up referred, paid Fridays via Stripe
@@ -51,7 +51,7 @@ For ${p.brand}, the angle:
   · Co-branded grader page already provisioned: ${partnerLink}
   · Free Tune-Up demo on whichever listing you'd like — yours or one your audience flagged
 
-Your audience size doesn't need to match Robuilt's for this to work — Restay actually converts BETTER on smaller, more-engaged audiences than top-of-pile ones, because the recommendation feels personal.
+Your audience size doesn't need to match Robuilt's for this to work — MenuLift actually converts BETTER on smaller, more-engaged audiences than top-of-pile ones, because the recommendation feels personal.
 
 Reply with any Airbnb URL and I'll have free output back to you in 4 hours.
 
@@ -62,7 +62,7 @@ ${APP_URL}/partners
   const html = `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#0f172a;max-width:600px;margin:0 auto;padding:24px;">
 <p>Hey ${p.firstName},</p>
 <p>${p.hook}</p>
-<p>Quick intro — I'm Jack, founder of <strong>Restay</strong> (<a href="${APP_URL}">restay.agency</a>). $79 one-time Airbnb Tune-Up: rewrites copy + restyles 10 photos + ships a 30-day pricing report, delivered in 4 hours. Free public grader at <a href="${APP_URL}/grade">restay.agency/grade</a>.</p>
+<p>Quick intro — I'm Jack, founder of <strong>MenuLift</strong> (<a href="${APP_URL}">menulift.app</a>). $79 one-time Airbnb Tune-Up: rewrites copy + restyles 10 photos + ships a 30-day pricing report, delivered in 4 hours. Free public grader at <a href="${APP_URL}/grade">menulift.app/grade</a>.</p>
 <p>For <strong>${p.brand}</strong>, the angle:</p>
 <ul>
 <li><strong>30% rev share</strong> — $24 per Tune-Up referred, paid Fridays via Stripe</li>
@@ -70,9 +70,9 @@ ${APP_URL}/partners
 <li>Co-branded grader page already provisioned: <a href="${partnerLink}">${partnerLink}</a></li>
 <li>Free Tune-Up demo on whichever listing you'd like</li>
 </ul>
-<p>Your audience size doesn't need to match Robuilt's for this to work — Restay actually converts <strong>better</strong> on smaller, more-engaged audiences than top-of-pile ones, because the recommendation feels personal.</p>
+<p>Your audience size doesn't need to match Robuilt's for this to work — MenuLift actually converts <strong>better</strong> on smaller, more-engaged audiences than top-of-pile ones, because the recommendation feels personal.</p>
 <p><strong>Reply with any Airbnb URL</strong> and I'll have free output back to you in 4 hours.</p>
-<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">restay.agency/partners</a></p>
+<p>— Jack<br/><a href="${APP_URL}/partners" style="color:#475569;">menulift.app/partners</a></p>
 </body></html>`;
 
   return { subject, text, html };

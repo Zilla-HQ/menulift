@@ -29,7 +29,7 @@ const SAMPLES: Sample[] = [
     beforeKey: "samples/services/photo-staging-before.jpg",
     afterKey: "samples/services/photo-staging-after.jpg",
     caption: "Photo Staging — sparse living room → fully staged",
-    audience: "agents", // listing prep — not on the homeowner side
+    audience: "agents", // listing prep — not on the restaurant operator side
   },
   {
     id: "twilight-exterior",
@@ -43,7 +43,7 @@ const SAMPLES: Sample[] = [
     beforeKey: "samples/services/curb-appeal-before.jpg",
     afterKey: "samples/services/curb-appeal-after.jpg",
     caption: "Curb Appeal — bare yard → manicured landscape",
-    // Renovate-only: curb-appeal is a homeowner value-add, not a listing-
+    // Renovate-only: curb-appeal is an operator value-add, not a listing-
     // photo service. Lives on /renovate (drag-the-slider) + the dedicated
     // /services/curb-appeal detail page; doesn't clutter /agents.
     audience: "renovate",

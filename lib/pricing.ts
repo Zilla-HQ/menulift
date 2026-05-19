@@ -1,7 +1,7 @@
 import { fetchAirbnbComps } from "@/lib/apify";
 
 /**
- * Compute a 30-day pricing recommendation for a Restay listing.
+ * Compute a 30-day pricing recommendation for a MenuLift listing.
  *
  * Approach (v1):
  *   1. Pull ~50 comparable listings within the same city/state with matching

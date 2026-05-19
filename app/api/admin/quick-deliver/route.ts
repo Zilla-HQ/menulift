@@ -61,9 +61,9 @@ export async function POST(req: NextRequest) {
   const staged: { key: string; sourceUrl: string }[] = [];
 
   // Stage every photo we can. No QC. No retry. Skip on error.
-  // We pre-fetch each source image and re-host it on R2 because Zillow's
-  // CDN blocks fal.ai's IP range with 403 — fal.ai's servers can't fetch
-  // R2 origin directly. R2's URLs are public + signed, fal.ai
+  // We pre-fetch each source image and re-host it on R2 because some
+  // source CDNs block fal.ai's IP range with 403 — fal.ai's servers can't
+  // fetch those origins directly. R2's URLs are public + signed, so fal.ai
   // can pull from there reliably.
   for (let i = 0; i < sources.length; i++) {
     const src = sources[i];
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
 
   // Email
   const settings = await getSettings();
-  const fromDomain = settings.senderDomains[0] ?? "mail.realscale.app";
+  const fromDomain = settings.senderDomains[0] ?? "mail.menulift.app";
   const addr = shortAddress(listing.address);
 
   // Show first staged photo inline as a preview
@@ -140,11 +140,11 @@ export async function POST(req: NextRequest) {
 
   const mjml = `<mjml><mj-body background-color="#f4f5f7">
     <mj-section padding="24px 0 8px"><mj-column>
-      <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">REALSCALE</mj-text>
+      <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">MENULIFT</mj-text>
     </mj-column></mj-section>
     <mj-section background-color="#ffffff" padding="32px 32px 8px" border-radius="14px 14px 0 0"><mj-column>
       <mj-text font-size="20px" font-weight="700">Your enhanced photos for ${addr}</mj-text>
-      <mj-text font-size="15px">${staged.length} photo${staged.length === 1 ? "" : "s"} from your listing have been virtually staged with our pipeline. NAR-compliant "Virtually Staged" disclosure stamped on every photo.</mj-text>
+      <mj-text font-size="15px">${staged.length} photo${staged.length === 1 ? "" : "s"} from your menu have been enhanced with our pipeline. Every image is stamped "AI-Enhanced" so it stays aligned with platform content policies.</mj-text>
     </mj-column></mj-section>
     <mj-section background-color="#ffffff" padding="8px 16px 0">
       <mj-column padding="0 6px">
@@ -164,14 +164,14 @@ export async function POST(req: NextRequest) {
     <mj-section background-color="#ffffff" padding="0 32px 24px" border-radius="0 0 14px 14px"><mj-column>
       <mj-divider border-color="#e5e7eb" border-width="1px" padding="14px 0"/>
       <mj-text font-size="12px" color="#64748b" line-height="1.6">
-        ✓ NAR-compliant "Virtually Staged" disclosure on every photo<br/>
-        ✓ MLS-resolution<br/>
+        ✓ "AI-Enhanced" disclosure on every photo (platform-policy aligned)<br/>
+        ✓ Print-ready resolution<br/>
         ✓ Free to keep and use
       </mj-text>
     </mj-column></mj-section>
   </mj-body></mjml>`;
 
-  const text = `Your enhanced photos for ${listing.address}\n\n${staged.length} photo(s) virtually staged with our pipeline.\n\nDownload zip: ${zipUrl}\n\n— Realscale`;
+  const text = `Your enhanced photos for ${listing.address}\n\n${staged.length} photo(s) virtually staged with our pipeline.\n\nDownload zip: ${zipUrl}\n\n— MenuLift`;
 
   const sendResult = await sendComplianceEmail({
     to: email,

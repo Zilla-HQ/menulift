@@ -69,7 +69,7 @@ export async function addSite(siteUrl: string): Promise<void> {
  * Verify ownership of a site in Bing. Bing checks the BingSiteAuth.xml
  * file at the domain root and confirms the verification token matches.
  *
- * Required for apex-domain merchants (sitebeat.tech, realscale.app)
+ * Required for apex-domain merchants (sitebeat.tech, menulift.app)
  * whose hostname isn't a subdomain of an already-verified Bing
  * property. For *.zilla.so merchants the parent zilla.so verification
  * covers them automatically; calling VerifySite is still safe

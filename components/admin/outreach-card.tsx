@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { OutreachDraft } from "@/lib/outreach";
 
-const FROM = "jack@restay.agency";
+const FROM = "jack@menulift.app";
 
 function gmailComposeUrl(draft: OutreachDraft): string {
   const params = new URLSearchParams({

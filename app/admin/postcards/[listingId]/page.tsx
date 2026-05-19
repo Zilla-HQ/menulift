@@ -57,7 +57,7 @@ export default async function PostcardPreviewPage({ params }: PageProps) {
     },
     listingSlug: listing.slug,
     serviceId: preview.serviceId,
-    serviceName: service?.name ?? "Realscale",
+    serviceName: service?.name ?? "MenuLift",
     shortAddress: shortAddress(listing.address),
     beforeImageUrl: preview.originalPhotoUrls[0],
     afterImageUrl: preview.enhancedPhotoUrls[0],
@@ -115,7 +115,7 @@ export default async function PostcardPreviewPage({ params }: PageProps) {
         <CardContent className="space-y-2 p-5 text-sm">
           <div className="font-semibold">CTA target</div>
           <div className="font-mono text-xs">
-            {env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!}/l/{listing.slug}
+            {env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!}/l/{listing.slug}
             ?utm_source=postcard&utm_campaign={preview.serviceId}
           </div>
           <Button asChild variant="outline" size="sm" className="mt-2">
@@ -129,7 +129,7 @@ export default async function PostcardPreviewPage({ params }: PageProps) {
       <p className="text-xs text-muted-foreground">
         This is the same HTML Lob will render to PDF and print. To send a real test postcard
         through Lob (still test mode — won't print or mail), flip{" "}
-        <code>relist.admin_settings.mailer_enabled = true</code> and re-fire{" "}
+        <code>menulift.admin_settings.mailer_enabled = true</code> and re-fire{" "}
         <code>preview/ready</code> for this listing.
       </p>
     </div>

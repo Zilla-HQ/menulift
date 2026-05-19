@@ -1,7 +1,6 @@
 import { serve } from "inngest/next";
 import { inngest } from "@/inngest/client";
 
-import { discoveryFn } from "@/inngest/functions/discovery";
 import { qualificationFn } from "@/inngest/functions/qualification";
 import { previewFn } from "@/inngest/functions/preview";
 import { outreachFn, outreachScheduleFollowupFn } from "@/inngest/functions/outreach";
@@ -11,7 +10,6 @@ import { replyHandlerFn } from "@/inngest/functions/reply-handler";
 import { selfServeIngestFn } from "@/inngest/functions/self-serve-ingest";
 import { mailerFn } from "@/inngest/functions/mailer";
 import { matchContractorsFn } from "@/inngest/functions/match-contractors";
-import { homeownerDiscoveryFn } from "@/inngest/functions/homeowner-discovery";
 import { metaAdsSyncFn } from "@/inngest/functions/meta-ads-sync";
 import { metaAdsAutonomyFn } from "@/inngest/functions/meta-ads-autonomy";
 import { metaAdsLeadScalerFn } from "@/inngest/functions/meta-ads-lead-scaler";
@@ -61,7 +59,6 @@ export const maxDuration = 300;
 export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [
-    discoveryFn,
     qualificationFn,
     previewFn,
     outreachFn,
@@ -72,7 +69,6 @@ export const { GET, POST, PUT } = serve({
     selfServeIngestFn,
     mailerFn,
     matchContractorsFn,
-    homeownerDiscoveryFn,
     metaAdsSyncFn,
     metaAdsAutonomyFn,
     metaAdsLeadScalerFn,

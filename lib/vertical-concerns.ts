@@ -12,7 +12,7 @@
  *   - the inbound-reply objection-handler template
  *
  * Customize per merchant. The catalog below is the SiteGrid-derived
- * starter (websites for local SMBs). For Relist (real-estate photos)
+ * starter (websites for local SMBs). For MenuLift (real-estate photos)
  * the concerns are different — "Will the staged photos match my
  * listing's actual furniture?" etc.
  */

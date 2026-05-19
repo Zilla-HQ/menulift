@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
  * agnostic. Reusable across forks without modification.
  */
 
-const COOKIE_NAME = "restay_attr"; // safe to rename per-merchant; opaque value
+const COOKIE_NAME = "menulift_attr"; // safe to rename per-merchant; opaque value
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
 const TRACKED_PARAMS = [

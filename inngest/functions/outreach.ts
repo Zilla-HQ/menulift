@@ -239,9 +239,9 @@ export const outreachFn = inngest.createFunction(
 );
 
 /**
- * Homeowner cold-outreach email template. No LLM — short, concrete,
+ * Operator cold-outreach email template. No LLM — short, concrete,
  * personalized by service. The personalization is the AI mockup of the
- * homeowner's actual property, which the body links to.
+ * restaurant operator's actual menu, which the body links to.
  */
 function buildHomeownerEmail(args: {
   firstName: string;
@@ -261,10 +261,10 @@ If you like it, we'll connect you (free) with the top-rated local contractors fo
 
 ${args.mockupLink}
 
-— Realscale`;
+— MenuLift`;
   const bodyMjml = `<mjml><mj-body background-color="#f4f5f7">
     <mj-section padding="24px 0 8px"><mj-column>
-      <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">REALSCALE</mj-text>
+      <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">MENULIFT</mj-text>
     </mj-column></mj-section>
     <mj-section background-color="#ffffff" padding="32px 32px 8px" border-radius="14px 14px 0 0"><mj-column>
       <mj-text font-size="16px" line-height="1.6">Hi ${escapeHtml(args.firstName)},</mj-text>

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const APP_URL = (process.env.NEXT_PUBLIC_APP_URL ?? "https://restay.agency").replace(
+const APP_URL = (process.env.NEXT_PUBLIC_APP_URL ?? "https://menulift.app").replace(
   /\/$/,
   "",
 );
@@ -109,7 +109,7 @@ export function PartnerLinkGenerator() {
               </Button>
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              "<strong>{handle || "Their brand"}</strong> × Restay" co-branded grader. Auto-applies partner UTMs.
+              "<strong>{handle || "Their brand"}</strong> × MenuLift" co-branded grader. Auto-applies partner UTMs.
             </p>
           </div>
 

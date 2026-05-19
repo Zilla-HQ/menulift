@@ -85,7 +85,7 @@ export async function findTopContractors(args: {
 }
 
 /**
- * Map Realscale services to Yelp category slugs. Multiple categories
+ * Map MenuLift services to Yelp category slugs. Multiple categories
  * comma-separated (Yelp accepts that).
  */
 export const SERVICE_CATEGORY: Record<string, string> = {

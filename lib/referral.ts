@@ -7,7 +7,7 @@ import { createHash } from "node:crypto";
  * and only written to the orders table at checkout time. The leaderboard
  * is just `SELECT referral_code, count(*) FROM orders GROUP BY 1`.
  */
-const SALT = process.env.REFERRAL_SALT ?? "realscale-affiliate-v1";
+const SALT = process.env.REFERRAL_SALT ?? "menulift-affiliate-v1";
 
 export function codeForEmail(email: string): string {
   const normalized = email.trim().toLowerCase();

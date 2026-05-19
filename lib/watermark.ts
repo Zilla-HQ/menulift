@@ -5,8 +5,8 @@ import path from "node:path";
 /**
  * Overlay a text watermark on an image buffer.
  *
- * Used for previews ("PREVIEW — Realscale") and NAR disclosure
- * ("Virtually Staged") on fulfilled photos.
+ * Used for previews ("PREVIEW — MenuLift") and platform-policy disclosure
+ * ("AI-Enhanced") on fulfilled photos.
  *
  * Implementation history:
  * - v1 used inline SVG <text> — Vercel Lambda fontconfig fell back to
@@ -24,12 +24,12 @@ import path from "node:path";
  * to a target fraction of the image width — keeps text readable on
  * mobile inbox previews without dominating the photo.
  */
-type WatermarkText = "Virtually Staged" | "Enhanced" | "PREVIEW — Realscale";
+type WatermarkText = "Virtually Staged" | "Enhanced" | "PREVIEW — MenuLift";
 
 const WATERMARK_FILE: Record<WatermarkText, string> = {
   "Virtually Staged": "virtually-staged.png",
   "Enhanced": "enhanced.png",
-  "PREVIEW — Realscale": "preview.png",
+  "PREVIEW — MenuLift": "preview.png",
 };
 
 function loadWatermarkPng(text: string): Buffer {

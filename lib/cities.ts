@@ -8,10 +8,10 @@
  *
  * Slug convention: lowercased "city-state" (e.g. "phoenix-az") so
  * disambiguating duplicate names (Portland-OR vs Portland-ME) and
- * matching how Realtor.com / Zillow segment city pages.
+ * matching how major local-search platforms segment city pages.
  *
- * Median prices are rough Zillow Home Value Index reads as of late 2025.
- * Pool/solar feasibility flags drive which homeowner-side templates we
+ * Median prices are rough public-data reads as of late 2025.
+ * Pool/solar feasibility flags drive which operator-side templates we
  * pre-render — Anchorage doesn't need a /pool-cost page.
  */
 export interface City {
@@ -116,7 +116,7 @@ export function getCity(slug: string): City | undefined {
   return CITIES.find((c) => c.slug === slug);
 }
 
-/** Cities relevant to a given homeowner-side service (climate-filtered). */
+/** Cities relevant to a given operator-side service (climate-filtered). */
 export function citiesForService(serviceId: string): City[] {
   if (serviceId === "pool-mockup") return CITIES.filter((c) => c.poolFeasible);
   if (serviceId === "solar-mockup") return CITIES.filter((c) => c.solarFeasible);

@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
  * Sponsor / partner / press outreach.
  *
  * Distinct from the lead-driven cold outreach loop (`outreach.ts`):
- *   - The recipient is NOT a small-business owner / homeowner / lead, so
+ *   - The recipient is NOT a restaurant operator / lead, so
  *     the unsubscribe-token footer + List-Unsubscribe headers are kept
  *     light. Sponsors don't deserve a one-click unsub button on a sponsor
  *     pitch — they hit reply or ignore.

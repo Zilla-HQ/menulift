@@ -13,11 +13,11 @@ import {
 } from "drizzle-orm/pg-core";
 import type { MetaInsightsMetadata } from "@/lib/meta-ads";
 
-// All MenuLift tables live under the "relist" Postgres schema (legacy
+// All MenuLift tables live under the "menulift" Postgres schema (legacy
 // physical name — kept to avoid destructive migration) so they can share
 // a Supabase/Postgres instance with other apps without colliding on
 // common names like "messages" or "orders".
-export const menuliftSchema = pgSchema("relist");
+export const menuliftSchema = pgSchema("menulift");
 
 // ============ Enums ============
 

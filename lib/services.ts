@@ -24,7 +24,7 @@ export type ImageSource =
 // Audience is the union of the template's two generic placeholders
 // (audience-a / audience-b — kept so the stubbed FAQ + services-grid in
 // components/marketing/* still typecheck for new merchants) and the
-// vertical-specific audiences mirrored from the Relist reference build
+// vertical-specific audiences mirrored from the MenuLift reference build
 // (agents / renovate).
 export type Audience =
   | "audience-a"

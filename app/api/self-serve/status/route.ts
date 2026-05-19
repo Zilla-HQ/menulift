@@ -49,7 +49,7 @@ function sanitizeError(raw: string | null | undefined): string {
     return "That listing URL didn't resolve — it may have been delisted or moved.";
   }
   if (lower.includes("login") || lower.includes("403") || lower.includes("forbidden")) {
-    return "That listing is behind a login wall. Try the public Zillow/Redfin URL instead.";
+    return "That page is behind a login wall. Try the public Google Business Profile, DoorDash, or Uber Eats URL instead.";
   }
   return "Something went wrong on our end. We've been notified — try again in a few minutes.";
 }

@@ -5,7 +5,7 @@
  *
  * Customers are hostile to silence; this email sets the SLA expectation
  * and gives them a real human to reply to while their order is being
- * processed. Restay's first paid customer (META_ADS.md §5b) refunded
+ * processed. MenuLift's first paid customer (META_ADS.md §5b) refunded
  * after 17 minutes of silence between payment and delivery — exactly
  * the gap this email closes.
  *
@@ -28,7 +28,7 @@ const SENDER_DOMAINS = (env("SENDER_DOMAINS", "mail.example.com") ?? "mail.examp
   .filter(Boolean);
 const FROM_DOMAIN = SENDER_DOMAINS[0] ?? "mail.example.com";
 const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://example.com") ?? "https://example.com").replace(/\/$/, "");
-const BUSINESS_NAME = env("BUSINESS_NAME", "Restay")!;
+const BUSINESS_NAME = env("BUSINESS_NAME", "MenuLift")!;
 const REPLIES_EMAIL = env("REPLIES_EMAIL", `jack@${FROM_DOMAIN}`)!;
 const FOUNDER_FIRST_NAME = env("FOUNDER_FIRST_NAME", "Jack")!;
 
@@ -46,7 +46,7 @@ export interface OrderConfirmationArgs {
 
 /**
  * Per-merchant: edit this map to match your tier names + deliverables.
- * Defaults are Restay's (airbnb merchant); rewrite per-vertical when
+ * Defaults are MenuLift's (airbnb merchant); rewrite per-vertical when
  * forking. The keys must match `orders.tier` enum values.
  */
 const TIER_COPY: Record<

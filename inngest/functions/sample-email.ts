@@ -27,11 +27,11 @@ import { stripe } from "@/lib/stripe";
 
 const RESEND_KEY = env("RESEND_API_KEY");
 const resend = RESEND_KEY ? new Resend(RESEND_KEY) : null;
-const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.restay.agency") ?? "mail.restay.agency").split(",")[0];
-const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://restay.agency") ?? "https://restay.agency").replace(/\/$/, "");
+const FROM_DOMAIN = (env("SENDER_DOMAINS", "mail.menulift.app") ?? "mail.menulift.app").split(",")[0];
+const APP_URL = (env("NEXT_PUBLIC_APP_URL", "https://menulift.app") ?? "https://menulift.app").replace(/\/$/, "");
 const REPLIES_EMAIL = env("REPLIES_EMAIL", `jack@${FROM_DOMAIN}`)!;
 
-const SAMPLE_SUBJECT_PREFIX = "Your Restay samples are ready";
+const SAMPLE_SUBJECT_PREFIX = "Your MenuLift samples are ready";
 
 export const sampleEmailFn = inngest.createFunction(
   {
@@ -144,7 +144,7 @@ If you like the look, the full Tune-Up rewrites your title + description, restyl
 Or reply to this email with any question — I see every reply personally. If you want a specific angle prioritized (lead with the kitchen, downplay the basement, etc.), just say so.
 
 — Jack
-Founder, Restay
+Founder, MenuLift
 ${APP_URL}
 `;
 
@@ -176,7 +176,7 @@ ${[0, 1]
 </td></tr>
 </table>
 <p>Reply to this email with any question — I see every reply personally. Want a specific angle prioritized (lead with the kitchen, downplay the basement, etc.)? Just say so.</p>
-<p>— Jack<br/>Founder, Restay<br/><a href="${APP_URL}" style="color:#475569;">restay.agency</a></p>
+<p>— Jack<br/>Founder, MenuLift<br/><a href="${APP_URL}" style="color:#475569;">menulift.app</a></p>
 </body></html>`;
 
       // ─── 3. Send + log ─────────────────────────────────────────────
@@ -185,7 +185,7 @@ ${[0, 1]
         return { skipped: "no-resend-key" };
       }
       const send = await resend.emails.send({
-        from: `Jack at Restay <jack@${FROM_DOMAIN}>`,
+        from: `Jack at MenuLift <jack@${FROM_DOMAIN}>`,
         to: l.selfServeEmail!,
         replyTo: REPLIES_EMAIL,
         subject,

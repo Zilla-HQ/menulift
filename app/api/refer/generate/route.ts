@@ -10,7 +10,7 @@ const bodySchema = z.object({
   email: z.string().email().max(200),
 });
 
-const APP_URL = env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!;
+const APP_URL = env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!;
 
 export async function POST(req: NextRequest) {
   let body: z.infer<typeof bodySchema>;

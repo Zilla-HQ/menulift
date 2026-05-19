@@ -3,7 +3,7 @@ import { db, adminSettings } from "@/db";
 import { eq, sql } from "drizzle-orm";
 
 /**
- * Cold-emailing residential consumers (homeowners) is governed not just by
+ * Cold-emailing small-business operators (restaurants) is governed not just by
  * federal CAN-SPAM but also by state consumer-privacy laws — most strictly
  * California (CCPA / CPRA) and Colorado (CPA). Both states maintain
  * "do-not-sell / do-not-share" opt-out mechanisms that businesses must
@@ -12,7 +12,7 @@ import { eq, sql } from "drizzle-orm";
  * Implementation:
  *   - The platform's `admin_settings.email_blacklist` is the canonical
  *     "do not contact" list (filled by inbound unsubscribe replies).
- *   - For each homeowner cold-target we run an additional check against
+ *   - For each operator cold-target we run an additional check against
  *     the state-level Global Privacy Control / opt-out signal: domain-
  *     level honoring isn't automatable, but state-registered DNCs we
  *     CAN check via providers like Censys / DataAxle if those keys are
@@ -21,7 +21,7 @@ import { eq, sql } from "drizzle-orm";
  *     we never email cold (gov, edu, mil).
  *
  * This is intentionally conservative — false positives (skipping a
- * homeowner we could legally email) are vastly preferable to false
+ * restaurant operator we could legally email) are vastly preferable to false
  * negatives (emailing someone on a state opt-out registry).
  */
 
@@ -88,7 +88,7 @@ export async function checkOptOut(args: {
     // Returns allowed:true/false based on whether the email is registered
     // on a state-level opt-out list. Best-effort; a 5xx from the provider
     // currently fails-open (allow) since hard-blocking on a downstream
-    // outage would silently halt all homeowner outreach. Flip to fail-
+    // outage would silently halt all operator outreach. Flip to fail-
     // closed once you've confirmed provider reliability.
     try {
       const res = await fetch(

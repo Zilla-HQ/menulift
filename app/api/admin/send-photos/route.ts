@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
   if (photos.length === 0) return NextResponse.json({ error: "no photos" }, { status: 400 });
 
   const settings = await getSettings();
-  const fromDomain = settings.senderDomains[0] ?? "mail.realscale.app";
+  const fromDomain = settings.senderDomains[0] ?? "mail.menulift.app";
   const addr = shortAddress(listing.address);
 
   // Build a 2-column gallery
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
   const mjml = `<mjml><mj-body background-color="#f4f5f7">
     <mj-section padding="24px 0 8px"><mj-column>
-      <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">REALSCALE</mj-text>
+      <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">MENULIFT</mj-text>
     </mj-column></mj-section>
     <mj-section background-color="#ffffff" padding="32px 32px 8px" border-radius="14px 14px 0 0"><mj-column>
       <mj-text font-size="20px" font-weight="700">Photos for ${addr}</mj-text>
@@ -76,11 +76,11 @@ export async function POST(req: NextRequest) {
     ${columns}
     <mj-section background-color="#ffffff" padding="0 32px 24px" border-radius="0 0 14px 14px"><mj-column>
       <mj-divider border-color="#e5e7eb" border-width="1px" padding="14px 0"/>
-      <mj-text font-size="12px" color="#64748b" line-height="1.6">Source: original Zillow listing photos. NAR-compliant disclosure will be stamped on every staged version.</mj-text>
+      <mj-text font-size="12px" color="#64748b" line-height="1.6">Source: your existing menu photos. Photos represent the actual dish — aligned with Google Business Profile, DoorDash, and Uber Eats content policies.</mj-text>
     </mj-column></mj-section>
   </mj-body></mjml>`;
 
-  const text = `Photos for ${listing.address}\n\n${photos.length} listing photos attached. Virtually-staged versions coming next.\n\nSource photos:\n${photos.map((p, i) => `${i + 1}. ${p}`).join("\n")}\n\n— Realscale`;
+  const text = `Photos for ${listing.address}\n\n${photos.length} listing photos attached. Virtually-staged versions coming next.\n\nSource photos:\n${photos.map((p, i) => `${i + 1}. ${p}`).join("\n")}\n\n— MenuLift`;
 
   const sendResult = await sendComplianceEmail({
     to: email,

@@ -92,12 +92,12 @@ export const replyHandlerFn = inngest.createFunction(
 
     // Build the variables once — used by both the auto-reply template and operator-notify.
     const settings = await getSettings();
-    const senderDomain = priorOutreach?.senderDomain ?? settings.senderDomains[0] ?? "mail.realscale.app";
-    const appUrl = env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!;
+    const senderDomain = priorOutreach?.senderDomain ?? settings.senderDomains[0] ?? "mail.menulift.app";
+    const appUrl = env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!;
     const promoCode = env("OUTREACH_PROMO_CODE") ?? null;
     const promoDiscountPct = parseInt(env("OUTREACH_PROMO_PCT", "10") ?? "10", 10);
     const promoExpiryDays = parseInt(env("OUTREACH_PROMO_EXPIRY_DAYS", "7") ?? "7", 10);
-    const supportEmail = env("REPLIES_EMAIL", "replies@realscale.app")!;
+    const supportEmail = env("REPLIES_EMAIL", "replies@menulift.app")!;
     const previewUrl = `${appUrl}/l/${listing.slug}`;
     const purchaseUrl = promoCode
       ? `${appUrl}/l/${listing.slug}?code=${promoCode}#pricing`
@@ -148,7 +148,7 @@ export const replyHandlerFn = inngest.createFunction(
         promoDiscountPct: promoCode ? promoDiscountPct : null,
         promoExpiryDays,
         supportEmail,
-        senderName: "Realscale",
+        senderName: "MenuLift",
       });
 
       if (!rendered) {
@@ -223,9 +223,9 @@ async function notifyOperator(args: {
 }): Promise<void> {
   const adminEmail = env("ADMIN_EMAIL", "jack@seifdn.org")!;
   const settings = await getSettings();
-  const senderDomain = settings.senderDomains[0] ?? "mail.realscale.app";
+  const senderDomain = settings.senderDomains[0] ?? "mail.menulift.app";
   const emoji = CLASSIFICATION_EMOJI[args.classification] ?? "📬";
-  const appUrl = env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!;
+  const appUrl = env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!;
 
   const subject = `${emoji} ${args.classification} reply — ${args.listingAddress}`;
   const adminLink = args.listingId ? `${appUrl}/admin/outreach` : null;
@@ -250,7 +250,7 @@ ${args.autoReplyText.slice(0, 4000)}`
 ${args.previewUrl ? `Their preview: ${args.previewUrl}` : ""}
 ${adminLink ? `Conversation thread: ${adminLink}` : ""}
 
-— Realscale agent
+— MenuLift agent
 `;
 
   const mjml = `<mjml>
@@ -307,7 +307,7 @@ ${adminLink ? `Conversation thread: ${adminLink}` : ""}
   await sendComplianceEmail({
     to: adminEmail,
     fromDomain: senderDomain,
-    fromName: "Realscale Agent",
+    fromName: "MenuLift Agent",
     subject,
     mjml,
     text,

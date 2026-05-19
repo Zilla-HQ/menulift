@@ -7,7 +7,7 @@ import { trackEvent } from "@/lib/posthog";
 import { getSettings } from "@/db/settings";
 import { env } from "@/lib/env";
 
-const APP_URL = env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!;
+const APP_URL = env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!;
 
 const SERVICE_CAPTIONS: Record<string, string> = {
   "pool-mockup": "Pool mockup",
@@ -17,15 +17,15 @@ const SERVICE_CAPTIONS: Record<string, string> = {
 
 const SERVICE_HASHTAGS: Record<string, string> = {
   "pool-mockup":
-    "#poolinstallation #backyardgoals #poolinspiration #homeimprovement #realestate #zillow",
+    "#poolinstallation #backyardgoals #poolinspiration #homeimprovement #beforeandafter",
   "solar-mockup":
     "#solar #solarpanels #renewableenergy #homeimprovement #netzero #savings",
   "curb-appeal":
-    "#curbappeal #landscaping #frontyard #homeimprovement #realestate #beforeandafter",
+    "#curbappeal #landscaping #frontyard #homeimprovement #beforeandafter",
 };
 
 /**
- * Daily social-poster: pick the freshest homeowner-side preview, build a
+ * Daily social-poster: pick the freshest operator-side preview, build a
  * 9:16 social card, post to Pinterest. TikTok requires video so we stub it
  * for now — feature flag can flip when video gen is ready.
  *
@@ -49,7 +49,7 @@ export const socialPosterFn = inngest.createFunction(
       return { skipped: true, reason: "global pause" };
     }
 
-    // Pick the freshest preview from a homeowner-facing service that we
+    // Pick the freshest preview from an operator-facing service that we
     // haven't posted yet (we mark posted ones in PostHog, not DB, to keep
     // the schema thin). For v1 we just take the most recent one and
     // accept occasional duplicate posts — Pinterest dedupes by image hash.
@@ -118,7 +118,7 @@ export const socialPosterFn = inngest.createFunction(
 
     const description = [
       `${SERVICE_CAPTIONS[candidate.serviceId] ?? "Mockup"} rendered on a real satellite view of a home in ${cityLabel}.`,
-      `See yours free at realscale.app — type your address, get a mockup in 90 seconds. No signup.`,
+      `See yours free at menulift.app — type your address, get a mockup in 90 seconds. No signup.`,
       "",
       SERVICE_HASHTAGS[candidate.serviceId] ?? "",
     ].join("\n");

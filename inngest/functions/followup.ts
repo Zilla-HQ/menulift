@@ -87,7 +87,7 @@ ${formatCents(settings.pricingStandardCents)} → ${formatCents(Math.round(setti
 
 ${checkoutLink}
 
-— Realscale`;
+— MenuLift`;
 
     const mjml = `<mjml><mj-body>
       <mj-section padding="24px"><mj-column>
@@ -95,7 +95,7 @@ ${checkoutLink}
         <mj-text font-size="15px" line-height="1.55">No pressure — but <b>RELIST20</b> gets you 20% off for the next 48 hours on your listing at <b>${shortAddress(listing.address)}</b>.</mj-text>
         <mj-text font-size="15px" line-height="1.55">${formatCents(settings.pricingStandardCents)} → <b>${formatCents(Math.round(settings.pricingStandardCents * 0.8))}</b> with code <b>RELIST20</b>.</mj-text>
         <mj-button href="${checkoutLink}" background-color="#111827" color="#ffffff" border-radius="8px">Claim 20% off</mj-button>
-        <mj-text font-size="15px" color="#64748b">— Realscale</mj-text>
+        <mj-text font-size="15px" color="#64748b">— MenuLift</mj-text>
       </mj-column></mj-section>
     </mj-body></mjml>`;
 

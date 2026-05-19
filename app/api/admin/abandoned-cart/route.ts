@@ -64,10 +64,10 @@ export async function POST(req: NextRequest) {
            l.agent_email,
            l.agent_name,
            p.id as preview_id
-    FROM relist.orders o
-    JOIN relist.listings l ON l.id = o.listing_id
+    FROM menulift.orders o
+    JOIN menulift.listings l ON l.id = o.listing_id
     LEFT JOIN LATERAL (
-      SELECT id FROM relist.previews
+      SELECT id FROM menulift.previews
       WHERE listing_id = o.listing_id AND service_id = 'photo-staging'
       ORDER BY created_at DESC
       LIMIT 1
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       AND o.created_at < now() - interval '30 minutes'
       AND o.created_at > now() - interval '14 days'
       AND NOT EXISTS (
-        SELECT 1 FROM relist.outreach_events e
+        SELECT 1 FROM menulift.outreach_events e
         WHERE e.listing_id = o.listing_id
           AND e.template_id = ${TEMPLATE_ID}
       )
@@ -104,8 +104,8 @@ export async function POST(req: NextRequest) {
 
   const settings = await getSettings();
   const blacklist = new Set(settings.emailBlacklist.map((e) => e.toLowerCase()));
-  const fromDomain = settings.senderDomains[0] ?? "mail.realscale.app";
-  const appUrl = env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!;
+  const fromDomain = settings.senderDomains[0] ?? "mail.menulift.app";
+  const appUrl = env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!;
 
   let sent = 0;
   let skipped = 0;
@@ -139,18 +139,18 @@ Same listing, same preview I generated for you, NAR-disclosure stamped, under 2-
 ${checkoutLink}
 
 — Jack
-Realscale`;
+MenuLift`;
 
     const previewMjml = previewImg
       ? `<mj-section background-color="#ffffff" padding="20px 16px 8px"><mj-column>
           <mj-text align="center" font-size="11px" font-weight="700" letter-spacing="0.05em" color="#64748b" padding="0 0 6px">YOUR PREVIEW — STILL READY</mj-text>
-          <mj-image src="${previewImg}" alt="Realscale preview for ${escapeHtml(addr)}" border-radius="10px" padding="0"/>
+          <mj-image src="${previewImg}" alt="MenuLift preview for ${escapeHtml(addr)}" border-radius="10px" padding="0"/>
         </mj-column></mj-section>`
       : "";
 
     const bodyMjml = `<mjml><mj-body background-color="#f4f5f7">
       <mj-section padding="24px 0 8px"><mj-column>
-        <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">REALSCALE</mj-text>
+        <mj-text align="center" font-size="13px" font-weight="700" letter-spacing="0.12em" color="#111827">MENULIFT</mj-text>
       </mj-column></mj-section>
       <mj-section background-color="#fef3c7" padding="14px 32px"><mj-column>
         <mj-text align="center" font-size="14px" font-weight="700" color="#92400e">⏱ Cart recovery — 50% off with code LAUNCH50</mj-text>
@@ -174,7 +174,7 @@ Realscale`;
         <mj-divider border-color="#e5e7eb" border-width="1px" padding="14px 0"/>
         <mj-text font-size="12px" color="#64748b" line-height="1.6">
           ✓ 14-day full refund<br/>
-          ✓ NAR-compliant disclosure<br/>
+          ✓ Platform-policy aligned (Google Business Profile, DoorDash, Uber Eats)<br/>
           ✓ Under 2-hour delivery
         </mj-text>
       </mj-column></mj-section>

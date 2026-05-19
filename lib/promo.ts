@@ -18,7 +18,7 @@ import { cookies } from "next/headers";
 import type { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 
-const COOKIE_NAME = "restay_promo";
+const COOKIE_NAME = "menulift_promo";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
 /**

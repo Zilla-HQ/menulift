@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   const [listing] = await db.select().from(listings).where(eq(listings.id, listingId)).limit(1);
   if (!listing) return NextResponse.json({ error: "listing not found" }, { status: 404 });
 
-  // Before image: first listing photo (Zillow CDN works fine in email clients).
+  // Before image: first menu photo (source CDN works fine in email clients).
   const before = listing.photos?.[0];
   if (!before) return NextResponse.json({ error: "listing has no photos" }, { status: 400 });
 
@@ -79,8 +79,8 @@ export async function POST(req: NextRequest) {
   }
 
   const settings = await getSettings();
-  const fromDomain = settings.senderDomains[0] ?? "mail.realscale.app";
-  const appUrl = env("NEXT_PUBLIC_APP_URL", "https://realscale.app")!;
+  const fromDomain = settings.senderDomains[0] ?? "mail.menulift.app";
+  const appUrl = env("NEXT_PUBLIC_APP_URL", "https://menulift.app")!;
   const checkoutLink = `${appUrl}/l/${listing.slug}`;
   const agentFirstName = (listing.agentName ?? "there").split(" ")[0];
 
