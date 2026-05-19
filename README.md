@@ -4,16 +4,16 @@
 
 ## Positioning
 
-Restaurants live or die on their menu photos across Google Business Profile, DoorDash, and Uber Eats. Most independent operators have phone-shot or 5-year-old photos. The standard solution — hiring a food photographer — runs $500–$2,000 per shoot, takes weeks, and rarely gets repeated.
+Restaurants leave money on the table for every menu item without a photo. Items with photos convert at up to 30% higher than text-only listings on Google, DoorDash, and Uber Eats — and most independent operators have zero photos for half their menu. The standard solution (hire a food photographer) costs $500–$2,000 per shoot, takes weeks, and never repeats often enough to keep up with menu changes.
 
-**MenuLift's wedge:** we don't replace photos — we *enhance* what the restaurant already has with AI. Sharper, brighter, better lit, more appetizing. The real dish, made to look like it should.
+**What customers actually want:** more orders. **MenuLift delivers:** a photo for every menu item — *created from scratch* for the dishes that don't have one, and *enhanced* for the dishes that do. Built from the restaurant's actual recipe, ingredients, and plating direction so the photo represents what the kitchen serves.
 
 - $40–$90/mo per location
-- Under 24h turnaround on starter batches
+- Under 24h turnaround on missing-photo sprints, under 48h on full menus
 - Channel-formatted exports (Google / DoorDash / Uber Eats)
-- Free menu audit on entry — paid enhancement is the upsell
+- Free menu audit on entry — full menu shoot is the upsell
 
-The "enhance, don't fabricate" framing is also a compliance moat: Google, DoorDash, and Uber Eats all have policies against fabricated/AI-generated food photography that misrepresents what's served. Enhancement of real photos doesn't trip those policies.
+The "represent the actual dish" framing (recipe-driven generation, no stock photography, no embellishments not on the plate) keeps the service aligned with Google Business Profile, DoorDash, and Uber Eats content policies that prohibit misleading food imagery. The platforms care about misrepresentation, not about the production method.
 
 ## Discovery
 
@@ -38,7 +38,7 @@ See [MERCHANT.md](./MERCHANT.md) for the full fork-and-config catalog inherited 
 
 What's been customized for MenuLift:
 
-- `lib/services.ts` — 4 menu-enhancement services replacing the real-estate catalog
+- `lib/services.ts` — 5 menu services replacing the real-estate catalog: **Full Menu Shoot** (lead, $89), **Missing-Photo Sprint** ($59), **Photo Enhance Pass** ($49), **Hero Shot Refresh** ($39), **Free Menu Audit** ($0 lead-gen)
 - `app/(marketing)/page.tsx`, `audience-a/page.tsx`, `audience-b/page.tsx` — restaurant-flavored hero, stats, pricing
 - `components/marketing/faq.tsx` — menu-photography FAQ
 - `lib/resend.ts`, `lib/lob.ts`, `app/layout.tsx`, `app/admin/layout.tsx`, `components/marketing/footer.tsx` — brand strings

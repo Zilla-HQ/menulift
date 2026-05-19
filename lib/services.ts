@@ -2,16 +2,18 @@ import type { RoomKind } from "@/lib/room-classify";
 
 /**
  * A "service" is one transform MenuLift can offer on a restaurant's
- * existing menu photography. Adding a service is just adding an entry
- * here — the preview pipeline reads `promptTemplate` and `imageSource`
- * to know what to do.
+ * menu. Adding a service is just adding an entry here — the preview
+ * pipeline reads `promptTemplate` and `imageSource` to know what to do.
  *
- * MenuLift positioning: we ENHANCE existing photos with AI (sharper,
- * brighter, more appetizing). We do not fabricate dishes that don't
- * exist or replace photos wholesale. That distinction matters for
- * platform-policy compliance on Google Business Profile, DoorDash, and
- * Uber Eats — and it's the marketing wedge against generic AI image
- * tools.
+ * MenuLift positioning (customer-outcome led):
+ *   - LEAD: a photo for every menu item — including the ones that have
+ *     no photo today. We GENERATE photos from your recipe + ingredients
+ *     + plating notes for the dishes missing a shot, and ENHANCE the
+ *     photos you already have. Restaurants get more orders because
+ *     items with photos convert at up to 30% higher than text-only.
+ *   - Every generated photo represents the actual dish: same recipe,
+ *     same ingredients, same plating direction the kitchen serves. No
+ *     stock photography, no misleading imagery.
  */
 
 export type ImageSource =
@@ -54,44 +56,63 @@ export interface ServiceDefinition {
 }
 
 export const SERVICES: ServiceDefinition[] = [
-  // ─── Menu photo enhancement (paid — restaurant-side) ────────────────────
-  // Pricing anchor: $40-90/mo SaaS. We charge per-batch through Stripe
-  // Checkout (template architecture) at $59 / $89 / $139 price points; the
-  // recurring framing is handled in the marketing copy + Stripe metadata.
+  // ─── LEAD service: create photos for missing items ──────────────────────
+  // The biggest revenue lever for a restaurant: every dish with no photo
+  // today is leaving orders on the table. We generate from recipe +
+  // ingredients + plating notes, representing the dish the kitchen actually
+  // serves. Lead with this — it's the headline outcome.
   {
-    id: "menu-enhance-starter",
-    name: "Menu Enhance — Starter",
+    id: "menu-shoot-full",
+    name: "Full Menu Shoot",
     shortDescription:
-      "Up to 15 dish photos enhanced — brighter, sharper, more appetizing. Under 24 hours.",
+      "A photo for every dish on your menu — created for the ones you don't have, enhanced for the ones you do.",
     longDescription:
-      "Send us your existing menu photos (Google Business Profile, your website, or phone-shot). We enhance every one with AI: even lighting, color balance, sharper texture, contextual props. Delivered back as upload-ready files for Google, DoorDash, and Uber Eats. No reshoot, no food stylist, no AI fabrication — your real dishes, made to look like they should.",
-    basePriceCents: 5900,
-    rushPriceCents: 9900,
-    category: "marketing",
-    audience: "audience-a",
-    imageSource: "listing_photo",
-    promptTemplate:
-      "Enhance this exact photograph of a restaurant menu item. Even out the lighting, increase color saturation in the food without making it look artificial, sharpen textures (sear marks, crumb structure, sauce glisten), warm up the overall color temperature slightly, add subtle depth-of-field if missing. STRICT: do not change the dish itself, the plate, the garnishes, or the composition. Photo-realistic. No text, no watermarks, no added ingredients that weren't in the source.",
-    ctaPrimary: "Enhance my menu",
-    emailSubjectTemplate: "{{shortAddress}} — your enhanced menu photos inside",
-    icon: "Sparkles",
-  },
-  {
-    id: "menu-enhance-full",
-    name: "Menu Enhance — Full Menu",
-    shortDescription:
-      "Every dish on your menu, enhanced and channel-formatted for Google + DoorDash + Uber Eats.",
-    longDescription:
-      "Full-menu pass: we pull every dish photo you have, enhance each one, and deliver per-channel exports (Google Business Profile square, DoorDash 1400×800, Uber Eats 2000×1333). Includes one revision round. Under 48 hours.",
+      "Send your menu (text, PDF, or your existing Google / DoorDash / Uber Eats listing). We generate a photo-realistic image for every item that's missing one — built from your actual recipe, ingredients, and plating direction — and enhance every photo you already have. Delivered back as channel-ready files for Google Business Profile, DoorDash, and Uber Eats. Under 48 hours for the full menu. The single biggest order-conversion lever you can pull this week.",
     basePriceCents: 8900,
     rushPriceCents: 13900,
     category: "marketing",
     audience: "audience-a",
     imageSource: "listing_photo",
     promptTemplate:
-      "Enhance this exact photograph of a restaurant menu item. Even lighting, color-balanced for food appeal (warmer tones), sharpen surface texture, glisten on sauces and oils, subtle background softening. STRICT: do not alter the dish, plating, or garnish. Photo-realistic. No text, no watermarks.",
-    ctaPrimary: "Enhance my full menu",
-    emailSubjectTemplate: "{{shortAddress}} — full-menu enhancement inside",
+      "Generate a photo-realistic overhead photograph of the restaurant dish described in the menu item: {{itemName}} — {{itemDescription}}. Plating should match the restaurant's style ({{platingNotes}}). Natural daylight, soft shadows, real ceramic or restaurant-grade tableware, fresh ingredients visible. The food must look like what the kitchen actually serves: no stylized garnishes the recipe doesn't include, no decorative elements that aren't on the plate, no misleading portion sizes. Photo-realistic. No text, no watermarks.",
+    ctaPrimary: "Shoot my whole menu",
+    emailSubjectTemplate: "{{shortAddress}} — every item on your menu, photographed",
+    icon: "Sparkles",
+  },
+  {
+    id: "menu-shoot-starter",
+    name: "Missing-Photo Sprint",
+    shortDescription:
+      "Up to 15 menu items that don't have photos today — generated from your recipe + plating.",
+    longDescription:
+      "Targeted at restaurants who have decent photos for hero items but text-only listings for half the menu. We generate photo-realistic images for up to 15 items, each built from the recipe and plating notes you send us. Delivered in under 24 hours, channel-formatted for Google, DoorDash, and Uber Eats. Most restaurants see the order lift within the first week of uploading.",
+    basePriceCents: 5900,
+    rushPriceCents: 9900,
+    category: "marketing",
+    audience: "audience-a",
+    imageSource: "listing_photo",
+    promptTemplate:
+      "Generate a photo-realistic overhead photograph of: {{itemName}} — {{itemDescription}}. Plating: {{platingNotes}}. Natural daylight, restaurant-grade tableware, fresh ingredients visible. Must match the dish the kitchen serves — no embellishments not in the recipe. Photo-realistic. No text, no watermarks.",
+    ctaPrimary: "Shoot my missing items",
+    emailSubjectTemplate: "{{shortAddress}} — photos for the menu items you're missing",
+    icon: "Sparkles",
+  },
+  {
+    id: "menu-enhance-only",
+    name: "Photo Enhance Pass",
+    shortDescription:
+      "For restaurants whose menu is fully shot — we polish every existing photo for delivery-app conversion.",
+    longDescription:
+      "If you already have a photo for every item, this is the cheaper option: we enhance the lighting, contrast, sharpness, and color balance on each one, and re-export them in the right aspect ratios for Google, DoorDash, and Uber Eats. No new generation. Same compliance posture: enhanced photos still represent the actual dish.",
+    basePriceCents: 4900,
+    rushPriceCents: 7900,
+    category: "marketing",
+    audience: "audience-a",
+    imageSource: "listing_photo",
+    promptTemplate:
+      "Enhance this exact photograph of a restaurant menu item. Even out the lighting, increase color saturation in the food without making it look artificial, sharpen textures (sear marks, crumb structure, sauce glisten), warm up the overall color temperature slightly. STRICT: do not change the dish itself, the plate, the garnishes, or the composition. Photo-realistic. No text, no watermarks, no added ingredients that weren't in the source.",
+    ctaPrimary: "Enhance my existing photos",
+    emailSubjectTemplate: "{{shortAddress}} — your enhanced menu photos inside",
     icon: "Sparkles",
   },
   {
@@ -100,7 +121,7 @@ export const SERVICES: ServiceDefinition[] = [
     shortDescription:
       "Your storefront / cover photo, re-lit and color-graded for Google + delivery apps.",
     longDescription:
-      "The cover photo on your Google Business Profile and DoorDash listing is the single biggest conversion lever. We take your existing storefront shot and re-light it for warmth, contrast, and crispness — without changing the building, signage, or surroundings.",
+      "The cover photo on your Google Business Profile and DoorDash listing is the single biggest first-impression lever. We take your existing storefront shot and re-light it for warmth, contrast, and crispness — without changing the building, signage, or surroundings. Pairs well with the Full Menu Shoot.",
     basePriceCents: 3900,
     rushPriceCents: 6900,
     category: "marketing",
@@ -113,30 +134,27 @@ export const SERVICES: ServiceDefinition[] = [
     icon: "Building2",
   },
   // ─── Free audit (audience-b: marketplace operators + multi-location ops) ─
-  // Free menu audit → upgrade to paid enhancement. Audience-b = aggregators
-  // or multi-location managers who want a coverage report across many
-  // restaurants. Monetized via per-location enhancement upsell.
   {
     id: "menu-audit-free",
     name: "Free Menu Audit",
     shortDescription:
-      "We scan your Google + DoorDash + Uber Eats listings and report missing or low-quality menu photos.",
+      "We scan your Google + DoorDash + Uber Eats listings and report every menu item that's missing a photo today.",
     longDescription:
-      "Paste your restaurant's name or your aggregator portfolio. We pull your public listings on Google, DoorDash, and Uber Eats, score every menu item's photo (missing / low-quality / good), and email you a coverage report with the specific items that are costing you orders. Free, no card. The upsell is our paid enhancement service — but the audit itself is yours to keep.",
+      "Paste your restaurant's name or your aggregator portfolio. We pull your public listings on Google, DoorDash, and Uber Eats, identify every menu item without a photo (the biggest order-conversion gap) plus the ones with weak photos, and email you a coverage report with the exact items costing you orders. Free, no card. The upsell is the Full Menu Shoot — but the audit itself is yours to keep.",
     basePriceCents: 0,
     rushPriceCents: 0,
     category: "marketing",
     audience: "audience-b",
     imageSource: "listing_photo",
     promptTemplate:
-      "Enhance this exact menu-item photograph as a teaser preview. Brighten, sharpen, color-correct for food appeal. STRICT: do not alter the dish itself. Photo-realistic.",
+      "Generate one photo-realistic teaser image for a single menu item from this restaurant's listing, to demonstrate what the full shoot would deliver. Use the item name + any available description as the recipe brief. Overhead, natural daylight, restaurant-grade tableware. Photo-realistic. No text, no watermarks.",
     ctaPrimary: "Run my free audit",
     emailSubjectTemplate: "{{shortAddress}} — your free menu-photo audit",
     icon: "Sparkles",
   },
 ];
 
-export const DEFAULT_SERVICE_ID = "menu-enhance-starter";
+export const DEFAULT_SERVICE_ID = "menu-shoot-full";
 
 export function getService(id: string): ServiceDefinition | undefined {
   return SERVICES.find((s) => s.id === id);
@@ -175,8 +193,8 @@ export function servicesForAudience(audience: Audience): ServiceDefinition[] {
 export function pickPrimaryService(
   classifications: { kind: RoomKind; empty: boolean; stagingValue: number }[],
 ): ServiceDefinition {
-  const weakItemCount = classifications.filter((c) => c.empty || c.stagingValue >= 3).length;
-  if (weakItemCount >= 10) return requireService("menu-enhance-full");
-  if (weakItemCount >= 1) return requireService("menu-enhance-starter");
+  const weakOrMissing = classifications.filter((c) => c.empty || c.stagingValue >= 3).length;
+  if (weakOrMissing >= 10) return requireService("menu-shoot-full");
+  if (weakOrMissing >= 1) return requireService("menu-shoot-starter");
   return requireService(DEFAULT_SERVICE_ID);
 }

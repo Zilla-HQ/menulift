@@ -18,12 +18,12 @@ export default async function AudienceBPage() {
             Free audit · No card · Yours to keep
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Find every menu photo that's costing you orders.
+            Every menu item without a photo is an order you didn't get.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground sm:text-xl">
             Paste your restaurant name — we scan your Google, DoorDash, and Uber Eats listings,
-            score every dish photo, and email you the coverage report. Free. The upsell is our
-            paid enhancement; the audit is yours regardless.
+            list every dish missing a photo today, and ship you one free sample shot built from
+            the real recipe. Free. The upsell is the full menu shoot; the audit + sample are yours regardless.
           </p>
           <div className="mt-8">
             <AddressMockupForm />
@@ -41,8 +41,8 @@ export default async function AudienceBPage() {
         <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-3">
           {[
             { n: 1, title: "Paste your name", body: "Restaurant name or chain. We pull your public listings on Google, DoorDash, and Uber Eats." },
-            { n: 2, title: "We score every photo", body: "Each menu item is graded: missing, low-quality, or good. We flag the ones costing you orders." },
-            { n: 3, title: "Sample enhancement", body: "We pick your weakest item and enhance it for free, so you can see what the paid service delivers." },
+            { n: 2, title: "We list what's missing", body: "Every menu item without a photo today, plus the existing photos that are converting poorly. Coverage report by channel." },
+            { n: 3, title: "Free sample shot", body: "We generate one photo-realistic image for a missing item, built from its real recipe — so you see exactly what the paid service delivers." },
           ].map((s) => (
             <Card key={s.n}>
               <CardContent className="space-y-2 p-6">

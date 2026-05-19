@@ -8,10 +8,10 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "MenuLift — AI menu photo enhancement for restaurants" };
 
 const STATS = [
-  { figure: "+30%", label: "order lift from better photos", detail: "Listings with high-quality photos see ~30% more orders on delivery marketplaces vs. text-only menu items.", source: "DoorDash Merchant Suite, 2024" },
-  { figure: "70%", label: "of guests check Google first", detail: "Seven in ten diners check Google or delivery apps before deciding where to order from or visit.", source: "Google / Ipsos restaurant study" },
-  { figure: "<24h", label: "turnaround", detail: "Send your menu photos by 5pm, get the enhanced set back the next morning. Full menu in 48h.", source: "MenuLift SLA" },
-  { figure: "$40–$90/mo", label: "all-in pricing", detail: "Subscription pricing per location. Unlimited revisions, all three channels (Google, DoorDash, Uber Eats) included.", source: "Pricing" },
+  { figure: "+30%", label: "more orders per item shot", detail: "Menu items with a photo convert at up to 30% higher than text-only items on delivery marketplaces.", source: "DoorDash Merchant Suite, 2024" },
+  { figure: "70%", label: "of customers check first", detail: "Seven in ten diners check Google or a delivery app before deciding where to order from or visit.", source: "Google / Ipsos restaurant study" },
+  { figure: "<24h", label: "from menu to upload-ready", detail: "Send your menu by 5pm. Photos for every item — newly generated and enhanced — back the next morning.", source: "MenuLift SLA" },
+  { figure: "$40–$90/mo", label: "flat pricing per location", detail: "Subscription pricing. Unlimited revisions. All three channels (Google, DoorDash, Uber Eats) included.", source: "Pricing" },
 ];
 
 export default async function AudienceAPage() {
@@ -21,17 +21,18 @@ export default async function AudienceAPage() {
       <section className="border-b bg-gradient-to-b from-background to-muted/30 py-20">
         <div className="container max-w-4xl text-center">
           <div className="mb-4 inline-block rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-700">
-            For restaurants · Enhanced menu photos in under 24 hours
+            For restaurants · A photo for every dish on your menu
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Make every dish look crave-worthy — without a reshoot.
+            More orders. Every item shot.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground sm:text-xl">
-            We enhance your existing menu photos with AI: brighter, sharper, more appetizing.
-            Delivered upload-ready for Google, DoorDash, and Uber Eats. From $40/mo.
+            Listings with a photo on every menu item get up to <span className="font-semibold text-foreground">30% more orders</span>.
+            We create photos for the dishes you don't have shot yet, and polish the ones you do —
+            delivered upload-ready for Google, DoorDash, and Uber Eats in under 24 hours. From $40/mo.
           </p>
           <div className="mt-8">
-            <SelfServeForm fixedServiceId="menu-enhance-starter" />
+            <SelfServeForm fixedServiceId="menu-shoot-full" />
             <p className="mt-3 text-xs text-muted-foreground">
               Free sample on your first photo · no card required · cancel anytime
             </p>
@@ -83,19 +84,19 @@ export default async function AudienceAPage() {
           </div>
           <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-3">
             <Card><CardContent className="space-y-2 p-6">
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Starter</div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Sprint</div>
               <div className="text-3xl font-bold">$40<span className="text-base font-normal text-muted-foreground">/mo</span></div>
-              <p className="text-sm text-muted-foreground">Up to 15 menu items enhanced per month. Google + DoorDash + Uber Eats exports.</p>
+              <p className="text-sm text-muted-foreground">Up to 15 items per month — new photos generated for missing items, existing photos enhanced. Google + DoorDash + Uber Eats exports.</p>
             </CardContent></Card>
             <Card className="border-primary"><CardContent className="space-y-2 p-6">
               <div className="text-xs font-semibold uppercase tracking-wider text-primary">+ Full Menu</div>
               <div className="text-3xl font-bold">$69<span className="text-base font-normal text-muted-foreground">/mo</span></div>
-              <p className="text-sm text-muted-foreground">Every dish on your menu enhanced + storefront hero shot refresh. Monthly refresh included.</p>
+              <p className="text-sm text-muted-foreground">Every item on your menu shot — generated for the ones you don't have, enhanced for the ones you do. Storefront hero refresh included. Monthly refresh.</p>
             </CardContent></Card>
             <Card><CardContent className="space-y-2 p-6">
               <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Multi-location</div>
               <div className="text-3xl font-bold">$90<span className="text-base font-normal text-muted-foreground">/mo</span></div>
-              <p className="text-sm text-muted-foreground">Per location. Priority queue, dedicated brand profile, quarterly menu audit.</p>
+              <p className="text-sm text-muted-foreground">Per location. Priority generation queue, dedicated brand profile, quarterly menu audit, white-glove onboarding.</p>
             </CardContent></Card>
           </div>
         </div>

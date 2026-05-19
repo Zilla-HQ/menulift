@@ -12,11 +12,12 @@ export default function ChooserPage() {
           MenuLift
         </div>
         <h1 className="mt-3 text-5xl font-bold tracking-tight sm:text-6xl">
-          Make every menu photo crave-worthy.
+          Sell more food. Every item on your menu, photographed.
         </h1>
         <p className="mt-5 text-lg text-muted-foreground sm:text-xl">
-          We enhance your existing menu photos with AI — sharper, brighter, more appetizing —
-          across Google, DoorDash, and Uber Eats. No reshoot. No food stylist. Under 24 hours.
+          Items with photos get up to <span className="font-semibold text-foreground">30% more orders</span> on Google,
+          DoorDash, and Uber Eats. We create a photo for every dish that's missing one,
+          and enhance the ones you already have — delivered in under 24 hours.
         </p>
 
         <div className="mx-auto mt-12 grid max-w-3xl gap-5 md:grid-cols-2">
@@ -28,11 +29,11 @@ export default function ChooserPage() {
                 </div>
                 <h2 className="text-2xl font-bold">I run a restaurant.</h2>
                 <p className="text-muted-foreground">
-                  Send us your menu — we'll enhance every item photo and deliver back a
-                  full upload-ready set for Google, DoorDash, Uber Eats. $40-$90/month.
+                  Get a photo for every menu item — created from scratch for the ones you don't have,
+                  enhanced for the ones you do. Upload-ready for Google, DoorDash, Uber Eats. From $40/mo.
                 </p>
                 <div className="pt-2 font-semibold text-primary group-hover:underline">
-                  Enhance my menu photos →
+                  Shoot my whole menu →
                 </div>
               </CardContent>
             </Card>
@@ -46,8 +47,8 @@ export default function ChooserPage() {
                 </div>
                 <h2 className="text-2xl font-bold">I'm a marketplace operator.</h2>
                 <p className="text-muted-foreground">
-                  Free menu audit for your restaurants. We'll identify missing or low-quality
-                  photos across your listings — partner rates available.
+                  See which of your restaurants are leaving orders on the table. Free coverage
+                  audit across Google, DoorDash, Uber Eats — with bulk pricing for portfolios.
                 </p>
                 <div className="pt-2 font-semibold text-amber-700 group-hover:underline">
                   Run a free menu audit →
@@ -58,7 +59,8 @@ export default function ChooserPage() {
         </div>
 
         <p className="mt-10 text-sm text-muted-foreground">
-          We enhance — we don't fabricate. Every photo is your real dish, made to look like it should.
+          Every photo represents your actual dish — built from your recipe, your ingredients, your plating.
+          No stock photography. No misleading imagery.
         </p>
       </div>
     </section>
